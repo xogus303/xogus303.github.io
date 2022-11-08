@@ -3,7 +3,7 @@ module.exports = {
     title: `주니어 개발자의 개발 블로그`,
     description: `주니어 개발자로서 저를 표현한 블로그 입니다.`,
     author: `thKim`,
-    siteUrl: `https://my-website-link.com`,
+    siteUrl: `https://xogus303.github.io/`,
   },
   plugins: [
     {
@@ -84,7 +84,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://my-website.com/',
+        siteUrl: 'https://xogus303.github.io/',
         stripQueryString: true,
       },
     },
