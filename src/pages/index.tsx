@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 import queryString, { ParsedQuery } from 'query-string'
 
 import Template from 'components/Common/Template'
-import CategoryList from 'components/Main/CategoryList'
+import CategoryList, { CategoryListProps } from 'components/Main/CategoryList'
 import Introduction from 'components/Main/Introduction'
 import PostList from 'components/Main/PostList'
 import { PostListItemType } from 'types/PostItem.types'

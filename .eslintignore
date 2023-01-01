@@ -1,3 +1,4 @@
+# .eslintrc.json파일의 parserOptions.project 프로퍼티 값에 의해 루트 디렉토리의 js파일에서 TypeScript Parser관련 오류 발생할 수 있어 ignore파일 생성
 gatsby-browser.js
 gatsby-config.js
 gatsby-node.js

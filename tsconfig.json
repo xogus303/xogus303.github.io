@@ -29,7 +29,7 @@
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
     "baseUrl": "./src",                                  /* Specify the base directory to resolve non-relative module names. */
-    "paths": {
+    "paths": { // 절대 경로를 사용하기 위해 경로를 매핑해주는 옵션, baseUrl을 기준으로 작성, 추가로 gastby-node.js - Webpack Config 추가
       "components/*": ["./components/*"],
       "utils/*": ["./utils/*"],
       "hooks/*": ["./hooks/*"]
