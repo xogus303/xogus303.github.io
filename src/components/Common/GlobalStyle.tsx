@@ -15,12 +15,20 @@ const defaultStyle = css`
   body,
   #__gatsby {
     height: 100%;
+    background-color: transparent;
   }
 
   a,
   a:hover {
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  button {
+    border: 0;
+    outline: 0;
+    background-color: transparent;
     cursor: pointer;
   }
 `
