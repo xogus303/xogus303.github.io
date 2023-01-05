@@ -6,7 +6,7 @@ type CategoryItemProps = {
   active: boolean
 }
 
-type GatsbyLinkProps = {
+export type GatsbyLinkProps = {
   children: ReactNode
   className?: string
   to: string

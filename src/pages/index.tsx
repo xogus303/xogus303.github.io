@@ -1,14 +1,14 @@
 import React, { FunctionComponent, useMemo } from 'react'
 import styled from '@emotion/styled'
 import { graphql } from 'gatsby'
-import queryString, { ParsedQuery } from 'query-string'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 import Template from 'components/Common/Template'
 import CategoryList, { CategoryListProps } from 'components/Main/CategoryList'
 import Introduction from 'components/Main/Introduction'
 import PostList from 'components/Main/PostList'
 import { PostListItemType } from 'types/PostItem.types'
-import { IGatsbyImageData } from 'gatsby-plugin-image'
+import { useFormatCategory, useSelectedCategory } from 'hooks/useCategories'
 
 type IndexPageProps = {
   location: {
@@ -47,36 +47,8 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
     },
   },
 }) {
-  const parsed: ParsedQuery<string> = queryString.parse(search)
-  const selectedCategory: string =
-    typeof parsed.category !== 'string' || !parsed.category
-      ? 'All'
-      : parsed.category
-
-  const categoryList = useMemo(
-    () =>
-      edges.reduce(
-        (
-          list: CategoryListProps['categoryList'],
-          {
-            node: {
-              frontmatter: { categories },
-            },
-          }: PostType,
-        ) => {
-          categories.forEach(category => {
-            if (list[category] === undefined) list[category] = 1
-            else list[category]++
-          })
-
-          list['All']++
-
-          return list
-        },
-        { All: 0 },
-      ),
-    [],
-  )
+  const categoryList = useFormatCategory(edges)
+  const selectedCategory = useSelectedCategory(search)
 
   return (
     <Template
