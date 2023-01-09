@@ -44,9 +44,16 @@ const PostList: FunctionComponent<PostListProps> = function ({
             fields: { slug },
             frontmatter,
           },
-        }: PostListItemType) => (
-          <PostItem {...frontmatter} link={slug} key={id} />
-        ),
+        }: PostListItemType) => {
+          return (
+            <PostItem
+              {...frontmatter}
+              link={slug}
+              key={id}
+              selectedCategory={selectedCategory}
+            />
+          )
+        },
       )}
     </PostListWrapper>
   )

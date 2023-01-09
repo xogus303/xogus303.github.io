@@ -4,10 +4,16 @@ import { Link } from 'gatsby'
 
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { PostFrontmatterType } from 'types/PostItem.types'
+import { GatsbyLinkProps } from './CategoryList'
 
-type PostItemProps = PostFrontmatterType & { link: string }
+type PostItemProps = PostFrontmatterType & {
+  link: string
+  selectedCategory?: string
+}
 
-const PostItemWrapper = styled(Link)`
+const PostItemWrapper = styled(({ ...props }: GatsbyLinkProps) => (
+  <Link {...props} />
+))`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -91,9 +97,11 @@ const PostItem: FunctionComponent<PostItemProps> = ({
     childImageSharp: { gatsbyImageData },
   },
   link,
+  selectedCategory,
 }) => {
+  console.log('PostItem link', link)
   return (
-    <PostItemWrapper to={link}>
+    <PostItemWrapper to={`${link}?category=${selectedCategory}`}>
       <ThumbnailImage image={gatsbyImageData} alt="Post Item Image" />
 
       <PostItemContent>

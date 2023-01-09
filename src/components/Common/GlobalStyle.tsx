@@ -3,12 +3,22 @@ import { Global, css } from '@emotion/react'
 
 const defaultStyle = css`
   @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+  @font-face {
+    font-family: 'Spoqa Han Sans Bold';
+    font-weight: 700;
+    src: local('Spoqa Han Sans'), url('/fonts/Spoqa Han Sans Bold.ttf');
+  }
 
+  @font-face {
+    font-family: 'Spoqa Han Sans Regular';
+    font-weight: 400;
+    src: local('Spoqa Han Sans'), url('/fonts/Spoqa Han Sans Regular.ttf');
+  }
   * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'Spoqa Han Sans Bold', serif;
   }
 
   html,

@@ -25,7 +25,7 @@ const Left = styled.div`
   display: flex;
   align-items: center;
 `
-const HomeBtn = styled.button``
+const HomeBtn = styled(Link)``
 const Bar = styled.div`
   margin-left: 2%;
   width: 1px;
@@ -69,17 +69,21 @@ const HoverCate = styled(({ active, ...props }: GatsbyLinkProps) => (
 ))`
   margin-top: 8px;
   margin-right: 10px;
-  color: ${({ active }) => (active ? '#000' : '#777')};
+  color: ${({ active }) => (active ? '#000' : '#aaa')};
 
   &:hover {
     color: black;
     text-decoration: underline;
   }
 `
+
 const HoverCateText = styled.strong``
 
-const Header = props => {
-  console.log('Header window.location', window.location)
+interface HeaderProps {
+  location: any
+}
+
+const Header = () => {
   const { edges } = useGetCategories()
   const categoryList = useFormatCategory(edges)
   const selectedCategory = useSelectedCategory(window.location.search)
@@ -87,8 +91,8 @@ const Header = props => {
     <Wrap>
       <Inner>
         <Left>
-          <HomeBtn>
-            <FontAwesomeIcon icon={faHouseChimney} size={'2x'} />
+          <HomeBtn to="/">
+            <FontAwesomeIcon icon={faHouseChimney} size={'lg'} />
           </HomeBtn>
           <Bar />
           <SelectedCate>
@@ -97,9 +101,8 @@ const Header = props => {
               <HoverCateList>
                 {Object.entries(categoryList).map(cate => {
                   return (
-                    <HoverCateItem>
+                    <HoverCateItem key={cate[0]}>
                       <HoverCate
-                        key={cate[0]}
                         to={`/?category=${cate[0]}`}
                         active={cate[0] === selectedCategory}
                       >

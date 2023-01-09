@@ -49,7 +49,6 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
 }) {
   const categoryList = useFormatCategory(edges)
   const selectedCategory = useSelectedCategory(search)
-
   return (
     <Template
       title={title}

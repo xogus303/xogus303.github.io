@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 
 type CategoryItemProps = {
-  active: boolean
+  active?: boolean
 }
 
 export type GatsbyLinkProps = {
@@ -38,7 +38,9 @@ const CategoryItem = styled(({ active, ...props }: GatsbyLinkProps) => (
   margin-right: 20px;
   padding: 5px 0;
   font-size: 18px;
-  font-weight: ${({ active }) => (active ? '800' : '400')};
+  font-family: ${({ active }) =>
+    active ? 'Spoqa Han Sans Bold' : 'Spoqa Han Sans Regular'};
+  color: ${({ active }) => (active ? '#000' : '#aaa')};
   cursor: pointer;
 
   &:last-of-type {
@@ -56,15 +58,17 @@ const CategoryList: FunctionComponent<CategoryListProps> = ({
 }) => {
   return (
     <CategoryListWrapper>
-      {Object.entries(categoryList).map(([name, count]) => (
-        <CategoryItem
-          to={`/?category=${name}`}
-          active={name === selectedCategory}
-          key={name}
-        >
-          #{name}({count})
-        </CategoryItem>
-      ))}
+      {Object.entries(categoryList).map(([name, count]) => {
+        return (
+          <CategoryItem
+            to={`/?category=${name}`}
+            active={name === selectedCategory}
+            key={name}
+          >
+            #{name}({count})
+          </CategoryItem>
+        )
+      })}
     </CategoryListWrapper>
   )
 }
