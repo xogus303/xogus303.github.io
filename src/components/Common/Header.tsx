@@ -11,45 +11,56 @@ import {
 } from 'hooks/useCategories'
 import { GatsbyLinkProps } from 'components/Main/CategoryList'
 
-const Wrap = styled.header``
+const Wrap = styled.header`
+  background-color: #000;
+`
 const Inner = styled.div`
+  display: flex;
   max-width: 1100px;
   margin: 0 auto;
+  justify-content: space-between;
 
   @media (max-width: 768px) {
     padding: 0 20px;
-    max-width: 768px;
+    width: 100%;
   }
 `
 const Left = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
 `
+const Right = styled(Left)`
+  flex: 0;
+`
 const HomeBtn = styled(Link)``
 const Bar = styled.div`
-  margin-left: 2%;
+  margin: 0 2%;
   width: 1px;
   height: 20px;
   border-radius: 2px;
   background-color: #aaa;
 `
 const SelectedCate = styled.div`
+  display: flex;
   position: relative;
-  padding: 10px 2%;
+  padding: 10px 20px;
+  justify-content: flex-end;
 
   &:hover .HoverCateArea {
     display: flex;
   }
 `
-const SelectedCateText = styled.div``
+const SelectedCateText = styled.div`
+  color: white;
+`
 const HoverCateArea = styled.div`
   z-index: 1;
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
   width: 300px;
-  height: 250px;
   border: 1px solid #eee;
   border-radius: 8px;
   background-color: #fff;
@@ -92,9 +103,15 @@ const Header = () => {
       <Inner>
         <Left>
           <HomeBtn to="/">
-            <FontAwesomeIcon icon={faHouseChimney} size={'lg'} />
+            <FontAwesomeIcon
+              icon={faHouseChimney}
+              size={'lg'}
+              color={'white'}
+            />
           </HomeBtn>
           <Bar />
+        </Left>
+        <Right>
           <SelectedCate>
             <SelectedCateText>{selectedCategory}</SelectedCateText>
             <HoverCateArea className="HoverCateArea">
@@ -116,7 +133,7 @@ const Header = () => {
               </HoverCateList>
             </HoverCateArea>
           </SelectedCate>
-        </Left>
+        </Right>
       </Inner>
     </Wrap>
   )
