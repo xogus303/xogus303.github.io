@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 
 import ProfileImage from './ProfileImage'
+import { keyframes } from '@emotion/react'
+import useIntervalWriteText from 'hooks/useIntervalWriteText'
 
 type IntroductionProps = {
   introduceBg: IGatsbyImageData
@@ -40,20 +42,41 @@ const BackgroundBg = styled(GatsbyImage)`
   width: 100%;
   object-fit: cover;
 `
+const slideDownAnim = keyframes`
+  0% {
+    opacity: 0;
+  transform: translateY(-30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+const wrapperShowAnim = keyframes`
+  0% {
+    border: 0.2rem solid transparent;
+    box-shadow: 0 0 0.1rem transparent, 0 0 0.1rem transparent, 0 0 1rem transparent,
+      0 0 0.4rem transparent, 0 0 1.4rem transparent, inset 0 0 0.6rem transparent;
+  }
+  100% {
+    border: 0.2rem solid #fff;
+    box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
+      0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
+  }
+`
 const TextArea = styled.div`
   padding: 5% 3%;
-  border: 0.2rem solid #fff;
-  box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #0fa, 0 0 0.8rem #0fa,
-    0 0 2.8rem #0fa, inset 0 0 1.3rem #0fa;
   border-radius: 20px;
+  animation: ${wrapperShowAnim} 0.5s 2s both;
 `
 const NeonText = styled.div`
   color: white;
-  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
-    0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+  text-shadow: 0 0 3px #fff, 0 0 6px #fff, 0 0 12px #ff0080, 0 0 18px #ff0080,
+    0 0 24px #ff0080, 0 0 33px #ff0080, 0 0 45px #ff0080;
 `
 const Subtitle = styled(NeonText)`
-  font-size: 20px;
+  font-size: 16px;
+  height: 16px;
   font-weight: 700;
 
   @media (max-width: 768px) {
@@ -62,8 +85,9 @@ const Subtitle = styled(NeonText)`
 `
 
 const Title = styled(NeonText)`
-  margin-top: 5px;
+  margin-top: 10px;
   font-size: 35px;
+  height: 35px;
   font-weight: 700;
 
   @media (max-width: 768px) {
@@ -74,15 +98,24 @@ const Title = styled(NeonText)`
 const Introduction: FunctionComponent<IntroductionProps> = ({
   introduceBg,
 }) => {
-  console.log('introduceBg', introduceBg)
+  const [showInfoText, setShowInfoText] = useState<boolean>(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowInfoText(true)
+    }, 2000)
+  }, [])
+
   return (
     <Background>
       <BackgroundBg image={introduceBg} alt="introduce background image" />
       <Wrapper>
         {/* <ProfileImage profileImage={profileImage} /> */}
         <TextArea>
-          <Subtitle>이해를 위한 기술블로그</Subtitle>
-          <Title>by 프론트엔드 개발자 김태현</Title>
+          <Subtitle>
+            {showInfoText === true ? 'by 프론트엔드 개발자 김태현' : ' '}
+          </Subtitle>
+          <Title>{useIntervalWriteText('이해를 위한 기술블로그')}</Title>
         </TextArea>
       </Wrapper>
     </Background>
