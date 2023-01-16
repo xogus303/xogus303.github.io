@@ -2,13 +2,34 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 
-import ProfileImage from './ProfileImage'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowsUpDown } from '@fortawesome/free-solid-svg-icons'
 import { keyframes } from '@emotion/react'
 import useIntervalWriteText from 'hooks/useIntervalWriteText'
+import { cssState } from 'constants/type'
 
-type IntroductionProps = {
-  introduceBg: IGatsbyImageData
-}
+const wrapperShowAnim = keyframes`
+  0% {
+    border: 0.2rem solid transparent;
+    box-shadow: 0 0 0.1rem transparent, 0 0 0.1rem transparent, 0 0 1rem transparent,
+      0 0 0.4rem transparent, 0 0 1.4rem transparent, inset 0 0 0.6rem transparent;
+  }
+  100% {
+    border: 0.2rem solid #fff;
+    box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
+      0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
+  }
+`
+const arrowUpDownAnim = keyframes`
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+`
 
 const Background = styled.div`
   position: relative;
@@ -17,14 +38,15 @@ const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<cssState>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   max-width: 1100px;
-  height: 400px;
+  height: ${props => (props.isActive ? '100vh' : '400px')};
   margin: 0 auto;
+  transition: 2s;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -42,32 +64,12 @@ const BackgroundBg = styled(GatsbyImage)`
   width: 100%;
   object-fit: cover;
 `
-const slideDownAnim = keyframes`
-  0% {
-    opacity: 0;
-  transform: translateY(-30%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`
-const wrapperShowAnim = keyframes`
-  0% {
-    border: 0.2rem solid transparent;
-    box-shadow: 0 0 0.1rem transparent, 0 0 0.1rem transparent, 0 0 1rem transparent,
-      0 0 0.4rem transparent, 0 0 1.4rem transparent, inset 0 0 0.6rem transparent;
-  }
-  100% {
-    border: 0.2rem solid #fff;
-    box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
-      0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
-  }
-`
-const TextArea = styled.div`
+const TextArea = styled.div<cssState>`
   padding: 5% 3%;
   border-radius: 20px;
   animation: ${wrapperShowAnim} 0.5s 2s both;
+  transform: ${props => (props.isActive ? 'translateY(-50%)' : {})};
+  transition: 0.5s;
 `
 const NeonText = styled.div`
   color: white;
@@ -94,9 +96,29 @@ const Title = styled(NeonText)`
     font-size: 25px;
   }
 `
+const DownIconArea = styled.button`
+  position: absolute;
+  right: 35%;
+  bottom: 35%;
+  padding: 5px;
+  border: 0.2rem solid #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
+    0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
+  animation: ${arrowUpDownAnim} 1s 2.5s infinite alternate-reverse;
+  opacity: 0;
+`
+
+type IntroductionProps = {
+  introduceBg: IGatsbyImageData
+  isIntro: boolean
+  hideIntro: () => void
+}
 
 const Introduction: FunctionComponent<IntroductionProps> = ({
   introduceBg,
+  isIntro,
+  hideIntro,
 }) => {
   const [showInfoText, setShowInfoText] = useState<boolean>(false)
 
@@ -109,14 +131,18 @@ const Introduction: FunctionComponent<IntroductionProps> = ({
   return (
     <Background>
       <BackgroundBg image={introduceBg} alt="introduce background image" />
-      <Wrapper>
-        {/* <ProfileImage profileImage={profileImage} /> */}
-        <TextArea>
+      <Wrapper isActive={isIntro}>
+        <TextArea isActive={isIntro}>
           <Subtitle>
             {showInfoText === true ? 'by 프론트엔드 개발자 김태현' : ' '}
           </Subtitle>
           <Title>{useIntervalWriteText('이해를 위한 기술블로그')}</Title>
         </TextArea>
+        {isIntro === true && (
+          <DownIconArea onClick={hideIntro}>
+            <FontAwesomeIcon icon={faArrowsUpDown} color={'white'} />
+          </DownIconArea>
+        )}
       </Wrapper>
     </Background>
   )

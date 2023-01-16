@@ -35,7 +35,7 @@ const Right = styled(Left)`
 `
 const HomeBtn = styled(Link)``
 const Bar = styled.div`
-  margin: 0 2%;
+  margin: 0 20px;
   width: 1px;
   height: 20px;
   border-radius: 2px;
@@ -47,6 +47,9 @@ const SelectedCate = styled.div`
   padding: 10px 20px;
   justify-content: flex-end;
 
+  &:hover {
+    width: 300px;
+  }
   &:hover .HoverCateArea {
     display: flex;
   }

@@ -1,10 +1,8 @@
-import React, { FunctionComponent, useMemo } from 'react'
-import styled from '@emotion/styled'
+import React, { FunctionComponent, useCallback, useState } from 'react'
 import { graphql } from 'gatsby'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 import Template from 'components/Common/Template'
-import CategoryList, { CategoryListProps } from 'components/Main/CategoryList'
 import Introduction from 'components/Main/Introduction'
 import PostList from 'components/Main/PostList'
 import { PostListItemType } from 'types/PostItem.types'
@@ -47,8 +45,14 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
     },
   },
 }) {
-  const categoryList = useFormatCategory(edges)
   const selectedCategory = useSelectedCategory(search)
+
+  const [isIntro, setIsIntro] = useState<boolean>(true)
+
+  const hideIntro = useCallback(() => {
+    if (isIntro === true) setIsIntro(false)
+  }, [isIntro])
+
   return (
     <Template
       title={title}
@@ -56,10 +60,10 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
       url={siteUrl}
       image={publicURL}
     >
-      <Introduction introduceBg={gatsbyImageData} />
-      <CategoryList
-        selectedCategory={selectedCategory}
-        categoryList={categoryList}
+      <Introduction
+        introduceBg={gatsbyImageData}
+        isIntro={isIntro}
+        hideIntro={hideIntro}
       />
       <PostList selectedCategory={selectedCategory} posts={edges} />
     </Template>
