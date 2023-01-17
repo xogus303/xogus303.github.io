@@ -99,7 +99,6 @@ const PostItem: FunctionComponent<PostItemProps> = ({
   link,
   selectedCategory,
 }) => {
-  console.log('PostItem link', link)
   return (
     <PostItemWrapper to={`${link}?category=${selectedCategory}`}>
       <ThumbnailImage image={gatsbyImageData} alt="Post Item Image" />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Link } from 'gatsby'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,8 +10,12 @@ import {
   useSelectedCategory,
 } from 'hooks/useCategories'
 import { GatsbyLinkProps } from 'components/Main/CategoryList'
+import { cssState } from 'constants/type'
 
-const Wrap = styled.header`
+const Wrap = styled.header<cssState>`
+  z-index: 1;
+  position: ${props => (props.isActive ? 'fixed' : 'absolute')};
+  width: 100%;
   background-color: #000;
 `
 const Inner = styled.div`
@@ -93,16 +97,31 @@ const HoverCate = styled(({ active, ...props }: GatsbyLinkProps) => (
 
 const HoverCateText = styled.strong``
 
-interface HeaderProps {
-  location: any
-}
-
 const Header = () => {
   const { edges } = useGetCategories()
   const categoryList = useFormatCategory(edges)
   const selectedCategory = useSelectedCategory(window.location.search)
+
+  const [isFixed, setIsFixed] = useState<boolean>(true)
+
+  const handleFixheader = () => {
+    if (window.scrollY >= 400) {
+      setIsFixed(true)
+    } else {
+      setIsFixed(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleFixheader)
+
+    return () => {
+      window.removeEventListener('scroll', handleFixheader)
+    }
+  }, [])
+
   return (
-    <Wrap>
+    <Wrap isActive={isFixed}>
       <Inner>
         <Left>
           <HomeBtn to="/">

@@ -10,8 +10,6 @@ const useIntervalWriteText = (completedTitle: string) => {
 
     setLadingTitle(prev => {
       let result = prev ? prev + completedTitle[count] : completedTitle[0]
-      console.log('prev', prev)
-      console.log('result', result)
       setCount(prevCount => prevCount + 1)
 
       return result

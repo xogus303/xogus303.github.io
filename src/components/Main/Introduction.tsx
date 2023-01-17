@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import styled from '@emotion/styled'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 
@@ -23,16 +28,17 @@ const wrapperShowAnim = keyframes`
 const arrowUpDownAnim = keyframes`
   0% {
     opacity: 1;
-    transform: translateY(0%);
+    transform: translateY(-100%);
   }
   100% {
     opacity: 1;
-    transform: translateY(-100%);
+    transform: translateY(0%);
   }
 `
 
 const Background = styled.div`
   position: relative;
+  padding-top: 44px;
   width: 100%;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.7);
@@ -46,7 +52,7 @@ const Wrapper = styled.div<cssState>`
   max-width: 1100px;
   height: ${props => (props.isActive ? '100vh' : '400px')};
   margin: 0 auto;
-  transition: 2s;
+  transition: 1s;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -107,6 +113,10 @@ const DownIconArea = styled.button`
     0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
   animation: ${arrowUpDownAnim} 1s 2.5s infinite alternate-reverse;
   opacity: 0;
+
+  &:hover {
+    animation-play-state: paused;
+  }
 `
 
 type IntroductionProps = {
@@ -122,6 +132,19 @@ const Introduction: FunctionComponent<IntroductionProps> = ({
 }) => {
   const [showInfoText, setShowInfoText] = useState<boolean>(false)
 
+  const handleFirstWheel = useCallback(
+    (e: React.WheelEvent<HTMLDivElement>) => {
+      if (
+        showInfoText === true &&
+        isIntro === true &&
+        e.nativeEvent.deltaY > 0
+      ) {
+        hideIntro()
+      }
+    },
+    [isIntro, showInfoText],
+  )
+
   useEffect(() => {
     setTimeout(() => {
       setShowInfoText(true)
@@ -129,7 +152,7 @@ const Introduction: FunctionComponent<IntroductionProps> = ({
   }, [])
 
   return (
-    <Background>
+    <Background onWheel={handleFirstWheel}>
       <BackgroundBg image={introduceBg} alt="introduce background image" />
       <Wrapper isActive={isIntro}>
         <TextArea isActive={isIntro}>

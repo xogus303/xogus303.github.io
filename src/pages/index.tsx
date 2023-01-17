@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useCallback, useState } from 'react'
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import { graphql } from 'gatsby'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 
@@ -50,8 +55,15 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
   const [isIntro, setIsIntro] = useState<boolean>(true)
 
   const hideIntro = useCallback(() => {
-    if (isIntro === true) setIsIntro(false)
+    if (isIntro === true) {
+      document.body.style.overflow = 'auto'
+      setIsIntro(false)
+    }
   }, [isIntro])
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+  }, [])
 
   return (
     <Template
