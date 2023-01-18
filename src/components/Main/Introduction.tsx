@@ -54,7 +54,7 @@ const Wrapper = styled.div<cssState>`
   margin: 0 auto;
   transition: 1s;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     width: 100%;
     height: 300px;
     padding: 0 20px;
@@ -76,6 +76,10 @@ const TextArea = styled.div<cssState>`
   animation: ${wrapperShowAnim} 0.5s 2s both;
   transform: ${props => (props.isActive ? 'translateY(-50%)' : {})};
   transition: 0.5s;
+
+  @media (max-width: 1080px) {
+    padding: 3% 2%;
+  }
 `
 const NeonText = styled.div`
   color: white;
@@ -87,7 +91,7 @@ const Subtitle = styled(NeonText)`
   height: 16px;
   font-weight: 700;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     font-size: 15px;
   }
 `
@@ -98,7 +102,7 @@ const Title = styled(NeonText)`
   height: 35px;
   font-weight: 700;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     font-size: 25px;
   }
 `

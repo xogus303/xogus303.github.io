@@ -14,8 +14,10 @@ type PostItemProps = PostFrontmatterType & {
 const PostItemWrapper = styled(({ ...props }: GatsbyLinkProps) => (
   <Link {...props} />
 ))`
+  padding: 15px;
   display: flex;
   flex-direction: column;
+  border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
   transition: 0.3s box-shadow;
@@ -25,19 +27,23 @@ const PostItemWrapper = styled(({ ...props }: GatsbyLinkProps) => (
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 `
-
+const PostItemInfo = styled.div`
+  display: flex;
+`
 const ThumbnailImage = styled(GatsbyImage)`
-  width: 100%;
-  height: 200px;
-  border-radius: 10px 10px 0 0;
+  max-width: 100px;
+  height: 100px;
+  border-radius: 4px;
   object-fit: cover;
 `
-
+const PostItemInfoText = styled.div`
+  flex: 1;
+  padding: 5px 5px 5px 10px;
+`
 const PostItemContent = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 15px;
 `
 
 const Title = styled.div`
@@ -101,16 +107,19 @@ const PostItem: FunctionComponent<PostItemProps> = ({
 }) => {
   return (
     <PostItemWrapper to={`${link}?category=${selectedCategory}`}>
-      <ThumbnailImage image={gatsbyImageData} alt="Post Item Image" />
-
+      <PostItemInfo>
+        <PostItemInfoText>
+          <Title>{title}</Title>
+          <Date>{date}</Date>
+          <Category>
+            {categories.map(category => (
+              <CategoryItem key={category}>{category}</CategoryItem>
+            ))}
+          </Category>
+        </PostItemInfoText>
+        <ThumbnailImage image={gatsbyImageData} alt="Post Item Image" />
+      </PostItemInfo>
       <PostItemContent>
-        <Title>{title}</Title>
-        <Date>{date}</Date>
-        <Category>
-          {categories.map(category => (
-            <CategoryItem key={category}>{category}</CategoryItem>
-          ))}
-        </Category>
         <Summary>{summary}</Summary>
       </PostItemContent>
     </PostItemWrapper>

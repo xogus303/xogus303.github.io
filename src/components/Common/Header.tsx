@@ -14,17 +14,18 @@ import { cssState } from 'constants/type'
 
 const Wrap = styled.header<cssState>`
   z-index: 1;
-  position: ${props => (props.isActive ? 'fixed' : 'absolute')};
+  position: fixed;
   width: 100%;
   background-color: #000;
 `
 const Inner = styled.div`
   display: flex;
-  max-width: 1100px;
   margin: 0 auto;
+  max-width: 1100px;
+  height: 46px;
   justify-content: space-between;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     padding: 0 20px;
     width: 100%;
   }
@@ -48,25 +49,29 @@ const Bar = styled.div`
 const SelectedCate = styled.div`
   display: flex;
   position: relative;
-  padding: 10px 20px;
   justify-content: flex-end;
 
   &:hover {
     width: 300px;
   }
+
   &:hover .HoverCateArea {
     display: flex;
   }
 `
 const SelectedCateText = styled.div`
   color: white;
+  padding: 2px 30px;
+  border: 1px solid white;
+  border-radius: 17px;
+  cursor: pointer;
 `
 const HoverCateArea = styled.div`
   z-index: 1;
   display: none;
   position: absolute;
   top: 100%;
-  right: 0;
+  right: -20px;
   width: 300px;
   border: 1px solid #eee;
   border-radius: 8px;
@@ -121,7 +126,7 @@ const Header = () => {
   }, [])
 
   return (
-    <Wrap isActive={isFixed}>
+    <Wrap>
       <Inner>
         <Left>
           <HomeBtn to="/">

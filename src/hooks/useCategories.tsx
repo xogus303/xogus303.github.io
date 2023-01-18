@@ -24,7 +24,7 @@ export const useGetCategories = () => {
               frontmatter {
                 title
                 summary
-                date(formatString: "YYYY.MM.DD.")
+                date(formatString: "YYYY.MM.DD")
                 categories
                 thumbnail {
                   childImageSharp {
