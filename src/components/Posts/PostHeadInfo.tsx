@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { navigate } from 'gatsby'
 
 export type PostHeadInfoProps = {
   title: string
@@ -78,7 +79,9 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
   date,
   categories,
 }) => {
-  const goBackPage = () => window.history.back()
+  const goBackPage = () => {
+    navigate(-1)
+  }
 
   return (
     <PostHeadInfoWrapper>

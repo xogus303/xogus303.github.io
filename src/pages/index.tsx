@@ -52,17 +52,25 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
 }) {
   const selectedCategory = useSelectedCategory(search)
 
-  const [isIntro, setIsIntro] = useState<boolean>(true)
+  const initIntroState = sessionStorage.getItem('initIntroState')
+  const [isIntro, setIsIntro] = useState<boolean>(
+    initIntroState === 'false' ? false : true,
+  )
 
   const hideIntro = useCallback(() => {
+    console.log('initIntroState', initIntroState)
+    console.log('isIntro', isIntro)
     if (isIntro === true) {
       document.body.style.overflow = 'auto'
       setIsIntro(false)
+      sessionStorage.setItem('initIntroState', 'false')
     }
-  }, [isIntro])
+  }, [])
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
+    if (isIntro === true) {
+      document.body.style.overflow = 'hidden'
+    }
   }, [])
 
   return (

@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useInterval } from '@react-hooks-library/core'
 
-const useIntervalWriteText = (completedTitle: string) => {
+const useIntervalWriteText = (
+  completedTitle: string,
+  useCompletedTitle?: boolean,
+) => {
   const [landingTitle, setLadingTitle] = useState<string>('')
   const [count, setCount] = useState<number>(0)
 
@@ -16,8 +19,7 @@ const useIntervalWriteText = (completedTitle: string) => {
     })
   }, 150)
 
-  return landingTitle
-  //   return completedTitle
+  return useCompletedTitle ? completedTitle : landingTitle
 }
 
 export default useIntervalWriteText

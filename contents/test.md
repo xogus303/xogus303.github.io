@@ -1,6 +1,6 @@
 ---
 date: '2020-07-29'
-title: 'Test'
+title: 'test'
 categories: ['Web', 'Optimization']
 summary: '동해물과 백두산이 마고 닳도록 하느님이 보우하사~ ㉠⒝⑶❹あア※♥♪⅜‘”  ABcdEFgh 1234567890.'
 thumbnail: './test3.jpeg'

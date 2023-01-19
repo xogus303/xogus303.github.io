@@ -13,6 +13,18 @@ import { keyframes } from '@emotion/react'
 import useIntervalWriteText from 'hooks/useIntervalWriteText'
 import { cssState } from 'constants/type'
 
+const wrapperShowAnimInit = keyframes`
+  0% {
+    border: 0.2rem solid #fff;
+    box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
+      0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
+  }
+  100% {
+    border: 0.2rem solid #fff;
+    box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
+      0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
+  }
+`
 const wrapperShowAnim = keyframes`
   0% {
     border: 0.2rem solid transparent;
@@ -56,8 +68,9 @@ const Wrapper = styled.div<cssState>`
 
   @media (max-width: 1080px) {
     width: 100%;
-    height: 300px;
+    height: ${props => (props.isActive ? '100vh' : '300px')};
     padding: 0 20px;
+    align-items: center;
   }
 `
 const BackgroundBg = styled(GatsbyImage)`
@@ -73,12 +86,19 @@ const BackgroundBg = styled(GatsbyImage)`
 const TextArea = styled.div<cssState>`
   padding: 5% 3%;
   border-radius: 20px;
-  animation: ${wrapperShowAnim} 0.5s 2s both;
+  animation: ${props =>
+      props.isActive === true ? wrapperShowAnim : wrapperShowAnimInit}
+    0.5s 2s both;
   transform: ${props => (props.isActive ? 'translateY(-50%)' : {})};
   transition: 0.5s;
 
   @media (max-width: 1080px) {
+    transform: ${props => (props.isActive ? 'translateY(-100%)' : {})};
     padding: 3% 2%;
+  }
+  @media (max-width: 768px) {
+    transform: ${props => (props.isActive ? 'translateY(-100%)' : {})};
+    padding: 20px 15px;
   }
 `
 const NeonText = styled.div`
@@ -88,7 +108,6 @@ const NeonText = styled.div`
 `
 const Subtitle = styled(NeonText)`
   font-size: 16px;
-  height: 16px;
   font-weight: 700;
 
   @media (max-width: 1080px) {
@@ -99,28 +118,37 @@ const Subtitle = styled(NeonText)`
 const Title = styled(NeonText)`
   margin-top: 10px;
   font-size: 35px;
-  height: 35px;
   font-weight: 700;
 
   @media (max-width: 1080px) {
     font-size: 25px;
   }
 `
-const DownIconArea = styled.button`
+const DownIconArea = styled.div`
   position: absolute;
+  display: flex;
   right: 35%;
   bottom: 35%;
-  padding: 5px;
-  border: 0.2rem solid #fff;
-  border-radius: 20px;
-  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
-    0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
   animation: ${arrowUpDownAnim} 1s 2.5s infinite alternate-reverse;
   opacity: 0;
 
   &:hover {
     animation-play-state: paused;
   }
+
+  @media (max-width: 1080px) {
+    justify-content: center;
+    left: 0;
+    right: 0;
+    bottom: 30%;
+  }
+`
+const DownIconBtn = styled.button`
+  padding: 8px 5px;
+  border: 0.2rem solid #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
+    0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
 `
 
 type IntroductionProps = {
@@ -161,13 +189,21 @@ const Introduction: FunctionComponent<IntroductionProps> = ({
       <Wrapper isActive={isIntro}>
         <TextArea isActive={isIntro}>
           <Subtitle>
-            {showInfoText === true ? 'by 프론트엔드 개발자 김태현' : ' '}
+            {isIntro === false
+              ? 'by 프론트엔드 개발자 김태현'
+              : showInfoText === true
+              ? 'by 프론트엔드 개발자 김태현'
+              : ' '}
           </Subtitle>
-          <Title>{useIntervalWriteText('이해를 위한 기술블로그')}</Title>
+          <Title>
+            {useIntervalWriteText('이해를 위한 기술블로그', !isIntro)}
+          </Title>
         </TextArea>
         {isIntro === true && (
           <DownIconArea onClick={hideIntro}>
-            <FontAwesomeIcon icon={faArrowsUpDown} color={'white'} />
+            <DownIconBtn>
+              <FontAwesomeIcon icon={faArrowsUpDown} color={'white'} />
+            </DownIconBtn>
           </DownIconArea>
         )}
       </Wrapper>
