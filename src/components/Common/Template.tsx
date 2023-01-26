@@ -12,6 +12,7 @@ type TemplateProps = {
   url: string
   image: string
   children: ReactNode
+  isIntro: boolean
 }
 
 const Container = styled.main`
@@ -26,6 +27,7 @@ const Template: FunctionComponent<TemplateProps> = function ({
   url,
   image,
   children,
+  isIntro = false,
 }) {
   return (
     <Container>
@@ -60,7 +62,7 @@ const Template: FunctionComponent<TemplateProps> = function ({
         <html lang="ko" />
       </Helmet>
       <GlobalStyle />
-      <Header />
+      <Header isIntro={isIntro} />
       {children}
       <Footer />
     </Container>

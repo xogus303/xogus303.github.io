@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Link } from 'gatsby'
 import styled from '@emotion/styled'
+import { keyframes } from '@emotion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouseChimney } from '@fortawesome/free-solid-svg-icons'
 
@@ -38,13 +39,24 @@ const Left = styled.div`
 const Right = styled(Left)`
   flex: 0;
 `
-const HomeBtn = styled(Link)``
+const HomeBtn = styled(Link)`
+  margin-top: -2px;
+`
+const LogoTextArea = styled.div<cssState>`
+  display: flex;
+  align-items: center;
+  opacity: ${props => (props.isActive ? 0 : 1)};
+  transition: 2s;
+`
 const Bar = styled.div`
-  margin: 0 20px;
+  margin: 0 15px;
   width: 1px;
-  height: 20px;
+  height: 16px;
   border-radius: 2px;
   background-color: #aaa;
+`
+const LogoText = styled.strong`
+  color: white;
 `
 const SelectedCate = styled.div`
   display: flex;
@@ -102,7 +114,11 @@ const HoverCate = styled(({ active, ...props }: GatsbyLinkProps) => (
 
 const HoverCateText = styled.strong``
 
-const Header = () => {
+interface HeaderProps {
+  isIntro: boolean
+}
+
+const Header = ({ isIntro = false }: HeaderProps) => {
   const { edges } = useGetCategories()
   const categoryList = useFormatCategory(edges)
   const selectedCategory = useSelectedCategory(window.location.search)
@@ -136,7 +152,10 @@ const Header = () => {
               color={'white'}
             />
           </HomeBtn>
-          <Bar />
+          <LogoTextArea isActive={isIntro}>
+            <Bar />
+            <LogoText>이해를 위한 기술블로그</LogoText>
+          </LogoTextArea>
         </Left>
         <Right>
           <SelectedCate>

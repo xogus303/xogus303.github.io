@@ -23,6 +23,7 @@ const wrapperShowAnimInit = keyframes`
     border: 0.2rem solid #fff;
     box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
       0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080;
+      display: none;
   }
 `
 const wrapperShowAnim = keyframes`
@@ -50,7 +51,7 @@ const arrowUpDownAnim = keyframes`
 
 const Background = styled.div`
   position: relative;
-  padding-top: 44px;
+  padding-top: 46px;
   width: 100%;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.7);
@@ -62,13 +63,13 @@ const Wrapper = styled.div<cssState>`
   justify-content: center;
   align-items: flex-start;
   max-width: 1100px;
-  height: ${props => (props.isActive ? '100vh' : '400px')};
+  height: ${props => (props.isActive ? '100vh' : '0px')};
   margin: 0 auto;
   transition: 1s;
 
   @media (max-width: 1080px) {
     width: 100%;
-    height: ${props => (props.isActive ? '100vh' : '300px')};
+    height: ${props => (props.isActive ? '100vh' : '0px')};
     padding: 0 20px;
     align-items: center;
   }
@@ -91,6 +92,7 @@ const TextArea = styled.div<cssState>`
     0.5s 2s both;
   transform: ${props => (props.isActive ? 'translateY(-50%)' : {})};
   transition: 0.5s;
+  opacity: ${props => (props.isActive ? 1 : 0)};
 
   @media (max-width: 1080px) {
     transform: ${props => (props.isActive ? 'translateY(-100%)' : {})};
@@ -152,7 +154,7 @@ const DownIconBtn = styled.button`
 `
 
 type IntroductionProps = {
-  introduceBg: IGatsbyImageData
+  introduceBg: IGatsbyImageData | undefined
   isIntro: boolean
   hideIntro: () => void
 }
@@ -185,7 +187,9 @@ const Introduction: FunctionComponent<IntroductionProps> = ({
 
   return (
     <Background onWheel={handleFirstWheel}>
-      <BackgroundBg image={introduceBg} alt="introduce background image" />
+      {introduceBg && (
+        <BackgroundBg image={introduceBg} alt="introduce background image" />
+      )}
       <Wrapper isActive={isIntro}>
         <TextArea isActive={isIntro}>
           <Subtitle>

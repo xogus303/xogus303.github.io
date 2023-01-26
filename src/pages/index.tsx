@@ -30,7 +30,7 @@ type IndexPageProps = {
     }
     file: {
       childImageSharp: {
-        gatsbyImageData: IGatsbyImageData
+        gatsbyImageData: IGatsbyImageData | undefined
       }
       publicURL: string
     }
@@ -58,12 +58,10 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
   )
 
   const hideIntro = useCallback(() => {
-    console.log('initIntroState', initIntroState)
-    console.log('isIntro', isIntro)
     if (isIntro === true) {
       document.body.style.overflow = 'auto'
       setIsIntro(false)
-      sessionStorage.setItem('initIntroState', 'false')
+      // sessionStorage.setItem('initIntroState', 'false')
     }
   }, [])
 
@@ -79,6 +77,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
       description={description}
       url={siteUrl}
       image={publicURL}
+      isIntro={isIntro}
     >
       <Introduction
         introduceBg={gatsbyImageData}
