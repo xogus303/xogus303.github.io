@@ -20,7 +20,6 @@ const PostItemWrapper = styled(({ ...props }: GatsbyLinkProps) => (
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
-  transition: 0.3s box-shadow;
   cursor: pointer;
 
   &:hover {
@@ -28,6 +27,10 @@ const PostItemWrapper = styled(({ ...props }: GatsbyLinkProps) => (
   }
   &:hover img {
     transform: scale(1.1);
+    transition: 0.4s;
+  }
+  &:not(:hover) img {
+    transform: scale(1);
     transition: 0.4s;
   }
 `
@@ -105,14 +108,15 @@ const PostItem: FunctionComponent<PostItemProps> = ({
   link,
   selectedCategory,
 }) => {
+  console.log('thumbnail', thumbnail)
   return (
     <PostItemWrapper to={`${link}?category=${selectedCategory}`}>
-      {thumbnail !== null && (
+      {thumbnail !== null ? (
         <ThumbnailImage
           image={thumbnail.childImageSharp.gatsbyImageData}
           alt="Post Item Image"
         />
-      )}
+      ) : null}
       <PostItemInfo>
         <Title>{title}</Title>
         <PostItemInfoText>
@@ -123,7 +127,7 @@ const PostItem: FunctionComponent<PostItemProps> = ({
             ))}
           </Category>
         </PostItemInfoText>
-        <Summary hasImg={thumbnail !== null}>{summary}</Summary>
+        <Summary hasImg={thumbnail ? true : false}>{summary}</Summary>
       </PostItemInfo>
     </PostItemWrapper>
   )

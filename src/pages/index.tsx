@@ -30,7 +30,7 @@ type IndexPageProps = {
     }
     file: {
       childImageSharp: {
-        gatsbyImageData: IGatsbyImageData | undefined
+        gatsbyImageData: IGatsbyImageData
       }
       publicURL: string
     }
@@ -50,6 +50,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
     },
   },
 }) {
+  console.log('index gatsbyImageData', gatsbyImageData)
   const selectedCategory = useSelectedCategory(search)
 
   const initIntroState = sessionStorage.getItem('initIntroState')
@@ -61,7 +62,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
     if (isIntro === true) {
       document.body.style.overflow = 'auto'
       setIsIntro(false)
-      // sessionStorage.setItem('initIntroState', 'false')
+      sessionStorage.setItem('initIntroState', 'false')
     }
   }, [])
 
