@@ -44,7 +44,6 @@ const CommentWidget: FunctionComponent = () => {
 
     element.current.appendChild(utterances)
   }, [])
-
   return <UtterancesWrapper ref={element} />
 }
 

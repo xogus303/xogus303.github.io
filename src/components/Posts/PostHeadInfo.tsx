@@ -12,12 +12,10 @@ export type PostHeadInfoProps = {
 
 const PostHeadInfoWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 768px;
-  height: 400px;
+  max-width: 1100px;
+  width: 100%;
   margin: 0 auto 0;
-  padding: 60px 0;
-  color: #fff;
+  padding: 86px 0 40px 0;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -26,10 +24,13 @@ const PostHeadInfoWrapper = styled.div`
 `
 const PrevPageIcon = styled.div`
   display: grid;
+  position: fixed;
+  bottom: 10%;
   place-items: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: 1px solid #aaa;
   background: #fff;
   color: #000;
   font-size: 22px;
@@ -42,6 +43,17 @@ const PrevPageIcon = styled.div`
     font-size: 18px;
   }
 `
+const PostHeadInfoWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 0;
+  max-width: 768px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`
 const Title = styled.div`
   display: -webkit-box;
   overflow: hidden;
@@ -49,10 +61,10 @@ const Title = styled.div`
   margin-top: auto;
   text-overflow: ellipsis;
   white-space: normal;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 45px;
   font-weight: 800;
+  text-align: center;
 
   @media (max-width: 768px) {
     font-size: 30px;
@@ -62,9 +74,10 @@ const PostData = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 10%;
   font-size: 18px;
   font-weight: 700;
+  color: #aaa;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -86,13 +99,15 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
   return (
     <PostHeadInfoWrapper>
       <PrevPageIcon onClick={goBackPage}>
-        <FontAwesomeIcon icon={faArrowLeft} />
+        <FontAwesomeIcon icon={faArrowLeft} color={'#aaa'} />
       </PrevPageIcon>
-      <Title>{title}</Title>
-      <PostData>
-        <div>{categories.join(' / ')}</div>
-        <div>{date}</div>
-      </PostData>
+      <PostHeadInfoWrap>
+        <Title>{title}</Title>
+        <PostData>
+          <div>{categories.join(' / ')}</div>
+          <div>{date}</div>
+        </PostData>
+      </PostHeadInfoWrap>
     </PostHeadInfoWrapper>
   )
 }

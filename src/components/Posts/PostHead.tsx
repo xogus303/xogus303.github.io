@@ -10,31 +10,26 @@ type GatsbyImgProps = {
 }
 
 type PostHeadProps = PostHeadInfoProps & {
-  thumbnail: IGatsbyImageData | null
+  thumbnail: IGatsbyImageData | undefined
 }
 
 const PostHeadWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   position: relative;
+  padding-top: 46px;
   width: 100%;
-  height: 400px;
-
-  @media (max-width: 768px) {
-    height: 300px;
-  }
+  align-items: center;
 `
 
 const BackgroundImage = styled((props: GatsbyImgProps) => (
-  <GatsbyImage {...props} style={{ position: 'absolute' }} />
+  <GatsbyImage {...props} />
 ))`
   z-index: -1;
+  max-width: 768px;
   width: 100%;
-  height: 400px;
-  object-fit: cover;
-  filter: brightness(0.25);
-
-  @media (max-width: 768px) {
-    height: 300px;
-  }
+  object-fit: contain;
+  border-radius: 6px;
 `
 
 const PostHead: FunctionComponent<PostHeadProps> = ({
@@ -43,11 +38,10 @@ const PostHead: FunctionComponent<PostHeadProps> = ({
   categories,
   thumbnail,
 }) => {
-  console.log('thumbnail', thumbnail)
   return (
-    <PostHeadWrapper style={!thumbnail ? { backgroundColor: '#aaa' } : {}}>
-      {thumbnail && <BackgroundImage image={thumbnail} alt="thumbnail" />}
+    <PostHeadWrapper>
       <PostHeadInfo title={title} date={date} categories={categories} />
+      {thumbnail && <BackgroundImage image={thumbnail} alt="thumbnail" />}
     </PostHeadWrapper>
   )
 }

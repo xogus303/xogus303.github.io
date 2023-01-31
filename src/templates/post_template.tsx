@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { graphql } from 'gatsby'
 
 import Template from 'components/Common/Template'
@@ -6,6 +6,7 @@ import PostHead from 'components/Posts/PostHead'
 import { PostFrontmatterType } from 'types/PostItem.types'
 import PostContent from 'components/Posts/PostContent'
 import CommentWidget from 'components/Posts/CommentWidget'
+import PostScrollIndicator from 'components/Posts/PostScrollIndicator'
 
 export type PostPageItemType = {
   node: {
@@ -38,6 +39,28 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
     },
   } = edges[0]
 
+  const [pageHeight, setPageHeight] = useState<number>(0)
+  const [scrollY, setScrollY] = useState<number>(0)
+  const handleScrollIndicator = () => {
+    setScrollY(window.pageYOffset)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScrollIndicator)
+    return () => {
+      window.removeEventListener('scroll', handleScrollIndicator)
+    }
+  }, [])
+
+  useEffect(() => {
+    setPageHeight(document.body.scrollHeight - document.body.clientHeight)
+  }, [document.body.scrollHeight, document.body.clientHeight])
+
+  const scrollGauge = (scrollY * 100) / pageHeight
+  console.log(
+    'document.body.scrollHeight - document.body.clientHeight',
+    document.body.scrollHeight - document.body.clientHeight,
+  )
   return (
     <Template
       title={title}
@@ -45,6 +68,7 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
       url={href}
       image={thumbnail?.publicURL}
     >
+      <PostScrollIndicator widthPercent={scrollGauge} />
       <PostHead
         title={title}
         date={date}
