@@ -2,6 +2,7 @@ import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 export type PostFrontmatterType = {
   title: string
+  series: string
   summary: string
   date: string
   categories: string[]

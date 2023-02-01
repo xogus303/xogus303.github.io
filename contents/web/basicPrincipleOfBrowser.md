@@ -1,69 +1,26 @@
 ---
 date: '2023-01-19'
-title: '브라우저의 동작 원리'
+series: '브라우저의 동작 원리'
+title: '2.5초 안에 일어나는 일'
 categories: ['Web']
-summary: '웹의 동작 원리 요약'
+summary: '사용자가 주소 또는 검색 내용을 입력한 뒤 웹페이지가 노출되기 까지의 모든 흐름에 대하여'
 thumbnail: '../../static/postThumbnails/postThumbnail_230131.png'
 ---
 
-### 1. Help Google Bot to Find My Contents
+# 2.5초
 
-구글에 SiteMap을 제출하여 사이트에 있는 파일로서 새 페이지나 변경된 페이지가 있을 때 이를 검색 엔진에 알려주도록 할 수 있다.
+2023년 [tooltester의 웹사이트 로딩 시간 통계](https://www.tooltester.com/en/blog/website-loading-time-statistics/#top100)에 따르면 평균 웹 페이지 로드 시간은 데스크톱에서 2.5초이다. 이말은 즉 사용자가 브라우저를 열고 검색창 또는 주소창에 무엇인가 입력한 뒤 브라우저가 해당 결과를 표시하기 까지 걸리는 시간은 평균적으로 2.5초이다. 어떤 원리와 동작에 의해 웹페이지가 처리되는지 알아보자.
 
-SiteMap은 사이트에 있는 페이지, 동영상 및 기타 파일과 각 관계에 관한 정보를 제공하는 파일로, 검색 엔진은 이를 읽고 사이트를 더 지능적으로 크롤링 할 수 있게 된다.
+### 1. 웹 서버 요청
 
-### 2. Use 'Robots.txt' File
+사용자는 브라우저를 통해 원하는 웹페이지를 보기 위해 주소창에 주소를 입력한다. 이때 브라우저 엔진이 입력받은 주소를 네임서버로 요청한다. 네트워크 상에서 컴퓨터들이 서로를 구별하고 통신하는 IP주소 대신 쉬운 문자를 이용하여 DNS를 운영하는 네임서버로 부터 실제 IP주소를 응답 받는다.
 
-Robots.txt 파일은 검색 엔진에 어떤 페이지를 크롤링해도 되는지 알리는 파일로, 서버의 루트 디렉토리에 있어야 한다.
-
-과도한 Robots.txt 파일은 더 많은 방문자를 유도할 수 있는 정상적인 검색 엔진 크롤러의 접근을 막을 가능성이 있기 때문에 적절하게 설정해야 한다.
-
----
-
-### 1. Help Google Bot to Find My Contents
-
-구글에 SiteMap을 제출하여 사이트에 있는 파일로서 새 페이지나 변경된 페이지가 있을 때 이를 검색 엔진에 알려주도록 할 수 있다.
-
-SiteMap은 사이트에 있는 페이지, 동영상 및 기타 파일과 각 관계에 관한 정보를 제공하는 파일로, 검색 엔진은 이를 읽고 사이트를 더 지능적으로 크롤링 할 수 있게 된다.
-
-### 2. Use 'Robots.txt' File
-
-Robots.txt 파일은 검색 엔진에 어떤 페이지를 크롤링해도 되는지 알리는 파일로, 서버의 루트 디렉토리에 있어야 한다.
-
-과도한 Robots.txt 파일은 더 많은 방문자를 유도할 수 있는 정상적인 검색 엔진 크롤러의 접근을 막을 가능성이 있기 때문에 적절하게 설정해야 한다.
-
----
-
-### 1. Help Google Bot to Find My Contents
-
-구글에 SiteMap을 제출하여 사이트에 있는 파일로서 새 페이지나 변경된 페이지가 있을 때 이를 검색 엔진에 알려주도록 할 수 있다.
-
-SiteMap은 사이트에 있는 페이지, 동영상 및 기타 파일과 각 관계에 관한 정보를 제공하는 파일로, 검색 엔진은 이를 읽고 사이트를 더 지능적으로 크롤링 할 수 있게 된다.
-
-### 2. Use 'Robots.txt' File
-
-Robots.txt 파일은 검색 엔진에 어떤 페이지를 크롤링해도 되는지 알리는 파일로, 서버의 루트 디렉토리에 있어야 한다.
-
-과도한 Robots.txt 파일은 더 많은 방문자를 유도할 수 있는 정상적인 검색 엔진 크롤러의 접근을 막을 가능성이 있기 때문에 적절하게 설정해야 한다.
-
----
-
-### 1. Help Google Bot to Find My Contents
-
-구글에 SiteMap을 제출하여 사이트에 있는 파일로서 새 페이지나 변경된 페이지가 있을 때 이를 검색 엔진에 알려주도록 할 수 있다.
-
-SiteMap은 사이트에 있는 페이지, 동영상 및 기타 파일과 각 관계에 관한 정보를 제공하는 파일로, 검색 엔진은 이를 읽고 사이트를 더 지능적으로 크롤링 할 수 있게 된다.
-
-### 2. Use 'Robots.txt' File
-
-Robots.txt 파일은 검색 엔진에 어떤 페이지를 크롤링해도 되는지 알리는 파일로, 서버의 루트 디렉토리에 있어야 한다.
-
-과도한 Robots.txt 파일은 더 많은 방문자를 유도할 수 있는 정상적인 검색 엔진 크롤러의 접근을 막을 가능성이 있기 때문에 적절하게 설정해야 한다.
+### 2. 웹 서버 응답
 
 ---
 
 ## Source
 
-- SEO 기본 가이드
+- tooltester의 웹사이트 로딩 시간 통계
 
-  [<https://support.google.com/webmasters/answer/7451184?hl=ko&ref_topic=9460495>](https://support.google.com/webmasters/answer/7451184?hl=ko&ref_topic=9460495)
+  [<https://www.tooltester.com/en/blog/website-loading-time-statistics/#top100>](https://www.tooltester.com/en/blog/website-loading-time-statistics/#top100)

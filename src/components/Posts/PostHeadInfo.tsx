@@ -6,6 +6,7 @@ import { navigate } from 'gatsby'
 
 export type PostHeadInfoProps = {
   title: string
+  series: string
   date: string
   categories: string[]
 }
@@ -64,10 +65,18 @@ const Title = styled.div`
   -webkit-box-orient: vertical;
   font-size: 45px;
   font-weight: 800;
-  text-align: center;
+  word-break: keep-all;
 
   @media (max-width: 768px) {
     font-size: 30px;
+  }
+`
+const Series = styled(Title)`
+  color: #777;
+  font-size: 30px;
+
+  @media (max-width: 768px) {
+    font-size: 22px;
   }
 `
 const PostData = styled.div`
@@ -89,6 +98,7 @@ const PostData = styled.div`
 
 const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
   title,
+  series,
   date,
   categories,
 }) => {
@@ -102,6 +112,7 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
         <FontAwesomeIcon icon={faArrowLeft} color={'#aaa'} />
       </PrevPageIcon>
       <PostHeadInfoWrap>
+        <Series>{series}</Series>
         <Title>{title}</Title>
         <PostData>
           <div>{categories.join(' / ')}</div>

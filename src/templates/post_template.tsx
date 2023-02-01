@@ -35,7 +35,7 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
   const {
     node: {
       html,
-      frontmatter: { title, summary, date, categories, thumbnail },
+      frontmatter: { title, series, summary, date, categories, thumbnail },
     },
   } = edges[0]
 
@@ -63,7 +63,7 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
   )
   return (
     <Template
-      title={title}
+      title={title + series}
       description={summary}
       url={href}
       image={thumbnail?.publicURL}
@@ -71,6 +71,7 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
       <PostScrollIndicator widthPercent={scrollGauge} />
       <PostHead
         title={title}
+        series={series}
         date={date}
         categories={categories}
         thumbnail={thumbnail?.childImageSharp?.gatsbyImageData}
@@ -91,6 +92,7 @@ export const queryMarkdownDataBySlug = graphql`
           html
           frontmatter {
             title
+            series
             summary
             date(formatString: "YYYY.MM.DD")
             categories
