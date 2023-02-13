@@ -57,10 +57,6 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
   }, [document.body.scrollHeight, document.body.clientHeight])
 
   const scrollGauge = (scrollY * 100) / pageHeight
-  console.log(
-    'document.body.scrollHeight - document.body.clientHeight',
-    document.body.scrollHeight - document.body.clientHeight,
-  )
   return (
     <Template
       title={title + series}
