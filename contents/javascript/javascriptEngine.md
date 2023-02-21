@@ -15,9 +15,16 @@ thumbnail: '../../static/postThumbnails/postThumbnail_230220.jpeg'
 
 브라우저는 사용자에게 웹페이지를 보여주기 위해 웹서버에 리소스를 요청합니다. 웹서버로부터 html, css, javascript 등의 파일을 응답받아 브라우저 엔진을 통해 화면에 렌더링 합니다. 그 중 javascript는 html 요소 및 브라우저 제어를 가능하게 하고, 사용자의 액션에 따른 동작을 처리하거나 이벤트를 발생시키기도 하며, 웹서버와 통신할 수 있게 해주는 핵심 역할을 담당하고 있습니다.
 
-### > javascript 엔진
+### > Javascript Engine
 
-사용자 에이전트는 사용자를 대신하여 동작하는 모든 도구이다. 이 역할은 주로 브라우저에 의해 수행되며 항상 요청을 보내는 개체이다.
+javascript는 객체가 생성될 때 자동으로 메모리를 할당하고 더 이상 사용하지 않을 때 메모리를 해제합니다.(가비지 컬렉션) javascript엔진은 힙과 스택이라는 저장공간에 각각의 역할메 맞는 메모리를 할당하여 실행합니다.
+
+### > Memory heap과 Call Stack
+
+Memory Heap은 객체 및 함수를 저장하며 고정된 양이 아닌 필요에 따른 더 많은 공간을 할당합니다. 저장된 데이터에 메모리를 할당하며 stack에서 이를 참조합니다.
+Call Stack은 javascript가 사용하는 정적 데이터를 저장하는 데이터 구조입니다. 원시값들(string, number, boolean, undefined, null), 객체와 함수를 참조하는 주소, 함수 호출 시 생성되는 실행 컨텍스트를 저장합니다. 엔진은 크기가 변경되지 않는 다는 것을 알고 있기에 각 값들에게 고정된 양의 메모리를 할당하며 실행 직전, 메모리에 할당하는 과정을 **정적 메모리 할당**이라고 합니다.
+
+javascript는 작성된 코드를 순차적으로 하나씩 실행시키며(하나의 호출 스택) 동시에 여러 호출을 실행할 수 없는 **single thread** 언어 입니다. 하지만 사용자가 느끼기에 전혀 불편함 없이 웹페이지는 이벤트를 처리하는데 바로 비동기 처리를 하기 때문입니다.
 
 ### 웹 서버
 
@@ -97,3 +104,5 @@ HTTP는 사용이 쉬운 확장 가능한 프로토콜이다. 헤더를 쉽게 �
 ## Source
 
 [<https://blog.toycrane.xyz/%EC%A7%84%EC%A7%9C-%EC%89%BD%EA%B2%8C-%EC%95%8C%EC%95%84%EB%B3%B4%EB%8A%94-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%8F%99%EC%9E%91-%EC%9B%90%EB%A6%AC-c7fbdc44cc97>](https://blog.toycrane.xyz/%EC%A7%84%EC%A7%9C-%EC%89%BD%EA%B2%8C-%EC%95%8C%EC%95%84%EB%B3%B4%EB%8A%94-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%8F%99%EC%9E%91-%EC%9B%90%EB%A6%AC-c7fbdc44cc97)
+[<https://wookgu.tistory.com/21>](https://wookgu.tistory.com/21)
+[<https://www.javascripttutorial.net/javascript-call-stack/>](https://www.javascripttutorial.net/javascript-call-stack/)
