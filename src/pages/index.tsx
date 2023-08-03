@@ -53,7 +53,10 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
   console.log('index gatsbyImageData', gatsbyImageData)
   const selectedCategory = useSelectedCategory(search)
 
-  const initIntroState = sessionStorage.getItem('initIntroState')
+  const initIntroState =
+    typeof window !== 'undefined'
+      ? sessionStorage.getItem('initIntroState')
+      : null
   const [isIntro, setIsIntro] = useState<boolean>(
     initIntroState === 'false' ? false : true,
   )

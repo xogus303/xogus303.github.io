@@ -121,7 +121,9 @@ interface HeaderProps {
 const Header = ({ isIntro = false }: HeaderProps) => {
   const { edges } = useGetCategories()
   const categoryList = useFormatCategory(edges)
-  const selectedCategory = useSelectedCategory(window.location.search)
+  const selectedCategory = useSelectedCategory(
+    typeof window !== 'undefined' ? window.location.search : '',
+  )
 
   const [isFixed, setIsFixed] = useState<boolean>(true)
 

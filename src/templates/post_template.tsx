@@ -52,9 +52,16 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
     }
   }, [])
 
-  useEffect(() => {
-    setPageHeight(document.body.scrollHeight - document.body.clientHeight)
-  }, [document.body.scrollHeight, document.body.clientHeight])
+  useEffect(
+    () => {
+      if (typeof window !== 'undefined') {
+        setPageHeight(document.body.scrollHeight - document.body.clientHeight)
+      }
+    },
+    typeof window !== 'undefined'
+      ? [document?.body.scrollHeight, document.body.clientHeight]
+      : [],
+  )
 
   const scrollGauge = (scrollY * 100) / pageHeight
   return (
