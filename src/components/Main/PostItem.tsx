@@ -111,7 +111,7 @@ const PostItem: FunctionComponent<PostItemProps> = ({
   console.log('thumbnail', thumbnail)
   return (
     <PostItemWrapper to={`${link}?category=${selectedCategory}`}>
-      {thumbnail !== null && thumbnail !== undefined ? (
+      {thumbnail && thumbnail.childImageSharp.gatsbyImageData ? (
         <ThumbnailImage
           image={thumbnail.childImageSharp.gatsbyImageData}
           alt="Post Item Image"

@@ -1,7 +1,7 @@
 ---
 date: '2020-07-29'
 title: 'test'
-categories: ['Web', 'Optimization']
+categories: []
 summary: '동해물과 백두산이 마고 닳도록 하느님이 보우하사~ ㉠⒝⑶❹あア※♥♪⅜‘”  ABcdEFgh 1234567890.'
 thumbnail: '../static/postThumbnails/test3.jpeg'
 ---
@@ -20,7 +20,7 @@ Robots.txt 파일은 검색 엔진에 어떤 페이지를 크롤링해도 되는
 
 ---
 
-## Source
+## 참고자료
 
 - SEO 기본 가이드
 
