@@ -106,6 +106,6 @@ HTTP는 사용이 쉬운 확장 가능한 프로토콜이다. 헤더를 쉽게 �
 
 #
 
-## Source
+## 참고자료
 
 [<https://developer.mozilla.org/ko/docs/Web/HTTP/Overview>](https://developer.mozilla.org/ko/docs/Web/HTTP/Overview)
