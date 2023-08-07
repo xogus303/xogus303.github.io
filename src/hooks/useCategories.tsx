@@ -54,7 +54,6 @@ export const useFormatCategory = (edges: PostListItemType[]) => {
             },
           },
         ) => {
-          console.log('categories', categories)
           categories.forEach((category: string) => {
             if (list[category] === undefined) list[category] = 1
             else list[category]++
