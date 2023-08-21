@@ -1,6 +1,6 @@
 ---
 startDate: '2023-08-07'
-date: '2023-08-07'
+date: '2023-08-21'
 series: ''
 title: 'CORS'
 categories: ['Network']
@@ -72,16 +72,37 @@ drwaImage()는 canvas에 이미지를 그리는 다양한 방법을 제공한다
 # 설정방법
 
 주소만 알면 누구든 서버에게 통신을 요청할 수 있기때문에 서버는 자체적으로 응답을 받을 수 있는 클라이언트를 명시하여 보안성을 높이기 위한 정책이다. 결론적으로 클라이언트가 받는 응답의 Access-Control-Allow-Origin 값에 따라 정책의 위반 여부를 결정하기 때문에 다음과 같은 방법으로 정책을 준수 할 수 있다.
-
-- 서버 응답 헤더에 Access-Control-Allow-Origin 명시
+</br></br>
+**1. 서버 응답 헤더에 Access-Control-Allow-Origin 명시**
 
 ```javascript{numberLines: true}
 res.setHeader('Access-Control-Allow-Origin', 'localhost:3000')
 res.end()
 ```
 
-- cors 미들웨어 사용
-- 프록시 서버 경유
+**2. cors 미들웨어 사용**
+```shell
+npm install cors
+```
+```javascript{numberLines: true}
+const express = require('express')
+const cors = require('cors')
+const app = express()
+
+app.use(cors({
+  origin: 'localhost:3000'
+}))
+
+```
+**3. Proxy 서버 경유**
+
+앞서 설명한 바와 같이 CORS 정책은 브라우저와 서버 간의 보안 정책이다. 때문에 서버와 서버 간의 통신에서는 적용되지 않는 점을 이용하여 중간다리 역할을 해주는 Proxy 서버를 설정하는 방법이다.</br></br>
+     1) 브라우저와 도메인이 같은 서버 생성  
+     2) 브라우저는 실제 통신할 서버 대신 프록시 서버에 요청  
+     3) 요청을 받은 프록시 서버는 실제 서버에 요청을 보내고 응답을 받아서 브라우저에게 다시 응답  
+     4) 브라우저는 도메인이 같은 서버와 통신하여 응답받았기 때문에 CORS 정책을 준수
+#
+> 알고보면 간단한 내용과 설정 방법으로 다른 출처의 요청을 방지 할 수 있다. 
 
 ---
 
@@ -97,3 +118,5 @@ res.end()
   [<https://developer.mozilla.org/ko/docs/Web/HTTP/Methods/OPTIONS>](https://developer.mozilla.org/ko/docs/Web/HTTP/Methods/OPTIONS)
 - URL이란 무엇인가?, 김민수, Ascent
   [<https://www.ascentkorea.com/what-is-url/>](https://www.ascentkorea.com/what-is-url/)
+- CORS 간편 설정하기, 인파, Inpa Dev
+  [<https://inpa.tistory.com/entry/NODE-%F0%9F%93%9A-CORS-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0-cors-%EB%AA%A8%EB%93%88>](https://inpa.tistory.com/entry/NODE-%F0%9F%93%9A-CORS-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0-cors-%EB%AA%A8%EB%93%88)
