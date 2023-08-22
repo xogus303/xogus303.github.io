@@ -26,22 +26,20 @@ const PostHeadInfoWrapper = styled.div`
 const PrevPageIcon = styled.div`
   display: grid;
   position: fixed;
-  bottom: 10%;
+  top: 10%;
   place-items: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   border: 1px solid #aaa;
-  background: #fff;
+  background: #666;
   color: #000;
   font-size: 22px;
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 768px) {
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
+    display: none;
   }
 `
 const PostHeadInfoWrap = styled.div`
@@ -109,7 +107,7 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
   return (
     <PostHeadInfoWrapper>
       <PrevPageIcon onClick={goBackPage}>
-        <FontAwesomeIcon icon={faArrowLeft} color={'#aaa'} />
+        <FontAwesomeIcon icon={faArrowLeft} color={'#fff'} />
       </PrevPageIcon>
       <PostHeadInfoWrap>
         <Series>{series}</Series>
