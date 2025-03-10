@@ -84,3 +84,4 @@ Origin 서버의 원래 응답을 CDN이 캐싱하고, CDN의 응답을 사용�
 
 - [웹 캐시- 위키백과](https://ko.wikipedia.org/wiki/%EC%9B%B9_%EC%BA%90%EC%8B%9C)
 - [HTTP 캐싱 - MDN Web Docs](https://developer.mozilla.org/ko/docs/Web/HTTP/Caching)
+- [웹 서비스 캐시 똑똑하게 다루기 - tosstech](https://toss.tech/article/smart-web-service-cache)
