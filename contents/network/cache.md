@@ -28,7 +28,7 @@ thumbnail: '../../static/postThumbnails/postThumbnail_230822.png'
 **1. max-age**
   ```
   Cache-Control: max-age=31536000(1년)
-  => 리소스가 유요하다고 판단된느 최대 시간을 말합니다. 요청 시간에 상대적이며,   
+  => 리소스가 유요하다고 판단되느 최대 시간을 말합니다. 요청 시간에 상대적이며,   
   Expires가 설정되어 있어도 우선됩니다.
   ```
 **2. no-store**

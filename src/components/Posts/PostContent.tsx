@@ -25,7 +25,7 @@ const MarkdownRenderer = styled.div`
   h2,
   h3 {
     font-weight: 800;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 
   * + h1,
@@ -63,7 +63,6 @@ const MarkdownRenderer = styled.div`
   ol,
   ul {
     margin-left: 20px;
-    padding: 30px 0;
   }
 
   // Adjust Horizontal Rule style
@@ -80,7 +79,6 @@ const MarkdownRenderer = styled.div`
 
   // Adjust Code Style
   pre[class*='language-'] {
-    margin: 30px 0;
     padding: 15px;
     font-size: 15px;
 
@@ -93,6 +91,20 @@ const MarkdownRenderer = styled.div`
   code[class*='language-'],
   pre[class*='language-'] {
     tab-size: 2;
+  }
+
+  table {
+    border: 0.5px solid #ddd;
+    border-radius: 4px;
+    border-spacing: 0;
+  }
+  table th {
+    color: #555;
+  }
+  table th,
+  table td {
+    padding: 5px;
+    border: 0.5px solid #ddd;
   }
 
   // Markdown Responsive Design
