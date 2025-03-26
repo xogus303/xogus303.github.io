@@ -4,6 +4,7 @@ module.exports = {
     description: `프론트엔드 개발자 김태현의 블로그 입니다.`,
     author: `thKim`,
     siteUrl: `https://xogus303.github.io/`,
+    image: '/static/TH.png',
   },
   plugins: [
     {
@@ -96,6 +97,22 @@ module.exports = {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-favicons',
+      options: {
+        logo: './static/favicon.ico',
+        appName: 'My Blog',
+        icons: {
+          android: true,
+          appleIcon: true,
+          appleStartup: true,
+          coast: false,
+          favicons: true,
+          yandex: false,
+          windows: false,
+        },
       },
     },
   ],
