@@ -3,7 +3,7 @@ date: '2023-02-10'
 series: '브라우저의 동작 원리'
 title: '2.5초 동안 일어나는 일'
 categories: ['Web']
-summary: '브라우저에 사용자가 주소 또는 검색 내용을 입력한 뒤 웹페이지가 노출되기 까지의 모든 흐름에 대하여'
+summary: '브라우저에서 웹페이지가 노출되기 까지의 모든 흐름에 대하여'
 thumbnail: '../../static/postThumbnails/postThumbnail_230131.png'
 ---
 
