@@ -1,9 +1,9 @@
 ---
 date: '2025-03-27'
-series: ''
+series: '검색엔진 최적화'
 title: '개발자의 SEO (1)'
 categories: ['Web']
-summary: 'SEO(검색엔진 최적화)란 무엇인지 이해하고 Google 상위 검색 결과로 등록해보자'
+summary: 'SEO(검색엔진 최적화)란 무엇인지 이해하고 Google Search Console 등록하기'
 thumbnail: '../../static/postThumbnails/postThumbnail_250311.png'
 ---
 
@@ -76,7 +76,7 @@ Search Console 페이지의 색인이 생성된 것으로 나타나는데 검색
 
 ### 1. 사이트맵 생성
 사이트맵은 사이트에 있는 페이지, 동영상 및 기타 파일과 각 관계에 관한 정보를 제공하는 파일입니다. 검색엔진은 이 파일을 읽고 사이트를 더 효율적으로 크롤링합니다.
-블로그는 gatsby.js로 만들어져 있기 때문에 [`gatsby-plugin-sitemap`](https://www.gatsbyjs.com/plugins/gatsby-plugin-sitemap/)을 설치하고 gatsby-config.js을 변경합니다. sitemap xml파일은 웹 마스터 도구 중 특정 개수 (대략 5만) 이상의 URL이 담긴 사이트맵을 인식하지 못하는 문제가 발생하기 때문에 `sitemap-0`, `sitemap-1`과 같이 나뉘어 생성되고 `sitemap-index`파일에서 참조합니다.
+블로그는 gatsby.js로 만들어져 있기 때문에 [`gatsby-plugin-sitemap`](https://www.gatsbyjs.com/plugins/gatsby-plugin-sitemap/)을 설치하고 gatsby-config.js을 변경합니다. sitemap xml파일은 웹 마스터 도구 중 특정 5만개 이상의 URL이 담긴 사이트맵을 인식하지 못하는 문제가 발생하기 때문에 `sitemap-0`, `sitemap-1`과 같이 나뉘어 생성되고 `sitemap-index`파일에서 참조합니다.
 ### 2. Robots.txt 설정
 Robots.txt파일은 크롤러가 사이트의 어느 부분에 엑세스할 수 있는지에 관한 규칙이 포함된 간단한 텍스트 파일입니다. 현재 블로그는 모든 페이지가 크롤링 되기를 원하므로 기본적인 형식으로 설정하여 생성합니다.
 [`gatsby-plugin-robots-txt`](https://www.gatsbyjs.com/plugins/gatsby-plugin-robots-txt/)를 설치하고 gatsby-config.js파일에 관련 설정을 추가 한 뒤 build 합니다. 빌드 명령어를 통해 컴파일 하게 되면 사이트맵 `sitemap-index.xml`, `sitemap-0.xml`파일과 `robots.txt`가 설정한 build폴더에 생성됩니다.
