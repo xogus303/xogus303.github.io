@@ -51,6 +51,11 @@ const defaultStyle = css`
     background-color: transparent;
     cursor: pointer;
   }
+  ul {
+    li {
+      word-wrap: break-word;
+    }
+  }
 `
 
 const GlobalStyle: FunctionComponent = props => {
