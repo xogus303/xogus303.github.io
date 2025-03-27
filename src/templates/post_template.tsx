@@ -66,7 +66,7 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
   const scrollGauge = (scrollY * 100) / pageHeight
   return (
     <Template
-      title={title + series}
+      title={`${series !== '' ? series + ' - ' : ''}${title}`}
       description={summary}
       url={href}
       image={thumbnail?.publicURL}
