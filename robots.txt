@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://xogus303.github.io/sitemap-index.xml
+Host: https://xogus303.github.io
