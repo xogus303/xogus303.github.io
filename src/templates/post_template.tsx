@@ -35,7 +35,15 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
   const {
     node: {
       html,
-      frontmatter: { title, series, summary, date, categories, thumbnail },
+      frontmatter: {
+        title,
+        series,
+        summary,
+        date,
+        categories,
+        thumbnail,
+        thumbnailOrigin,
+      },
     },
   } = edges[0]
 
@@ -78,6 +86,7 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
         date={date}
         categories={categories}
         thumbnail={thumbnail?.childImageSharp?.gatsbyImageData}
+        thumbnailOrigin={thumbnailOrigin}
       />
       <PostContent html={html} />
       <CommentWidget />
@@ -105,6 +114,7 @@ export const queryMarkdownDataBySlug = graphql`
               }
               publicURL
             }
+            thumbnailOrigin
           }
         }
       }

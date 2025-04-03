@@ -49,8 +49,8 @@ const ThumbnailImage = styled(GatsbyImage)`
 const PostItemInfoText = styled.div`
   flex: 0.5;
   display: flex;
-  flex-direction: column;
   align-items: flex-end;
+  justify-content: space-between;
   padding: 5px 0;
 `
 
@@ -77,10 +77,10 @@ const Category = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
+  gap: 5px;
 `
 
 const CategoryItem = styled.div`
-  margin-left: 5px;
   padding: 3px 5px;
   border-radius: 3px;
   background: black;
@@ -109,7 +109,6 @@ const PostItem: FunctionComponent<PostItemProps> = ({
   link,
   selectedCategory,
 }) => {
-  console.log('thumbnail', thumbnail)
   return (
     <PostItemWrapper to={`${link}?category=${selectedCategory}`}>
       {thumbnail && thumbnail.childImageSharp.gatsbyImageData ? (
@@ -121,12 +120,12 @@ const PostItem: FunctionComponent<PostItemProps> = ({
       <PostItemInfo>
         <Title>{title}</Title>
         <PostItemInfoText>
-          <Date>{date}</Date>
           <Category>
             {categories.map(category => (
               <CategoryItem key={category}>{category}</CategoryItem>
             ))}
           </Category>
+          <Date>{date}</Date>
         </PostItemInfoText>
         <Summary hasImg={thumbnail ? true : false}>{summary}</Summary>
       </PostItemInfo>

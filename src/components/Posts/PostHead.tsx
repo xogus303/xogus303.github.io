@@ -11,6 +11,7 @@ type GatsbyImgProps = {
 
 type PostHeadProps = PostHeadInfoProps & {
   thumbnail: IGatsbyImageData | undefined
+  thumbnailOrigin?: string
 }
 
 const PostHeadWrapper = styled.div`
@@ -20,6 +21,17 @@ const PostHeadWrapper = styled.div`
   padding-top: 46px;
   width: 100%;
   align-items: center;
+`
+
+const PostThumbnail = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`
+
+const OriginText = styled.a`
+  color: #999;
+  font-size: 13px;
 `
 
 const BackgroundImage = styled((props: GatsbyImgProps) => (
@@ -38,6 +50,7 @@ const PostHead: FunctionComponent<PostHeadProps> = ({
   date,
   categories,
   thumbnail,
+  thumbnailOrigin,
 }) => {
   return (
     <PostHeadWrapper>
@@ -47,7 +60,12 @@ const PostHead: FunctionComponent<PostHeadProps> = ({
         date={date}
         categories={categories}
       />
-      {thumbnail && <BackgroundImage image={thumbnail} alt="thumbnail" />}
+      <PostThumbnail>
+        {thumbnail && <BackgroundImage image={thumbnail} alt="thumbnail" />}
+        {thumbnailOrigin && (
+          <OriginText href={thumbnailOrigin}>{thumbnailOrigin}</OriginText>
+        )}
+      </PostThumbnail>
     </PostHeadWrapper>
   )
 }
