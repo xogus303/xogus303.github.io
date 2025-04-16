@@ -28,10 +28,14 @@ const MarkdownRenderer = styled.div`
     margin-bottom: 10px;
   }
 
-  * + h1,
-  * + h1,
-  * + h3 {
+  * + h1 {
     margin-top: 80px;
+  }
+  * + h2 {
+    margin-top: 30px;
+  }
+  * + h3 {
+    margin-top: 20px;
   }
   hr + h1,
   hr + h2,
@@ -91,6 +95,7 @@ const MarkdownRenderer = styled.div`
   code[class*='language-'],
   pre[class*='language-'] {
     tab-size: 2;
+    white-space: break-spaces;
   }
 
   table {
@@ -105,6 +110,10 @@ const MarkdownRenderer = styled.div`
   table td {
     padding: 5px;
     border: 0.5px solid #ddd;
+  }
+
+  span.desc {
+    color: #313131;
   }
 
   // Markdown Responsive Design
