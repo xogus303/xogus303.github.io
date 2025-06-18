@@ -3,7 +3,7 @@ module.exports = {
     title: `TH 개발 블로그`,
     description: `프론트엔드 개발자 김태현의 블로그 입니다.`,
     author: `thKim`,
-    siteUrl: `https://xogus303.github.io/`,
+    siteUrl: `https://xogus303.github.io`,
     image: './static/TH.png',
   },
   plugins: [
