@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react'
-import styled from '@emotion/styled'
+import React, { FunctionComponent } from "react";
+import styled from "@emotion/styled";
 
 interface PostContentProps {
-  html: string
+  html: string;
 }
 
 const MarkdownRenderer = styled.div`
@@ -24,7 +24,7 @@ const MarkdownRenderer = styled.div`
   h1,
   h2,
   h3 {
-    font-weight: 800;
+    font-weight: 700;
     margin-bottom: 10px;
   }
 
@@ -60,7 +60,7 @@ const MarkdownRenderer = styled.div`
     margin: 30px 0;
     padding: 5px 15px;
     border-left: 2px solid #000000;
-    font-weight: 800;
+    font-weight: 700;
   }
 
   // Adjust List Element Style
@@ -82,7 +82,7 @@ const MarkdownRenderer = styled.div`
   }
 
   // Adjust Code Style
-  pre[class*='language-'] {
+  pre[class*="language-"] {
     padding: 15px;
     font-size: 15px;
 
@@ -92,8 +92,8 @@ const MarkdownRenderer = styled.div`
     }
   }
 
-  code[class*='language-'],
-  pre[class*='language-'] {
+  code[class*="language-"],
+  pre[class*="language-"] {
     tab-size: 2;
     white-space: break-spaces;
   }
@@ -143,10 +143,10 @@ const MarkdownRenderer = styled.div`
       margin: 50px 0;
     }
   }
-`
+`;
 
 const PostContent: FunctionComponent<PostContentProps> = ({ html }) => {
-  return <MarkdownRenderer dangerouslySetInnerHTML={{ __html: html }} />
-}
+  return <MarkdownRenderer dangerouslySetInnerHTML={{ __html: html }} />;
+};
 
-export default PostContent
+export default PostContent;
