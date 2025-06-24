@@ -11,7 +11,7 @@ import Template from 'components/Common/Template'
 import Introduction from 'components/Main/Introduction'
 import PostList from 'components/Main/PostList'
 import { PostListItemType } from 'types/PostItem.types'
-import { useFormatCategory, useSelectedCategory } from 'hooks/useCategories'
+import { useSelectedCategory } from 'hooks/useCategories'
 
 type IndexPageProps = {
   location: {
@@ -50,7 +50,6 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
     },
   },
 }) {
-  console.log('index gatsbyImageData', gatsbyImageData)
   const selectedCategory = useSelectedCategory(search)
 
   const initIntroState =
@@ -63,9 +62,11 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
 
   const hideIntro = useCallback(() => {
     if (isIntro === true) {
-      document.body.style.overflow = 'auto'
       setIsIntro(false)
       sessionStorage.setItem('initIntroState', 'false')
+      setTimeout(() => {
+        document.body.style.overflow = 'auto'
+      }, 1000)
     }
   }, [])
 
