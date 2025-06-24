@@ -53,7 +53,7 @@ function logText<T>(text: T): T {
 
 let myString: GenericLogTextFn = logText;
 ```
-이때 위처럼 제네릭 인터페이스를 변수의 타입으로 지정할 수 있습니다.
+이때 위처럼 제네릭 인터페이스를 사용하여 변수의 타입으로 지정할 수 있습니다.
 ```typescript
 class GenericMath<T> {
   pi: T;
@@ -70,7 +70,7 @@ function logText<T>(text: T): T {
   console.log(text.length); // Error: T doesn't have .length
 }
 ```
-인자의 타입에 선언한 T의 타입을 구체적으로 정의하지 않았기 때문에 위처럼 오류가 발생합니다.
+인자의 타입에 선언한 T의 타입을 구체적으로 정의하지 않는 경우 위처럼 오류가 발생합니다.
 ```typescript
 interface LengthWise {
   length: number;
@@ -79,7 +79,7 @@ function logText<T extends LengthWise>(text: T): T {
   console.log(text.length);
 }
 ```
-이 때 위와 같이 T의 타입을 extends를 이용하여 제네릭 인터페이스 설정하는 경우 타입을 지정하지 않고 length 속성을 허용하는 동시에 length 속성이 있는 값만 인자로 허용하는 역할을 합니다.
+이 때 위와 같이 T의 타입을 extends를 이용하여 제네릭 인터페이스와 함께 설정하는 경우, 타입을 지정하지 않고 length 속성을 허용하는 동시에 length 속성이 있는 값만 인자로 허용하는 역할을 합니다.
 ```typescript
 logText(10); // Error, 숫자 타입에는 `length` 속성이 존재하지 않음
 logText({ length: 0, value: 'hi' }); // `text.length` 코드는 객체의 속성 접근과 같이 동작하므로 오류가 발생하지 않습니다.
@@ -108,7 +108,7 @@ function f() {
 }
 type P = ReturnType<f>; // Error: `f`는 값을 참조하지만 유형으로 사용됩니다.
 ```
-위 type P의 ReturnType<f>에서 에러는 값과 타입은 같지 않으며, 값 f의 타입을 추론하기 위해서 `typeof`를 사용해야 합니다.
+위 type P의 ReturnType<f>에서 에러가 발생하는 이유는 값을 반환 타입으로 사용하였기 때문 입니다. 값과 타입은 같지 않으며, 값 f의 타입을 추론하기 위해서 `typeof`를 사용해야 합니다.
 ```typescript
 function f() {
   return { x: 10, y: 3 };
@@ -116,82 +116,150 @@ function f() {
 type P = ReturnType<typeof f>; // P = { x: number, y: number };
 ```
 
+# 강제 타입 캐스팅
+아래는 객체를 매개변수로 받아 해당 객체의 키값들을 배열로 반환하는 함수 입니다. `Object.keys()`의 반환 타입은 항상 `string[]`입니다. 그러나 `keyof TObj`는 `string`, `number`, `symbol`의 유니언 타입일 수 있고, 특히 제네릭 `TObj`가 비어 있으면 `keyof TObj`는 `never`타입이 되기도 하기 때문에 상호 호환성이 없어 타입 오류가 발생합니다.
+```typescript
+const typedObjectKeys = <TObj extends {}>(obj: TObj): Array<keyof TObj> => {
+  return Object.keys(obj); // Erorr: string[]은 keyof TObj[]에 할당 불가
+}
+```
+가장 흔한 해결 방안으로 `as`단언을 사용하여 강제 타입 캐스팅을 해주는 방법입니다.
+```typescript
+const typedObjectKeys = <TObj extends {}>(obj: TObj): Array<keyof TObj> => {
+  return Object.keys(obj) as Array<keyof TObj>;
+}
+```
+`Object.keys(obj)`는 런타임에서는 문제가 없고, 실제로 `keyof TObj`의 값만 반환되기 때문에 타입 단언이 합리적인 방법입니다.
 
+# 제네릭 사용 예시
+### 1. 반환값의 유형 주입
+```typescript
+const makeFetch = <TData>(url: string): Promise<TData> => {
+  return fetch(url).then((res) => res.json());
+};
 
-# Event Loop
-JavaScript는 작성된 코드를 순차적으로 하나씩 실행시키며(하나의 호출 스택) 동시에 여러 호출을 실행할 수 없는 **single thread** 언어 입니다. 하지만 사용자가 느끼기에 전혀 불편함 없이 웹페이지는 이벤트를 처리하는데 바로 비동기 처리를 하기 때문입니다.
-이벤트 루프는 비동기 작업을 효율적으로 관리하고, 콜 스택과 태스크 큐를 연결하여 블로킹 없이 작업을 수행할 수 있도록 도와주는 핵심 매커니즘 입니다.   
-<br>
-
-| 구성 요소                    | 역할                                                  |
-| ---------------------------- | ----------------------------------------------------- |
-| **콜 스택 (Call Stack)**     | 현재 실행 중인 코드(함수 등)를 관리                   |
-| **Web APIs**                 | 비동기 작업 (fetch, setTimeout 등) 실행               |
-| **태스크 큐 (Task Queue)**   | 완료된 비동기 작업의 콜백을 대기                      |
-| **이벤트 루프 (Event Loop)** | 콜 스택이 비어있으면 태스크 큐에서 콜백을 가져와 실행 |
-
-### 실행 흐름
-1. JavaScript 코드가 실행되면, **콜 스택**에 추가되어 실행됨.
-2. 비동기 작업 (setTimeout, fetch 등)은 **Web API**가 실행하고 콜백 작업을 **태스크 큐**로 보냄.
-3. 이벤트 루프는 **콜 스택이 비었는지 확인**.
-4. 콜 스택이 비어 있으면, **태스크 큐에서 콜백 작업을 꺼내 실행**.
-
-### 마이크로태스크 큐(Microtask Queue) vs 태스크 큐(Task Queue)
-- 마이크로태스크 큐: `Promise.then()`, `MutationObserver`
-- 태스크 큐: `setTimout`, `setInterval`, `fetch`, `I/O 작업`
-항상 마이크로태스크 큐가 가장 먼저 실행되고, 그 다음으로 태스크 큐의 작업이 실행됩니다.
-
-### 실행 예제
-```javascript
-console.log("Start");
-
-setTimeout(() => {
-  console.log("setTimeout Callback");
-}, 0);
-
-Promise.resolve().then(() => {
-  console.log("Promise Callback");
+makeFetch<{ firstName: string; lastName: string }>(
+  "/api/endpoin"
+).then((res) => {
+  console.log(res);
 });
-
-console.log("End");
 ```
+fetch를 통한 통신의 응답값을 고정하지 않고 제네릭을 통해 유연하게 반환할 수 있습니다. `makeFetch` 함수를 실행하는 시점에 반환 값에 대한 타입을 주입하여 다양한 곳에서 사용할 수 있습니다.   
+### 2. 인수에 따른 반환 타입 추론
+아래 함수는 두번째 매개변수 `key`를 사용하여 첫번째 매개변수 `obj`의 해당 키의 값을 반환하는 함수입니다.
+매개변수의 타입이 `unknown`으로 되어있어 오류가 발생합니다.
+```typescript
+const getValue = (obj: unknown, key: keyof unknown) => {
+  return obj[key]; // 'obj'는 unknown 형식입니다.
+};
 
-### 출력 결과
-```javascript
-Start
-End
-Promise Callback
-setTimeout Callback
+const result = getValue(
+  { a: 1, b: 'some-string'},
+  "b", // "b" 형식의 인수는 'never' 형식의 매개 변수에 할당될 수 없습니다.
+)
 ```
+따라서 아래와 같이 제네릭을 설정하면 `key` 매개변수를 `TObj`의 키값으로 인덱싱할 수 있습니다.
+`getValue`의 두번째 인수로 'a', 'b'를 사용할 수 있고 이외에는 오류가 발생하여 문제가 없습니다.
+하지만 현재 getValue의 반환값이 `string | number`로 유니온 형태가 되어 두번째 인수에 따른 정확한 반환값을 얻지 못합니다.
+```typescript
+const getValue = <TObj extends object>(obj: TObj, key: keyof TObj) => {
+  return obj[key];
+};
 
-### 실행 과정
-1. "Start" 실행 -> 출력
-2. setTimeout 실행 -> Web API로 보내짐 (0초 후 실행)
-3. Promise.then() 실행 -> 마이크로태스크 큐에 추가됨
-4. "End" 실행 -> 출력
-5. 이벤트 루프가 마이크로태스크 큐의 Promise.then() 실행 -> "Promise Callback" 출력
-6. 이벤트 루프가 태스크 큐의 setTimeout 실행 -> "setTimeout Callback" 출력
+const result = getValue(
+  { a: 1, b: 'some-string'},
+  "b",
+); // (obj: { a: number; b: string }, key: "b" | "a") => string | number
+```
+TObj의 키값으로 타입을 제한하는 `TKey`제네릭을 추가하여 두번째 매개변수 `key`의 타입으로 설정하게되면 두번째 매개변수로 전달한 인수에 따라 정확한 반환값의 타입을 얻을 수 있습니다.
+```typescript
+const getValue = <TObj extends object, TKey extends keyof TObj>(obj: TObj, key: TKey) => {
+  return obj[key];
+};
 
-# JavaScript Memory
-1. 콜 스택 (Call Stack): JavaScript가 사용하는 정적 데이터를 저장하는 데이터 구조입니다. 원시값들(string, number, boolean, undefined, null), 객체와 함수를 참조하는 주소, 함수 호출 시 생성되는 실행 컨텍스트를 저장합니다. 엔진은 크기가 변경되지 않는 다는 것을 알고 있기에 각 값들에게 고정된 양의 메모리를 할당하며 실행 직전, 메모리에 할당하는 과정을 **정적 메모리 할당**이라고 합니다.
-2. 메모리 힙 (Memory Heap): 객체 및 함수를 저장하며 고정된 양이 아닌 필요에 따른 더 많은 공간을 할당합니다. 저장된 데이터에 메모리를 할당하며 Stack에서 이를 참조합니다.
+const result = getValue(
+  { a: 1, b: 'some-string'},
+  "a",
+); // (obj: { a: number; b: string }, key: "a") => number
+const result2 = getValue(
+  { a: 1, b: 'some-string'},
+  "b",
+); // (obj: { a: number; b: string }, key: "b") => string
+```
+### 3. 런타임 타입 검증
+아래 함수는 현재 제네릭 `TData`를 받아 fetch에 대한 결과 값을 반환하고, `makeZodSafeFetch()`에서 결과값에 대한 타입 유형을 주입하였습니다. 하지만 실제 반환되는 값이 `{ firstName: string; lastName: string }`의 형태라는 것을 보장할 수는 없습니다.
+```typescript
+const makeZodSafeFetch = <TData extends object>(url: string): Promise<TData> => {
+  return fetch(url).then((res) => res.json());
+}
 
-### 메모리 힙과 이벤트 루프의 관계
-1. 비동기 작업이 실행될 때, 필요한 데이터는 메모리 힙에 저장됨.
-2. Promise를 사용하면 데이터가 메모리 힙에 남아있다가, 마이크로태스크 큐를 통해 콜백이 실행될 때 참조됨.
-3. 메모리 누수(Memory Leak)를 막기 위해, 불필요한 객체는 GC가 자동으로 제거함.
+makeZodSafeFetch<{ firstName: string; lastName: string}>(
+  "/api/endpoint"
+).then((res) => {
+  console.log(res)
+})
+```
+런타임에서 반환되는 값의 유효성을 검사하기 위해 zod 라이브러리를 사용합니다. 함수의 두번째 인자로 `schema`를 추가하고 실행하는 부분에서 `z.object`를 알맞은 형태로 넣어줍니다. 이제 `makeZodSafeFetch`함수는 fetch의 응답값이 `schema`형태에 알맞는지 검증하고 해당값 또는 오류를 반환할 수 있습니다. 따라서  `try/catch`를 활용하여 예외처리 할 수 있습니다.
+```typescript
+import { z } from 'zod';
 
-# Garbage Collection(GC)
-JavaScript 엔진은 객체가 생성될 때 자동으로 메모리를 할당하고 더 이상 사용하지 않을 때 메모리를 해제합니다. 하지만 GC가 실행되는 시점은 개발자가 직접 컨트롤할 수 없습니다.
+const makeZodSafeFetch = <TData extends object>(url: string, schema: z.Schema): Promise<TData> => {
+  return fetch(url)
+  .then((res) => res.json())
+  .then((res) => {
+    return schema.parse(res);
+  })
+}
 
-
-### 가비지 컬렉션의 원리
-- 참조 카운팅: 어떤 객체가 더 이상 사용되지 않으면 메모리에서 제거.
-- 마크 앤 스윕: 도달할 수 없는 객체를찾아 제거.
+try {
+  makeZodSafeFetch<{ firstName: string; lastName: string}>(
+    "/api/endpoint",
+    z.object({
+      firstName: z.string(),
+      lastName: z.string(),
+    })
+  ).then((res) => {
+    console.log(res)
+  })
+} catch (err){
+    if (err instanceof z.ZodError){
+      console.error("스키마 유효성 검사 실패", err.errors)
+    } else {
+      console.error("기타 에러", err)
+    }
+}
+```
+현재 코드상으로 `makeZodSafeFetch` 실행 부분에서 응답값에 대한 타입 주입이 제네릭과 두번째 인자값으로 이중으로 이뤄지고 있습니다. 타입 유형을 변경하려면 두 가지 모두 수정해야 합니다.
+```typescript
+  makeZodSafeFetch<{ firstName: string; lastName: string}>(
+    "/api/endpoint",
+    z.object({
+      firstName: z.string(),
+      lastName: z.string(),
+    })
+  )
+```
+이를 개선하기 위해 `schema: z.Schema<TData>`과 같이 제네릭을 설정하게 되면 `schema`의 값만을 통하여 타입 추론이 가능하게 됩니다.
+```typescript
+const makeZodSafeFetch = <TData extends object>(url: string, schema: z.Schema<TData>): Promise<TData> => {
+  return fetch(url)
+  .then((res) => res.json())
+  .then((res) => {
+    return schema.parse(res);
+  })
+}
+makeZodSafeFetch(
+  "/api/endpoint",
+  z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+  })
+)
+```
 
 ---
 
-> 자바스크립트의 동작 원리와 흐름에 대해서 정리해보았습니다. 실제로 웹 상에서 작성한 코드가 어떤 흐름으로 실행되는지 적용해 보는데 도움이 될 것 같습니다.
+> 제네릭은 함수의 매개변수와 반환값, 클래스의 속성과 메소드 등 다양한 곳에서 값의 타입을 동적으로 사용할 수 있도록 도와줍니다. `interface`를 통해 가독성을 높일 수 있고 `extends`와 `keyof`, `typeof`와 함께 사용하면 커스텀된 제약조건을 설정하여 타입을 제한하고 재사용 가능한 코드를 작성할 수 있게 합니다. 
 
 #
 
@@ -200,3 +268,4 @@ JavaScript 엔진은 객체가 생성될 때 자동으로 메모리를 할당하
 - [<https://joshua1988.github.io/ts/guide/generics.html#%EC%A0%9C%EB%84%A4%EB%A6%AD-%ED%83%80%EC%9E%85-%EB%B3%80%EC%88%98>](https://joshua1988.github.io/ts/guide/generics.html#%EC%A0%9C%EB%84%A4%EB%A6%AD-%ED%83%80%EC%9E%85-%EB%B3%80%EC%88%98)
 - [<https://www.typescriptlang.org/ko/docs/handbook/2/generics.html>](https://www.typescriptlang.org/ko/docs/handbook/2/generics.html)
 - [<https://inpa.tistory.com/entry/TS-%F0%9F%93%98-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-Generic-%ED%83%80%EC%9E%85-%EC%A0%95%EB%B3%B5%ED%95%98%EA%B8%B0>](https://inpa.tistory.com/entry/TS-%F0%9F%93%98-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-Generic-%ED%83%80%EC%9E%85-%EC%A0%95%EB%B3%B5%ED%95%98%EA%B8%B0)
+- [<https://www.youtube.com/watch?app=desktop&v=dLPgQRbVquo&t=261s&ab_channel=MattPocock>](https://www.youtube.com/watch?app=desktop&v=dLPgQRbVquo&t=261s&ab_channel=MattPocock)
