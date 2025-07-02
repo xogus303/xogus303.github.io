@@ -45,7 +45,7 @@ const PostList: FunctionComponent<PostListProps> = function ({
   return (
     <PostListWrapper ref={containerRef}>
       {postList
-        .filter(i => i.node.frontmatter.categories.length > 0)
+        .filter(i => i.node.frontmatter.categories?.length > 0)
         .map(
           ({
             node: {

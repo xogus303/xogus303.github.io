@@ -32,7 +32,7 @@ const useInfiniteScroll = (
         },
       }: PostListItemType) =>
         selectedCategory !== 'All'
-          ? categories.includes(selectedCategory)
+          ? categories?.includes(selectedCategory)
           : true,
     )
   }, [selectedCategory])

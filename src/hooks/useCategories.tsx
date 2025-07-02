@@ -54,11 +54,13 @@ export const useFormatCategory = (edges: PostListItemType[]) => {
             },
           },
         ) => {
-          categories.forEach((category: string) => {
-            if (list[category] === undefined) list[category] = 1
-            else list[category]++
-            list['All']++
-          })
+          if (categories) {
+            categories.forEach((category: string) => {
+              if (list[category] === undefined) list[category] = 1
+              else list[category]++
+              list['All']++
+            })
+          }
 
           return list
         },
