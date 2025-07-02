@@ -2,7 +2,7 @@
 date: '2025-07-02'
 series: ''
 title: 'react에서 useRef와 변수'
-categories: ['reactjs']
+categories: ['ReactJS']
 summary: 'useRef 훅의 사용과 let으로 선언한 값을 사용하는 것의 차이'
 thumbnail: '../../static/postThumbnails/postThumbnail_250702.png'
 ---
