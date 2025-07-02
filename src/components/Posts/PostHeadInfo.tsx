@@ -101,7 +101,11 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
   categories,
 }) => {
   const goBackPage = () => {
-    navigate(-1)
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      navigate(-1)
+    } else {
+      navigate('/')
+    }
   }
 
   return (
