@@ -65,13 +65,8 @@ const SelectedCate = styled.div`
   position: relative;
   justify-content: flex-end;
 
-  &:active .HoverCateArea {
+  &:hover .HoverCateArea {
     display: flex;
-  }
-  @media (hover: hover) and (pointer: fine) {
-    &:hover .HoverCateArea {
-      display: flex;
-    }
   }
 `
 const SelectedCateText = styled.div`
@@ -127,24 +122,6 @@ const Header = ({ isIntro = false }: HeaderProps) => {
   const selectedCategory = useSelectedCategory(
     typeof window !== 'undefined' ? window.location.search : '',
   )
-
-  const [isFixed, setIsFixed] = useState<boolean>(true)
-
-  const handleFixheader = () => {
-    if (window.scrollY >= 400) {
-      setIsFixed(true)
-    } else {
-      setIsFixed(false)
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleFixheader)
-
-    return () => {
-      window.removeEventListener('scroll', handleFixheader)
-    }
-  }, [])
 
   return (
     <Wrap isActive={isIntro}>

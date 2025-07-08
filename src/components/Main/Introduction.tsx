@@ -11,6 +11,7 @@ import { faArrowsUpDown } from '@fortawesome/free-solid-svg-icons'
 import { keyframes } from '@emotion/react'
 import useIntervalWriteText from 'hooks/useIntervalWriteText'
 import { cssState } from 'constants/type'
+import useScrollOrSwipeUp from 'hooks/useScrollOrSwipeUp'
 
 const Background = styled.div`
   position: relative;
@@ -101,18 +102,7 @@ const Introduction: FunctionComponent<IntroductionProps> = ({
 }) => {
   const [showInfoText, setShowInfoText] = useState<boolean>(false)
 
-  const handleFirstWheel = useCallback(
-    (e: React.WheelEvent<HTMLDivElement>) => {
-      if (
-        showInfoText === true &&
-        isIntro === true &&
-        e.nativeEvent.deltaY > 0
-      ) {
-        hideIntro()
-      }
-    },
-    [isIntro, showInfoText],
-  )
+  useScrollOrSwipeUp(showInfoText === true && isIntro === true, hideIntro)
 
   useEffect(() => {
     setTimeout(() => {
@@ -121,7 +111,7 @@ const Introduction: FunctionComponent<IntroductionProps> = ({
   }, [])
 
   return (
-    <Background onWheel={handleFirstWheel}>
+    <Background>
       <Wrapper isActive={isIntro}>
         <TextArea isActive={isIntro}>
           <Title>{useIntervalWriteText(welcomeText, !isIntro)}</Title>

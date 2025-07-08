@@ -56,6 +56,9 @@ const defaultStyle = css`
       word-wrap: break-word;
     }
   }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
 `
 
 const GlobalStyle: FunctionComponent = props => {
