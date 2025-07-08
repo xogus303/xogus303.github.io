@@ -18,19 +18,19 @@ const PostListWrapper = styled.div`
   grid-gap: 3em;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 50px 0 100px;
+  padding: 100px 0;
 
   @media (max-width: 1080px) {
     grid-template-columns: 1fr 1fr;
     grid-gap: 2% 5%;
-    padding: 50px 20px;
+    padding: 70px 20px;
   }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     grid-gap: 1% 2%;
     width: 100%;
-    padding: 50px 20px;
+    padding: 70px 20px;
   }
 `
 

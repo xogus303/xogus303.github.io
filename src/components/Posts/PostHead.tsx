@@ -27,6 +27,10 @@ const PostThumbnail = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  @media (max-width: 768px) {
+    padding: 0px 20px;
+  }
 `
 
 const OriginText = styled.a`

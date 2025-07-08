@@ -18,6 +18,8 @@ const Wrap = styled.header<cssState>`
   position: fixed;
   width: 100%;
   background-color: #000;
+  opacity: ${props => (props.isActive ? 0 : 1)};
+  transition: 1s;
 `
 const Inner = styled.div`
   display: flex;
@@ -63,12 +65,13 @@ const SelectedCate = styled.div`
   position: relative;
   justify-content: flex-end;
 
-  &:hover {
-    width: 300px;
-  }
-
-  &:hover .HoverCateArea {
+  &:active .HoverCateArea {
     display: flex;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    &:hover .HoverCateArea {
+      display: flex;
+    }
   }
 `
 const SelectedCateText = styled.div`
@@ -144,7 +147,7 @@ const Header = ({ isIntro = false }: HeaderProps) => {
   }, [])
 
   return (
-    <Wrap>
+    <Wrap isActive={isIntro}>
       <Inner>
         <Left>
           <HomeBtn to="/">

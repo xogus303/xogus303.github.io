@@ -84,11 +84,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
       image={publicURL}
       isIntro={isIntro}
     >
-      <Introduction
-        introduceBg={gatsbyImageData}
-        isIntro={isIntro}
-        hideIntro={hideIntro}
-      />
+      <Introduction isIntro={isIntro} hideIntro={hideIntro} />
       <PostList selectedCategory={selectedCategory} posts={edges} />
     </Template>
   )
