@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from "react";
-import styled from "@emotion/styled";
+import React, { FunctionComponent } from 'react'
+import styled from '@emotion/styled'
 
 interface PostContentProps {
-  html: string;
+  html: string
 }
 
 const MarkdownRenderer = styled.div`
@@ -25,7 +25,6 @@ const MarkdownRenderer = styled.div`
   h2,
   h3 {
     font-weight: 700;
-    margin-bottom: 10px;
   }
 
   * + h1 {
@@ -82,7 +81,7 @@ const MarkdownRenderer = styled.div`
   }
 
   // Adjust Code Style
-  pre[class*="language-"] {
+  pre[class*='language-'] {
     padding: 15px;
     font-size: 15px;
 
@@ -92,8 +91,8 @@ const MarkdownRenderer = styled.div`
     }
   }
 
-  code[class*="language-"],
-  pre[class*="language-"] {
+  code[class*='language-'],
+  pre[class*='language-'] {
     tab-size: 2;
     white-space: break-spaces;
   }
@@ -143,10 +142,10 @@ const MarkdownRenderer = styled.div`
       margin: 50px 0;
     }
   }
-`;
+`
 
 const PostContent: FunctionComponent<PostContentProps> = ({ html }) => {
-  return <MarkdownRenderer dangerouslySetInnerHTML={{ __html: html }} />;
-};
+  return <MarkdownRenderer dangerouslySetInnerHTML={{ __html: html }} />
+}
 
-export default PostContent;
+export default PostContent

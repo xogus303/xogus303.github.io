@@ -56,8 +56,14 @@ const defaultStyle = css`
       word-wrap: break-word;
     }
   }
+  ol {
+    margin-top: 1rem;
+  }
   * {
     -webkit-tap-highlight-color: transparent;
+  }
+  pre[class*='language-'] {
+    background: #f0f4f9;
   }
 `
 
