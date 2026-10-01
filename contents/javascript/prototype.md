@@ -3,6 +3,7 @@ date: '2025-08-23'
 series: ''
 title: 'JavaScript의 prototype'
 categories: ['Javascript']
+tags: ['자바스크립트', '프로토타입', '객체지향']
 summary: '자바스크립트에서 객체 지향 프로그래밍의 핵심'
 thumbnail: '../../static/postThumbnails/postThumbnail_250823.png'
 ---
@@ -18,9 +19,9 @@ thumbnail: '../../static/postThumbnails/postThumbnail_250823.png'
 ES6에서 도입된 `class`는 **생성자 함수와 prototype 패턴을 깔금하게 감싼 문법**이라고 할 수 있으며, 사실상 프로토 타입 기반 상속을 더 쉽게 사용할 수 있도록 할 뿐, 본질은 변하지 않습니다.
 
 # 프로토타입 체인
-모든 자바스크립트 객체는 `[[Prototype]]` 이라는 내부 슬록을 가집니다. 이 슬롯은 객체의 부모 역할을 하는 **프로토타입 객체**를 가리킵니다.   
+모든 자바스크립트 객체는 `[[Prototype]]` 이라는 내부 슬롯을 가집니다. 이 슬롯은 객체의 부모 역할을 하는 **프로토타입 객체**를 가리킵니다.   
 
-- `__proto__` (비표준): ECMAScript 명세에 포함된 공식적인 기능은 아니지만, 대부분의 브라우저에서 `[[Prototype]]`에 접근하기 위해 제공하는 비표준 속성. 객체의 프로토 타입을 확인하고, 다른 객체로 교체할 수 있습니다.
+- `__proto__` (비표준): ECMAScript 명세에 포함된 공식적인 기능은 아니지만, 대부분의 브라우저에서 `[[Prototype]]`에 접근하기 위해 제공하는 비표준 속성. 객체의 프로토타입을 확인하고, 다른 객체로 교체할 수 있습니다.
 ```javascript
 const animal = {
     isAnimal: true
@@ -82,7 +83,7 @@ console.log(student.isPerson); // true
    }
    ```
 2. 자식 객체 (생성자 함수) 정의   
-    자식 생성자 함수 `Dog`를 만들고 `Animal`의 속성을 물려받야아 흐므로, `call`메소드를 이용해 `Animal` 생성자 함수를 호출합니다.
+    자식 생성자 함수 `Dog`를 만들고 `Animal`의 속성을 물려받야아 하므로, `call`메소드를 이용해 `Animal` 생성자 함수를 호출합니다.
     ```javascript
     function Dog(name, breed) {
         Animal.call(this.name); // 상속: 부모 생성자 함수 호출
