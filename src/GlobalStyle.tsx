@@ -1,13 +1,9 @@
 import React, { FunctionComponent } from 'react'
 import { Global, css } from '@emotion/react'
 
+import { color } from 'constants/color'
+
 const defaultStyle = css`
-  @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
-  /* @font-face {
-    font-family: 'Nanum Gothic', sans-serif;
-    font-weight: 400;
-  } */
   @font-face {
     font-family: 'Spoqa Han Sans';
     font-weight: 700;
@@ -24,7 +20,7 @@ const defaultStyle = css`
     margin: 0;
     box-sizing: border-box;
     font-weight: 400;
-    font-family: 'Spoqa Han Sans', serif;
+    font-family: 'Spoqa Han Sans', sans-serif;
   }
 
   html,
@@ -42,7 +38,7 @@ const defaultStyle = css`
   }
   strong {
     font-weight: 700;
-    font-family: 'Spoqa Han Sans', serif;
+    font-family: 'Spoqa Han Sans', sans-serif;
   }
 
   button {
@@ -63,7 +59,7 @@ const defaultStyle = css`
     -webkit-tap-highlight-color: transparent;
   }
   pre[class*='language-'] {
-    background: #f0f4f9;
+    background: ${color.bgAlt};
   }
 `
 

@@ -12,10 +12,17 @@ import { keyframes } from '@emotion/react'
 import useIntervalWriteText from 'hooks/useIntervalWriteText'
 import { cssState } from 'constants/type'
 import useScrollOrSwipeUp from 'hooks/useScrollOrSwipeUp'
+import { color } from 'constants/color'
 
 const Background = styled.div`
   position: relative;
   width: 100%;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    ${color.accentTint} 55%,
+    #c9cefa 100%
+  );
 `
 
 const Wrapper = styled.div<cssState>`
@@ -41,6 +48,7 @@ const TextArea = styled.div<cssState>`
 
 const Title = styled.strong`
   font-size: 35px;
+  color: ${color.ink};
 
   @media (max-width: 1080px) {
     font-size: 25px;
@@ -85,10 +93,8 @@ const DownIcon = styled.div<cssState>`
 `
 const DownIconBtn = styled.button`
   padding: 8px 5px;
-  border: 0.2rem solid #000;
+  border: 0.2rem solid ${color.accent};
   border-radius: 20px;
-  /* box-shadow: 0 0 0.1rem #fff, 0 0 0.1rem #fff, 0 0 1rem #ff0080,
-    0 0 0.4rem #ff0080, 0 0 1.4rem #ff0080, inset 0 0 0.6rem #ff0080; */
 `
 
 type IntroductionProps = {
@@ -120,7 +126,7 @@ const Introduction: FunctionComponent<IntroductionProps> = ({
           {showInfoText && (
             <DownIcon onClick={hideIntro} isActive={isIntro}>
               <DownIconBtn>
-                <FontAwesomeIcon icon={faArrowsUpDown} color={'#000'} />
+                <FontAwesomeIcon icon={faArrowsUpDown} color={color.accent} />
               </DownIconBtn>
             </DownIcon>
           )}

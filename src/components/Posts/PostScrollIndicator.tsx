@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { cssState } from 'constants/type'
+import { color } from 'constants/color'
 
 const Wrapper = styled.div`
   position: fixed;
@@ -9,8 +10,8 @@ const Wrapper = styled.div`
 `
 const Indicator = styled.div<cssState>`
   width: ${props => props.percent}%;
-  height: 10px;
-  background-color: #aaa;
+  height: 4px;
+  background-color: ${color.accent};
 `
 
 interface PostScrollIndicatorProps {

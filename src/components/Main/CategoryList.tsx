@@ -2,6 +2,8 @@ import React, { FunctionComponent, ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 
+import { color } from 'constants/color'
+
 type CategoryItemProps = {
   active?: boolean
 }
@@ -38,9 +40,8 @@ const CategoryItem = styled(({ active, ...props }: GatsbyLinkProps) => (
   margin-right: 20px;
   padding: 5px 0;
   font-size: 18px;
-  font-family: ${({ active }) =>
-    active ? 'Spoqa Han Sans Bold' : 'Spoqa Han Sans Regular'};
-  color: ${({ active }) => (active ? '#000' : '#aaa')};
+  font-weight: ${({ active }) => (active ? 700 : 400)};
+  color: ${({ active }) => (active ? color.accent : color.muted)};
   cursor: pointer;
 
   &:last-of-type {
