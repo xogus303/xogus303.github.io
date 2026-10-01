@@ -5,7 +5,6 @@ import React, {
   useState,
 } from 'react'
 import { graphql } from 'gatsby'
-import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 import Template from 'components/Common/Template'
 import Introduction from 'components/Main/Introduction'
@@ -28,12 +27,6 @@ type IndexPageProps = {
     allMarkdownRemark: {
       edges: PostListItemType[]
     }
-    file: {
-      childImageSharp: {
-        gatsbyImageData: IGatsbyImageData
-      }
-      publicURL: string
-    }
   }
 }
 
@@ -44,10 +37,6 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
       siteMetadata: { title, description, siteUrl },
     },
     allMarkdownRemark: { edges },
-    file: {
-      childImageSharp: { gatsbyImageData },
-      publicURL,
-    },
   },
 }) {
   const selectedCategory = useSelectedCategory(search)
@@ -81,7 +70,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = function ({
       title={title}
       description={description}
       url={siteUrl}
-      image={publicURL}
+      image={undefined}
       isIntro={isIntro}
     >
       <Introduction isIntro={isIntro} hideIntro={hideIntro} />
@@ -112,9 +101,11 @@ export const getPostList = graphql`
           }
           frontmatter {
             title
+            series
             summary
             date(formatString: "YYYY.MM.DD")
             categories
+            tags
             thumbnail {
               childImageSharp {
                 gatsbyImageData(width: 768, height: 400)
@@ -123,12 +114,6 @@ export const getPostList = graphql`
           }
         }
       }
-    }
-    file(name: { eq: "introduceBg" }) {
-      childImageSharp {
-        gatsbyImageData
-      }
-      publicURL
     }
   }
 `

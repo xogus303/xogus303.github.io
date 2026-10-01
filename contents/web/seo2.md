@@ -3,6 +3,7 @@ date: '2025-03-27'
 series: '검색엔진 최적화'
 title: '개발자의 SEO (2)'
 categories: ['Web']
+tags: ['SEO', '사이트맵']
 summary: '특정 게시글 검색 시 Google 상위 결과로 노출시키기'
 thumbnail: '../../static/postThumbnails/postThumbnail_250311.png'
 ---

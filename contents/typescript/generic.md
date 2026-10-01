@@ -3,6 +3,7 @@ date: '2025-06-18'
 series: ''
 title: 'Generic 타입이란'
 categories: ['Typescript']
+tags: ['타입스크립트', '제네릭']
 summary: 'generic이 무엇이고 언제 사용하는지 정확히 파악해보자'
 thumbnail: '../../static/postThumbnails/postThumbnail_250618.png'
 ---

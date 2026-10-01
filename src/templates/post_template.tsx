@@ -3,14 +3,18 @@ import { graphql } from 'gatsby'
 
 import Template from 'components/Common/Template'
 import PostHead from 'components/Posts/PostHead'
-import { PostFrontmatterType } from 'types/PostItem.types'
+import { PostFrontmatterType, SeriesPostItemType } from 'types/PostItem.types'
 import PostContent from 'components/Posts/PostContent'
 import CommentWidget from 'components/Posts/CommentWidget'
 import PostScrollIndicator from 'components/Posts/PostScrollIndicator'
+import SeriesNav from 'components/Posts/SeriesNav'
+import TableOfContents from 'components/Posts/TableOfContents'
 
 export type PostPageItemType = {
   node: {
     html: string
+    tableOfContents: string | null
+    timeToRead: number
     frontmatter: PostFrontmatterType
   }
 }
@@ -20,27 +24,38 @@ type PostTemplateProps = {
     allMarkdownRemark: {
       edges: PostPageItemType[]
     }
+    seriesPosts: {
+      edges: SeriesPostItemType[]
+    }
   }
   location: {
     href: string
+  }
+  pageContext: {
+    slug: string
   }
 }
 
 const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
   data: {
     allMarkdownRemark: { edges },
+    seriesPosts,
   },
   location: { href },
+  pageContext: { slug: currentSlug },
 }) {
   const {
     node: {
       html,
+      tableOfContents,
+      timeToRead,
       frontmatter: {
         title,
         series,
         summary,
         date,
         categories,
+        tags,
         thumbnail,
         thumbnailOrigin,
       },
@@ -85,10 +100,18 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
         series={series}
         date={date}
         categories={categories}
+        tags={tags}
+        readingTime={timeToRead}
         thumbnail={thumbnail?.childImageSharp?.gatsbyImageData}
         thumbnailOrigin={thumbnailOrigin}
       />
+      <TableOfContents html={tableOfContents} />
       <PostContent html={html} />
+      <SeriesNav
+        series={series}
+        currentSlug={currentSlug}
+        posts={seriesPosts.edges}
+      />
       <CommentWidget />
     </Template>
   )
@@ -97,17 +120,20 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
 export default PostTemplate
 
 export const queryMarkdownDataBySlug = graphql`
-  query queryMarkdownDataBySlug($slug: String) {
+  query queryMarkdownDataBySlug($slug: String, $series: String) {
     allMarkdownRemark(filter: { fields: { slug: { eq: $slug } } }) {
       edges {
         node {
           html
+          tableOfContents(maxDepth: 3)
+          timeToRead
           frontmatter {
             title
             series
             summary
             date(formatString: "YYYY.MM.DD")
             categories
+            tags
             thumbnail {
               childImageSharp {
                 gatsbyImageData
@@ -115,6 +141,22 @@ export const queryMarkdownDataBySlug = graphql`
               publicURL
             }
             thumbnailOrigin
+          }
+        }
+      }
+    }
+    seriesPosts: allMarkdownRemark(
+      filter: { frontmatter: { series: { eq: $series } } }
+      sort: [{ frontmatter: { date: ASC } }, { frontmatter: { title: ASC } }]
+    ) {
+      edges {
+        node {
+          id
+          fields {
+            slug
+          }
+          frontmatter {
+            title
           }
         }
       }

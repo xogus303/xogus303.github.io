@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react'
 import styled from '@emotion/styled'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 import PostHeadInfo, { PostHeadInfoProps } from './PostHeadInfo'
+import { color } from 'constants/color'
 
 type GatsbyImgProps = {
   image: IGatsbyImageData
@@ -34,7 +35,7 @@ const PostThumbnail = styled.div`
 `
 
 const OriginText = styled.a`
-  color: #999;
+  color: ${color.mutedLight};
   font-size: 13px;
 `
 
@@ -53,6 +54,8 @@ const PostHead: FunctionComponent<PostHeadProps> = ({
   series,
   date,
   categories,
+  tags,
+  readingTime,
   thumbnail,
   thumbnailOrigin,
 }) => {
@@ -63,6 +66,8 @@ const PostHead: FunctionComponent<PostHeadProps> = ({
         series={series}
         date={date}
         categories={categories}
+        tags={tags}
+        readingTime={readingTime}
       />
       <PostThumbnail>
         {thumbnail && <BackgroundImage image={thumbnail} alt="thumbnail" />}

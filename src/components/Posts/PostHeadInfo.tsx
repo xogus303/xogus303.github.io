@@ -2,13 +2,17 @@ import React, { FunctionComponent } from 'react'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { navigate } from 'gatsby'
+import { navigate, Link } from 'gatsby'
+
+import { color } from 'constants/color'
 
 export type PostHeadInfoProps = {
   title: string
   series: string
   date: string
   categories: string[]
+  tags?: string[]
+  readingTime?: number
 }
 
 const PostHeadInfoWrapper = styled.div`
@@ -31,12 +35,16 @@ const PrevPageIcon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid #aaa;
-  background: #666;
-  color: #000;
+  border: 1px solid ${color.border};
+  background: ${color.white};
   font-size: 22px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px ${color.shadow};
+  transition: 0.2s box-shadow;
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(20, 22, 26, 0.14);
+  }
 
   @media (max-width: 768px) {
     display: none;
@@ -62,7 +70,8 @@ const Title = styled.div`
   white-space: normal;
   -webkit-box-orient: vertical;
   font-size: 45px;
-  font-weight: 800;
+  font-weight: 700;
+  color: ${color.ink};
   word-break: keep-all;
 
   @media (max-width: 768px) {
@@ -70,7 +79,7 @@ const Title = styled.div`
   }
 `
 const Series = styled(Title)`
-  color: #777;
+  color: ${color.accent};
   font-size: 30px;
 
   @media (max-width: 768px) {
@@ -84,7 +93,7 @@ const PostData = styled.div`
   margin-top: 10%;
   font-size: 18px;
   font-weight: 700;
-  color: #aaa;
+  color: ${color.muted};
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -94,11 +103,37 @@ const PostData = styled.div`
   }
 `
 
+const ReadingTime = styled.div`
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: ${color.mutedLight};
+`
+
+const TagRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+`
+
+const TagItem = styled(Link)`
+  font-size: 14px;
+  font-weight: 700;
+  color: ${color.muted};
+
+  &:hover {
+    color: ${color.accent};
+  }
+`
+
 const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
   title,
   series,
   date,
   categories,
+  tags,
+  readingTime,
 }) => {
   const goBackPage = () => {
     if (typeof window !== 'undefined' && window.history.length > 1) {
@@ -111,7 +146,7 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
   return (
     <PostHeadInfoWrapper>
       <PrevPageIcon onClick={goBackPage}>
-        <FontAwesomeIcon icon={faArrowLeft} color={'#fff'} />
+        <FontAwesomeIcon icon={faArrowLeft} color={color.ink} />
       </PrevPageIcon>
       <PostHeadInfoWrap>
         <Series>{series}</Series>
@@ -120,6 +155,18 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
           <div>{categories.join(' / ')}</div>
           <div>{date}</div>
         </PostData>
+        {typeof readingTime === 'number' && (
+          <ReadingTime>{readingTime}분 읽기</ReadingTime>
+        )}
+        {tags && tags.length > 0 && (
+          <TagRow>
+            {tags.map(tag => (
+              <TagItem key={tag} to={`/tags/${tag}/`}>
+                #{tag}
+              </TagItem>
+            ))}
+          </TagRow>
+        )}
       </PostHeadInfoWrap>
     </PostHeadInfoWrapper>
   )

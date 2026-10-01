@@ -3,6 +3,7 @@ date: '2023-02-10'
 series: '브라우저의 동작 원리'
 title: '2.5초 동안 일어나는 일'
 categories: ['Web']
+tags: ['브라우저', '렌더링']
 summary: '브라우저에서 웹페이지가 노출되기 까지의 모든 흐름에 대하여'
 thumbnail: '../../static/postThumbnails/postThumbnail_230131.png'
 ---

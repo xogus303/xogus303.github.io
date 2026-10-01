@@ -4,6 +4,7 @@ date: '2023-08-22'
 series: ''
 title: 'Cache'
 categories: ['Network']
+tags: ['네트워크', '캐시']
 summary: 'Web Cache란 무엇이며 어떻게 동작하는가'
 thumbnail: '../../static/postThumbnails/postThumbnail_230822.png'
 ---

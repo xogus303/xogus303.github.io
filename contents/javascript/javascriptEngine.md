@@ -3,6 +3,7 @@ date: '2023-02-20'
 series: ''
 title: 'JavaScript의 동작'
 categories: ['Javascript']
+tags: ['자바스크립트', '실행원리']
 summary: '웹페이지를 구성하는 요소 중 동작 부분에 해당하는 JavaScript가 어떻게 실행되는지 이해해보자'
 thumbnail: '../../static/postThumbnails/postThumbnail_230220.jpeg'
 ---

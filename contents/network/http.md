@@ -3,6 +3,7 @@ date: '2023-02-13'
 series: ''
 title: 'HTTP통신'
 categories: ['Network']
+tags: ['네트워크', 'HTTP']
 summary: '인터넷에서, 웹 서버와 사용자의 인터넷 브라우저 사이에 문서와 같은 리소스를 전송하기 위해 사용되는 통신 규약'
 thumbnail: '../../static/postThumbnails/postThumbnail_230213.jpeg'
 ---

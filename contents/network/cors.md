@@ -4,6 +4,7 @@ date: '2023-08-21'
 series: ''
 title: 'CORS'
 categories: ['Network']
+tags: ['네트워크', 'CORS', 'HTTP']
 summary: 'HTTP의 Cross-Origin Resource Sharing에 대하여'
 thumbnail: '../../static/postThumbnails/postThumbnail_230807.png'
 ---

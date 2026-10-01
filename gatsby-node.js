@@ -12,6 +12,8 @@ exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
         components: path.resolve(__dirname, 'src/components'),
         utils: path.resolve(__dirname, 'src/utils'),
         hooks: path.resolve(__dirname, 'src/hooks'),
+        constants: path.resolve(__dirname, 'src/constants'),
+        types: path.resolve(__dirname, 'src/types'),
       },
     },
   })
@@ -46,6 +48,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             fields {
               slug
             }
+            frontmatter {
+              series
+              tags
+            }
           }
         }
       }
@@ -58,27 +64,72 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     return
   }
 
+  const { edges } = queryAllMarkdownData.data.allMarkdownRemark
+
   // Import Post Template Component
   const PostTemplateComponent = path.resolve(
     __dirname,
     'src/templates/post_template.tsx',
   )
 
+  // Import Series Template Component
+  const SeriesTemplateComponent = path.resolve(
+    __dirname,
+    'src/templates/series_template.tsx',
+  )
+
+  // Import Tag Template Component
+  const TagTemplateComponent = path.resolve(
+    __dirname,
+    'src/templates/tag_template.tsx',
+  )
+
   // Page Generating Function
   const generatePostPage = ({
     node: {
       fields: { slug },
+      frontmatter: { series },
     },
   }) => {
     const pageOptions = {
       path: slug,
       component: PostTemplateComponent,
-      context: { slug },
+      context: { slug, series: series || '' },
     }
 
     createPage(pageOptions)
   }
 
   // Generate Post Page And Passing Slug Props for Query
-  queryAllMarkdownData.data.allMarkdownRemark.edges.forEach(generatePostPage)
+  edges.forEach(generatePostPage)
+
+  // Collect Unique Series Names
+  const seriesNameSet = new Set(
+    edges
+      .map(({ node }) => node.frontmatter.series)
+      .filter(series => series && series.trim() !== ''),
+  )
+
+  // Generate Series Archive Page For Each Series
+  seriesNameSet.forEach(series => {
+    createPage({
+      path: `/series/${series}/`,
+      component: SeriesTemplateComponent,
+      context: { series },
+    })
+  })
+
+  // Collect Unique Tag Names
+  const tagNameSet = new Set(
+    edges.flatMap(({ node }) => node.frontmatter.tags || []),
+  )
+
+  // Generate Tag Archive Page For Each Tag
+  tagNameSet.forEach(tag => {
+    createPage({
+      path: `/tags/${tag}/`,
+      component: TagTemplateComponent,
+      context: { tag },
+    })
+  })
 }

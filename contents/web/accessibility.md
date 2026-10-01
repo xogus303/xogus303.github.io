@@ -3,6 +3,7 @@ date: '2025-04-03'
 series: '웹 접근성'
 title: '웹 접근성이란'
 categories: ['Web']
+tags: ['웹접근성']
 summary: '모두가 동일한 정보를 제공받을 수 있는 사이트가 되려면'
 thumbnail: '../../static/postThumbnails/postThumbnail_250403.png'
 thumbnailOrigin: 'https://mariedays.tistory.com/115'

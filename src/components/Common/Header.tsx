@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'gatsby'
 import styled from '@emotion/styled'
-import { keyframes } from '@emotion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouseChimney } from '@fortawesome/free-solid-svg-icons'
+import {
+  faHouseChimney,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons'
 
 import {
   useGetCategories,
@@ -12,12 +14,15 @@ import {
 } from 'hooks/useCategories'
 import { GatsbyLinkProps } from 'components/Main/CategoryList'
 import { cssState } from 'constants/type'
+import { color } from 'constants/color'
+import SearchModal from './SearchModal'
 
 const Wrap = styled.header<cssState>`
   z-index: 1;
   position: fixed;
   width: 100%;
-  background-color: #000;
+  background-color: ${color.bg};
+  box-shadow: 0 1px 0 ${color.border};
   opacity: ${props => (props.isActive ? 0 : 1)};
   transition: 1s;
 `
@@ -55,10 +60,20 @@ const Bar = styled.div`
   width: 1px;
   height: 16px;
   border-radius: 2px;
-  background-color: #aaa;
+  background-color: ${color.border};
 `
 const LogoText = styled.strong`
-  color: white;
+  color: ${color.ink};
+`
+const SearchButton = styled.button`
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+  color: ${color.muted};
+
+  &:hover {
+    color: ${color.accent};
+  }
 `
 const SelectedCate = styled.div`
   display: flex;
@@ -70,10 +85,11 @@ const SelectedCate = styled.div`
   }
 `
 const SelectedCateText = styled.div`
-  color: white;
-  padding: 2px 30px;
-  border: 1px solid white;
-  border-radius: 17px;
+  color: ${color.white};
+  background-color: ${color.accent};
+  padding: 6px 24px;
+  border-radius: 999px;
+  font-weight: 700;
   cursor: pointer;
 `
 const HoverCateArea = styled.div`
@@ -83,9 +99,10 @@ const HoverCateArea = styled.div`
   top: 100%;
   right: -20px;
   width: 300px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  background-color: #fff;
+  border: 1px solid ${color.border};
+  border-radius: 12px;
+  background-color: ${color.white};
+  box-shadow: 0 8px 24px ${color.shadow};
 `
 const HoverCateList = styled.div`
   float: left;
@@ -102,10 +119,11 @@ const HoverCate = styled(({ active, ...props }: GatsbyLinkProps) => (
 ))`
   margin-top: 8px;
   margin-right: 10px;
-  color: ${({ active }) => (active ? '#000' : '#aaa')};
+  color: ${({ active }) => (active ? color.accent : color.muted)};
+  font-weight: ${({ active }) => (active ? 700 : 400)};
 
   &:hover {
-    color: black;
+    color: ${color.accent};
     text-decoration: underline;
   }
 `
@@ -122,6 +140,7 @@ const Header = ({ isIntro = false }: HeaderProps) => {
   const selectedCategory = useSelectedCategory(
     typeof window !== 'undefined' ? window.location.search : '',
   )
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false)
 
   return (
     <Wrap isActive={isIntro}>
@@ -131,7 +150,7 @@ const Header = ({ isIntro = false }: HeaderProps) => {
             <FontAwesomeIcon
               icon={faHouseChimney}
               size={'lg'}
-              color={'white'}
+              color={color.ink}
             />
           </HomeBtn>
           <LogoTextArea isActive={isIntro}>
@@ -140,6 +159,12 @@ const Header = ({ isIntro = false }: HeaderProps) => {
           </LogoTextArea>
         </Left>
         <Right>
+          <SearchButton
+            onClick={() => setIsSearchOpen(true)}
+            aria-label="검색 열기"
+          >
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </SearchButton>
           <SelectedCate>
             <SelectedCateText>{selectedCategory}</SelectedCateText>
             <HoverCateArea className="HoverCateArea">
@@ -163,6 +188,10 @@ const Header = ({ isIntro = false }: HeaderProps) => {
           </SelectedCate>
         </Right>
       </Inner>
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </Wrap>
   )
 }

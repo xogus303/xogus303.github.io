@@ -6,6 +6,7 @@ export type PostFrontmatterType = {
   summary: string
   date: string
   categories: string[]
+  tags?: string[]
   thumbnail: {
     childImageSharp: {
       gatsbyImageData?: IGatsbyImageData
@@ -21,5 +22,33 @@ export type PostListItemType = {
       slug: string
     }
     frontmatter: PostFrontmatterType
+  }
+}
+
+export type SeriesPostItemType = {
+  node: {
+    id: string
+    fields: {
+      slug: string
+    }
+    frontmatter: {
+      title: string
+    }
+  }
+}
+
+export type SearchPostItemType = {
+  node: {
+    id: string
+    fields: {
+      slug: string
+    }
+    frontmatter: {
+      title: string
+      summary: string
+      date: string
+      categories: string[]
+      tags?: string[]
+    }
   }
 }

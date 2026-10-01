@@ -42,6 +42,18 @@ module.exports = {
             },
           },
           {
+            // 헤딩에 id와 앵커 링크 부여, 목차(TOC) 링크가 이 id를 기준으로 동작함
+            // 고정 헤더에 가려지는 문제는 PostContent.tsx의 scroll-margin-top으로 처리
+            // (이 플러그인의 offsetY는 최초 진입(URL에 해시 포함) 시에만 동작하고
+            // 페이지 안에서 TOC를 클릭하는 경우는 처리하지 못해서 사용하지 않음)
+            resolve: 'gatsby-remark-autolink-headers',
+            options: {
+              className: 'post-heading-anchor',
+              maintainCase: false,
+              removeAccents: true,
+            },
+          },
+          {
             // 문법 하이라이팅 역할, 소스코드를 실제 IDE에서 보는 것처럼 변환
             resolve: 'gatsby-remark-prismjs',
             options: {

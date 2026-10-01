@@ -3,6 +3,7 @@ date: '2025-03-27'
 series: '검색엔진 최적화'
 title: '개발자의 SEO (1)'
 categories: ['Web']
+tags: ['SEO', 'Google Search Console']
 summary: 'SEO(검색엔진 최적화)란 무엇인지 이해하고 Google Search Console 등록하기'
 thumbnail: '../../static/postThumbnails/postThumbnail_250311.png'
 ---
