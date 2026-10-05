@@ -166,11 +166,8 @@ Redis의 `DECRBY`는 메모리에 있는 정수 하나를 그냥 뺍니다. 디�
 | atomic | 2024 | 41.8 | ✅ |
 | **redis** | **9354** | **4.4** | ✅ |
 
-```
-정확성 없는 속도는 무의미          → naive 탈락
-hot row 고경합 상황의 처리량:
-   redis  >>  atomic  >  pessimistic  >  optimistic
-```
+- **정확성 없는 속도는 무의미** → naive 탈락
+- hot row 고경합 상황의 처리량 순위: **redis ≫ atomic > pessimistic > optimistic**
 
 ### 그래서 무엇을 골랐나
 
