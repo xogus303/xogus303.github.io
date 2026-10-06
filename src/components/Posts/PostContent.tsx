@@ -22,13 +22,22 @@ const MarkdownRenderer = styled.div`
   font-size: 16px;
   font-weight: 400;
 
+  p,
+  li {
+    color: ${color.text};
+  }
+
   p {
-    padding: 3px 0;
+    margin: 22px 0;
+  }
+  p:first-of-type {
+    margin-top: 0;
   }
 
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     font-weight: 700;
   }
 
@@ -41,22 +50,56 @@ const MarkdownRenderer = styled.div`
   * + h3 {
     margin-top: 20px;
   }
+  * + h4 {
+    margin-top: 16px;
+  }
   hr + h1,
   hr + h2,
-  hr + h3 {
+  hr + h3,
+  hr + h4 {
     margin-top: 0;
   }
 
   h1 {
-    font-size: 30px;
+    font-size: 36px;
   }
 
   h2 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   h3 {
     font-size: 20px;
+  }
+
+  h4 {
+    font-size: 17px;
+  }
+
+  // 토스 기술 블로그 "aside" 스타일 참고 — 순서가 중요한 단계·목록을 코드블록이
+  // 아닌 별도 카드로 보여줄 때 사용(복사 버튼 불필요, 문단형 목록과도 구분됨)
+  .post-aside {
+    margin: 30px 0;
+    padding: 28px 32px;
+    background: ${color.bgAlt};
+    border-radius: 16px;
+  }
+  .post-aside ol {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 0;
+    padding-left: 22px;
+  }
+  .post-aside li {
+    line-height: 1.6;
+  }
+  .post-aside li::marker {
+    color: ${color.ink};
+    font-weight: 700;
+  }
+  .post-aside strong {
+    color: ${color.ink};
   }
 
   // 고정 헤더에 가려지지 않도록 앵커 이동 시 여유 공간 확보
@@ -188,15 +231,19 @@ const MarkdownRenderer = styled.div`
     font-size: 14px;
 
     h1 {
-      font-size: 23px;
+      font-size: 26px;
     }
 
     h2 {
-      font-size: 20px;
+      font-size: 21px;
     }
 
     h3 {
       font-size: 17px;
+    }
+
+    h4 {
+      font-size: 15px;
     }
 
     img {
@@ -205,6 +252,11 @@ const MarkdownRenderer = styled.div`
 
     hr {
       margin: 50px 0;
+    }
+
+    .post-aside {
+      padding: 20px 20px;
+      border-radius: 12px;
     }
 
     .post-heading-anchor {

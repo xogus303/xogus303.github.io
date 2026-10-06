@@ -62,6 +62,11 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
     },
   } = edges[0]
 
+  const seriesTotal = seriesPosts.edges.length
+  const seriesIndex = seriesPosts.edges.findIndex(
+    ({ node }) => node.fields.slug === currentSlug,
+  )
+
   const [pageHeight, setPageHeight] = useState<number>(0)
   const [scrollY, setScrollY] = useState<number>(0)
   const handleScrollIndicator = () => {
@@ -104,6 +109,8 @@ const PostTemplate: FunctionComponent<PostTemplateProps> = function ({
         readingTime={timeToRead}
         thumbnail={thumbnail?.childImageSharp?.gatsbyImageData}
         thumbnailOrigin={thumbnailOrigin}
+        seriesIndex={seriesIndex}
+        seriesTotal={seriesTotal}
       />
       <TableOfContents html={tableOfContents} />
       <PostContent html={html} />

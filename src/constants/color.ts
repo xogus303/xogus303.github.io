@@ -2,6 +2,7 @@ export const color = {
   bg: '#ffffff',
   bgAlt: '#F6F7FB',
   ink: '#14161A',
+  text: '#333D4B',
   muted: '#6B7280',
   mutedLight: '#9AA1AC',
   border: 'rgba(20, 22, 26, 0.08)',

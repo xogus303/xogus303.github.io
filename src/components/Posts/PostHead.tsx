@@ -58,6 +58,8 @@ const PostHead: FunctionComponent<PostHeadProps> = ({
   readingTime,
   thumbnail,
   thumbnailOrigin,
+  seriesIndex,
+  seriesTotal,
 }) => {
   return (
     <PostHeadWrapper>
@@ -68,6 +70,8 @@ const PostHead: FunctionComponent<PostHeadProps> = ({
         categories={categories}
         tags={tags}
         readingTime={readingTime}
+        seriesIndex={seriesIndex}
+        seriesTotal={seriesTotal}
       />
       <PostThumbnail>
         {thumbnail && <BackgroundImage image={thumbnail} alt="thumbnail" />}

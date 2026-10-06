@@ -8,12 +8,14 @@ const defaultStyle = css`
     font-family: 'Spoqa Han Sans';
     font-weight: 700;
     src: local('Spoqa Han Sans'), url('/fonts/Spoqa Han Sans Bold.ttf');
+    font-display: swap;
   }
 
   @font-face {
     font-family: 'Spoqa Han Sans';
     font-weight: 400;
     src: local('Spoqa Han Sans'), url('/fonts/Spoqa Han Sans Regular.ttf');
+    font-display: swap;
   }
   * {
     padding: 0;

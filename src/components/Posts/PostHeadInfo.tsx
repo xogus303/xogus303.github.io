@@ -13,6 +13,8 @@ export type PostHeadInfoProps = {
   categories: string[]
   tags?: string[]
   readingTime?: number
+  seriesIndex?: number
+  seriesTotal?: number
 }
 
 const PostHeadInfoWrapper = styled.div`
@@ -86,6 +88,15 @@ const Series = styled(Title)`
     font-size: 22px;
   }
 `
+const SeriesOrder = styled.span`
+  font-size: 18px;
+  font-weight: 400;
+  color: ${color.muted};
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+`
 const PostData = styled.div`
   display: flex;
   justify-content: space-between;
@@ -134,7 +145,15 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
   categories,
   tags,
   readingTime,
+  seriesIndex,
+  seriesTotal,
 }) => {
+  const showSeriesOrder =
+    !!series &&
+    typeof seriesIndex === 'number' &&
+    seriesIndex >= 0 &&
+    typeof seriesTotal === 'number' &&
+    seriesTotal > 1
   const goBackPage = () => {
     if (typeof window !== 'undefined' && window.history.length > 1) {
       navigate(-1)
@@ -149,7 +168,15 @@ const PostHeadInfo: FunctionComponent<PostHeadInfoProps> = ({
         <FontAwesomeIcon icon={faArrowLeft} color={color.ink} />
       </PrevPageIcon>
       <PostHeadInfoWrap>
-        <Series>{series}</Series>
+        <Series>
+          {series}
+          {showSeriesOrder && (
+            <SeriesOrder>
+              {' '}
+              ({(seriesIndex as number) + 1}/{seriesTotal})
+            </SeriesOrder>
+          )}
+        </Series>
         <Title>{title}</Title>
         <PostData>
           <div>{categories.join(' / ')}</div>
