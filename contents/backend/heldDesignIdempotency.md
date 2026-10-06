@@ -5,6 +5,7 @@ series: 'Sunchak 개발기'
 title: '결제 전에 "확정"을 쓰지 않은 이유 — HELD 설계, 뒤집힌 멱등키, CTE로 줄인 왕복'
 categories: ['Backend']
 tags: ['멱등성', 'HELD', 'PostgreSQL', 'BullMQ']
+thumbnail: '../../static/postThumbnails/postThumbnail_261006_heldDesignIdempotency.png'
 summary: '관문을 통과해도 바로 확정하지 않고 HELD를 거치는 이유, 구현 직전에 뒤집힌 멱등성 키 설계, 결제 워커의 DB 왕복을 3번에서 1번으로 줄인 CTE 기법'
 ---
 
