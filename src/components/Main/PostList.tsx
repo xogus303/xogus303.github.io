@@ -42,6 +42,30 @@ const PostList: FunctionComponent<PostListProps> = function ({
     selectedCategory,
     posts,
   )
+
+  // 전체 posts(페이지네이션·카테고리 필터 적용 전) 기준으로 시리즈별 순번을 미리 계산 —
+  // postList(필터링된 부분집합)로 계산하면 필터 상태에 따라 순번이 틀어진다.
+  const seriesOrderById = useMemo(() => {
+    const bySeries = new Map<string, PostListItemType[]>()
+    posts.forEach(post => {
+      const series = post.node.frontmatter.series
+      if (!series) return
+      if (!bySeries.has(series)) bySeries.set(series, [])
+      bySeries.get(series)!.push(post)
+    })
+
+    const result = new Map<string, { index: number; total: number }>()
+    bySeries.forEach(group => {
+      const sorted = [...group].sort((a, b) =>
+        a.node.frontmatter.date.localeCompare(b.node.frontmatter.date),
+      )
+      sorted.forEach((post, index) => {
+        result.set(post.node.id, { index, total: sorted.length })
+      })
+    })
+    return result
+  }, [posts])
+
   return (
     <PostListWrapper ref={containerRef}>
       {postList
@@ -54,12 +78,15 @@ const PostList: FunctionComponent<PostListProps> = function ({
               frontmatter,
             },
           }: PostListItemType) => {
+            const order = seriesOrderById.get(id)
             return (
               <PostItem
                 {...frontmatter}
                 link={slug}
                 key={id}
                 selectedCategory={selectedCategory}
+                seriesIndex={order?.index}
+                seriesTotal={order?.total}
               />
             )
           },

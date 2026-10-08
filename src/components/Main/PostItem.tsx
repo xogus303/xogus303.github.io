@@ -11,6 +11,8 @@ import { color } from 'constants/color'
 type PostItemProps = PostFrontmatterType & {
   link: string
   selectedCategory?: string
+  seriesIndex?: number
+  seriesTotal?: number
 }
 
 const PostItemWrapper = styled(({ ...props }: GatsbyLinkProps) => (
@@ -138,7 +140,15 @@ const PostItem: FunctionComponent<PostItemProps> = ({
   thumbnail,
   link,
   selectedCategory,
+  seriesIndex,
+  seriesTotal,
 }) => {
+  const showSeriesOrder =
+    typeof seriesIndex === 'number' &&
+    seriesIndex >= 0 &&
+    typeof seriesTotal === 'number' &&
+    seriesTotal > 1
+
   return (
     <PostItemWrapper to={`${link}?category=${selectedCategory}`}>
       {thumbnail && thumbnail.childImageSharp.gatsbyImageData ? (
@@ -148,7 +158,12 @@ const PostItem: FunctionComponent<PostItemProps> = ({
         />
       ) : null}
       <PostItemInfo>
-        {series && <SeriesBadge>{series}</SeriesBadge>}
+        {series && (
+          <SeriesBadge>
+            {series}
+            {showSeriesOrder && ` (${(seriesIndex as number) + 1}/${seriesTotal})`}
+          </SeriesBadge>
+        )}
         <Title>{title}</Title>
         <PostItemInfoText>
           <Category>

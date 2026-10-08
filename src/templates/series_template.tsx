@@ -107,18 +107,23 @@ const SeriesTemplate: FunctionComponent<SeriesTemplateProps> = function ({
         <SeriesCount>총 {edges.length}개의 글</SeriesCount>
         <SeriesGrid>
           {edges.map(
-            ({
-              node: {
-                id,
-                fields: { slug },
-                frontmatter,
+            (
+              {
+                node: {
+                  id,
+                  fields: { slug },
+                  frontmatter,
+                },
               },
-            }) => (
+              index,
+            ) => (
               <PostItem
                 {...frontmatter}
                 link={slug}
                 key={id}
                 selectedCategory="All"
+                seriesIndex={index}
+                seriesTotal={edges.length}
               />
             ),
           )}
