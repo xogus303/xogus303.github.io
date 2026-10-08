@@ -4,7 +4,7 @@ date: '2026-10-10'
 series: 'Sunchak 개발기'
 title: '재진입 반복이 드러낸 경합 3가지 — Sunchak 개발기를 마치며'
 categories: ['Backend']
-tags: ['동시성', 'Concurrency', 'PostgreSQL', 'SSE']
+tags: ['동시성', 'PostgreSQL', 'SSE']
 thumbnail: '../../static/postThumbnails/postThumbnail_261009_reentryRaceConditions.png'
 summary: '페이지를 나갔다 들어올 때마다 이전 판과 섞이던 가상유저, 삭제 도중 FK 위반으로 죽던 reset(), SSE가 옛 값을 보여주던 경합까지 — 재진입이라는 시나리오가 드러낸 세 가지 동시성 문제, 그리고 시리즈를 마치며'
 ---

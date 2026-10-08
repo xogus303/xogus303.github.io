@@ -4,7 +4,7 @@ date: '2026-10-08'
 series: 'Sunchak 개발기'
 title: 'sweep은 "결제 시도 중"을 어떻게 판단할까'
 categories: ['Backend']
-tags: ['TTL', 'PostgreSQL', '동시성', 'Concurrency']
+tags: ['TTL', 'PostgreSQL', '동시성']
 thumbnail: '../../static/postThumbnails/postThumbnail_261008_sweepTwoTierTtl.png'
 summary: '벽시계 TTL만 보던 회수 로직이 결제 처리 중인 예약까지 지워버리던 문제를, 결제 시도 여부로 나눈 이단계 TTL로 해결한 과정'
 ---

@@ -4,7 +4,7 @@ date: '2026-10-05'
 series: 'Sunchak 개발기'
 title: '재고 1개를 두고 30명이 동시에 달려들면 — 동시성 제어 5라운드'
 categories: ['Backend']
-tags: ['동시성', 'Redis', 'PostgreSQL', 'Concurrency']
+tags: ['동시성', 'Redis', 'PostgreSQL']
 thumbnail: '../../static/postThumbnails/postThumbnail_261005_inventoryConcurrency.png'
 summary: '선착순 티켓 예매 서비스를 만들며, 재고 하나를 두고 벌어지는 동시 요청을 5가지 방법으로 막아보고 실측으로 겨뤄봤다'
 ---

@@ -4,7 +4,7 @@ date: '2026-10-09'
 series: 'Sunchak 개발기'
 title: '커넥션 풀의 보이지 않는 잠금 — 성능 버그 3건을 실측으로 추적하다'
 categories: ['Backend']
-tags: ['PostgreSQL', 'BullMQ', '성능', 'Concurrency']
+tags: ['PostgreSQL', 'BullMQ', '성능', '동시성']
 thumbnail: '../../static/postThumbnails/postThumbnail_261009_connectionPoolAndThroughput.png'
 summary: 'idle in transaction으로 묶인 커넥션 풀, BullMQ concurrency 기본값 1, 처리량을 순감소로 착각한 측정 오류 — 세 가지 성능 버그를 실측으로 추적한 기록'
 ---
