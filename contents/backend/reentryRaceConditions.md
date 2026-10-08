@@ -1,6 +1,6 @@
 ---
-startDate: '2026-10-09'
-date: '2026-10-09'
+startDate: '2026-10-10'
+date: '2026-10-10'
 series: 'Sunchak 개발기'
 title: '재진입 반복이 드러낸 경합 3가지 — Sunchak 개발기를 마치며'
 categories: ['Backend']
