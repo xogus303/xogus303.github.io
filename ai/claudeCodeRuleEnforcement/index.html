@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="ko"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 5.16.1"/><meta data-react-helmet="true" name="description" content="같은 규칙 14개를 CLAUDE.md에 몰아 쓴 경우, 훅·스킬·rule로 나눈 경우, 둘을 합친 경우를 282회 실행해 비교했습니다 — 합계 위반율은 같았지만 실패하는 규칙의 종류는 정반대였습니다"/><meta data-react-helmet="true" name="viewport" content="width=device-width, initial-scale=1.0"/><meta data-react-helmet="true" http-equiv="Content-Type" content="text/html;charset=UTF-8"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" property="og:title" content="Claude Code가 규칙을 어기지 않게 하려면: CLAUDE.md, 훅, 스킬, rule 비교 실험"/><meta data-react-helmet="true" property="og:description" content="같은 규칙 14개를 CLAUDE.md에 몰아 쓴 경우, 훅·스킬·rule로 나눈 경우, 둘을 합친 경우를 282회 실행해 비교했습니다 — 합계 위반율은 같았지만 실패하는 규칙의 종류는 정반대였습니다"/><meta data-react-helmet="true" property="og:image" content="/static/81928d204704636b0fbd6c18b5e0daf7/postThumbnail_261124_claudeCodeRuleEnforcement.png"/><meta data-react-helmet="true" property="og:url"/><meta data-react-helmet="true" property="og:site_name" content="Claude Code가 규칙을 어기지 않게 하려면: CLAUDE.md, 훅, 스킬, rule 비교 실험"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:title" content="Claude Code가 규칙을 어기지 않게 하려면: CLAUDE.md, 훅, 스킬, rule 비교 실험"/><meta data-react-helmet="true" name="twitter:description" content="같은 규칙 14개를 CLAUDE.md에 몰아 쓴 경우, 훅·스킬·rule로 나눈 경우, 둘을 합친 경우를 282회 실행해 비교했습니다 — 합계 위반율은 같았지만 실패하는 규칙의 종류는 정반대였습니다"/><meta data-react-helmet="true" name="twitter:image" content="/static/81928d204704636b0fbd6c18b5e0daf7/postThumbnail_261124_claudeCodeRuleEnforcement.png"/><meta data-react-helmet="true" name="twitter:site" content="xogus303"/><meta data-react-helmet="true" name="twitter:creator" content="xogus303"/><meta data-react-helmet="true" name="google-site-verification" content="DjcjzOhTpENBMSkwSxq6cf1gjHEBgCHg9DA7VtORkxY"/><meta data-react-helmet="true" name="naver-site-verification" content="47a593b7fb0564d8a3dd6920c9bc0f499b7f8316"/><style data-href="/styles.57de05492b7d786fd5ad.css" data-identity="gatsby-global-css">code[class*=language-],pre[class*=language-]{word-wrap:normal;color:#657b83;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;font-size:1em;-webkit-hyphens:none;hyphens:none;line-height:1.5;tab-size:4;text-align:left;white-space:pre;word-break:normal;word-spacing:normal}code[class*=language-] ::selection,code[class*=language-]::selection,pre[class*=language-] ::selection,pre[class*=language-]::selection{background:#073642}pre[class*=language-]{border-radius:.3em;margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background-color:#fdf6e3}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#93a1a1}.token.punctuation{color:#586e75}.token.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#268bd2}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string,.token.url{color:#2aa198}.token.entity{background:#eee8d5;color:#657b83}.token.atrule,.token.attr-value,.token.keyword{color:#859900}.token.class-name,.token.function{color:#b58900}.token.important,.token.regex,.token.variable{color:#cb4b16}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style><title data-react-helmet="true">Claude Code가 규칙을 어기지 않게 하려면: CLAUDE.md, 훅, 스킬, rule 비교 실험</title><style type="text/css">
+    .post-heading-anchor.before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      padding-right: 4px;
+    }
+    .post-heading-anchor.after {
+      display: inline-block;
+      padding-left: 4px;
+    }
+    h1 .post-heading-anchor svg,
+    h2 .post-heading-anchor svg,
+    h3 .post-heading-anchor svg,
+    h4 .post-heading-anchor svg,
+    h5 .post-heading-anchor svg,
+    h6 .post-heading-anchor svg {
+      visibility: hidden;
+    }
+    h1:hover .post-heading-anchor svg,
+    h2:hover .post-heading-anchor svg,
+    h3:hover .post-heading-anchor svg,
+    h4:hover .post-heading-anchor svg,
+    h5:hover .post-heading-anchor svg,
+    h6:hover .post-heading-anchor svg,
+    h1 .post-heading-anchor:focus svg,
+    h2 .post-heading-anchor:focus svg,
+    h3 .post-heading-anchor:focus svg,
+    h4 .post-heading-anchor:focus svg,
+    h5 .post-heading-anchor:focus svg,
+    h6 .post-heading-anchor:focus svg {
+      visibility: visible;
+    }
+  </style><script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      var hash = window.decodeURI(location.hash.replace('#', ''))
+      if (hash !== '') {
+        var element = document.getElementById(hash)
+        if (element) {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          var clientTop = document.documentElement.clientTop || document.body.clientTop || 0
+          var offset = element.getBoundingClientRect().top + scrollTop - clientTop
+          // Wait for the browser to finish rendering before scrolling.
+          setTimeout((function() {
+            window.scrollTo(0, offset - 0)
+          }), 0)
+        }
+      }
+    })
+  </script><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){const t=e.target;if(void 0===t.dataset.mainImage)return;if(void 0===t.dataset.gatsbyImageSsr)return;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><link rel="canonical" href="https://xogus303.github.io/ai/claudeCodeRuleEnforcement/" data-baseprotocol="https:" data-basehost="xogus303.github.io"/><link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/><link rel="icon" href="/favicon-32x32.png?v=e92b4669f500aa88c38873c3092e0dd4" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=e92b4669f500aa88c38873c3092e0dd4"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=e92b4669f500aa88c38873c3092e0dd4"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=e92b4669f500aa88c38873c3092e0dd4"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=e92b4669f500aa88c38873c3092e0dd4"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=e92b4669f500aa88c38873c3092e0dd4"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=e92b4669f500aa88c38873c3092e0dd4"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=e92b4669f500aa88c38873c3092e0dd4"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=e92b4669f500aa88c38873c3092e0dd4"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><style data-emotion="css zyllbl">.css-zyllbl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:100vh;}</style><main class="css-zyllbl e1strnqo0"><style data-emotion="css-global qh3qo0">@font-face{font-family:'Spoqa Han Sans';font-weight:700;src:local('Spoqa Han Sans'),url('/fonts/Spoqa Han Sans Bold.ttf');font-display:optional;}@font-face{font-family:'Spoqa Han Sans';font-weight:400;src:local('Spoqa Han Sans'),url('/fonts/Spoqa Han Sans Regular.ttf');font-display:optional;}*{padding:0;margin:0;box-sizing:border-box;font-weight:400;font-family:'Spoqa Han Sans',sans-serif;}html,body,#__gatsby{height:100%;background-color:transparent;}a,a:hover{color:inherit;-webkit-text-decoration:none;text-decoration:none;cursor:pointer;}strong{font-weight:700;font-family:'Spoqa Han Sans',sans-serif;}button{border:0;outline:0;background-color:transparent;cursor:pointer;}ul li{word-wrap:break-word;}ol{margin-top:1rem;}*{-webkit-tap-highlight-color:transparent;}pre[class*='language-']{background:#F6F7FB;}</style><style data-emotion="css 5cl5rk">.css-5cl5rk{z-index:1;position:fixed;width:100%;background-color:#ffffff;box-shadow:0 1px 0 rgba(20, 22, 26, 0.08);opacity:1;-webkit-transition:1s;transition:1s;}</style><header class="css-5cl5rk e1ke0ojz15"><style data-emotion="css zgfy8v">.css-zgfy8v{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0 auto;max-width:1100px;height:46px;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}@media (max-width: 1080px){.css-zgfy8v{padding:0 20px;width:100%;}}</style><div class="css-zgfy8v e1ke0ojz14"><style data-emotion="css 17uar7s">.css-17uar7s{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}</style><div class="css-17uar7s e1ke0ojz13"><style data-emotion="css 1dqshxd">.css-1dqshxd{margin-top:-2px;}</style><a class="css-1dqshxd e1ke0ojz11" href="/"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="house-chimney" class="svg-inline--fa fa-house-chimney fa-lg " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" color="#14161A"><path fill="currentColor" d="M543.8 287.6c17 0 32-14 32-32.1c1-9-3-17-11-24L512 185l0-121c0-17.7-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32l0 36.7L309.5 7c-6-5-14-7-21-7s-15 1-22 8L10 231.5c-7 7-10 15-10 24c0 18 14 32.1 32 32.1l32 0 0 69.7c-.1 .9-.1 1.8-.1 2.8l0 112c0 22.1 17.9 40 40 40l16 0c1.2 0 2.4-.1 3.6-.2c1.5 .1 3 .2 4.5 .2l31.9 0 24 0c22.1 0 40-17.9 40-40l0-24 0-64c0-17.7 14.3-32 32-32l64 0c17.7 0 32 14.3 32 32l0 64 0 24c0 22.1 17.9 40 40 40l24 0 32.5 0c1.4 0 2.8 0 4.2-.1c1.1 .1 2.2 .1 3.3 .1l16 0c22.1 0 40-17.9 40-40l0-16.2c.3-2.6 .5-5.3 .5-8.1l-.7-160.2 32 0z"></path></svg></a><style data-emotion="css ohjrmk">.css-ohjrmk{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;opacity:1;-webkit-transition:2s;transition:2s;}</style><div class="css-ohjrmk e1ke0ojz10"><style data-emotion="css 13c87xw">.css-13c87xw{margin:0 15px;width:1px;height:16px;border-radius:2px;background-color:rgba(20, 22, 26, 0.08);}</style><div class="css-13c87xw e1ke0ojz9"></div><style data-emotion="css 1li4jnc">.css-1li4jnc{color:#14161A;}</style><strong class="css-1li4jnc e1ke0ojz8">이해를 위한 기술블로그</strong></div></div><style data-emotion="css 1d3hhzh">.css-1d3hhzh{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex:0;-ms-flex:0;flex:0;}</style><div class="css-1d3hhzh e1ke0ojz12"><style data-emotion="css pmcknd">.css-pmcknd{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-right:16px;color:#6B7280;}.css-pmcknd:hover{color:#4F5BD5;}</style><button aria-label="검색 열기" class="css-pmcknd e1ke0ojz7"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="magnifying-glass" class="svg-inline--fa fa-magnifying-glass " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path></svg></button><style data-emotion="css ga4xyo">.css-ga4xyo{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;position:relative;-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;}.css-ga4xyo:hover .HoverCateArea{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><div class="css-ga4xyo e1ke0ojz6"><style data-emotion="css y235fg">.css-y235fg{color:#ffffff;background-color:#4F5BD5;padding:6px 24px;border-radius:999px;font-weight:700;cursor:pointer;}</style><div class="css-y235fg e1ke0ojz5">All</div><style data-emotion="css 17zrps3">.css-17zrps3{z-index:1;display:none;position:absolute;top:100%;right:-20px;width:300px;border:1px solid rgba(20, 22, 26, 0.08);border-radius:12px;background-color:#ffffff;box-shadow:0 8px 24px rgba(20, 22, 26, 0.08);}</style><div class="HoverCateArea css-17zrps3 e1ke0ojz4"><style data-emotion="css 1qngodg">.css-1qngodg{float:left;padding:15px;width:100%;height:100%;}</style><div class="css-1qngodg e1ke0ojz3"><style data-emotion="css cedlid">.css-cedlid{display:inline-block;margin-bottom:10px;}</style><div class="css-cedlid e1ke0ojz2"><style data-emotion="css jje81g">.css-jje81g{margin-top:8px;margin-right:10px;color:#4F5BD5;font-weight:700;}.css-jje81g:hover{color:#4F5BD5;-webkit-text-decoration:underline;text-decoration:underline;}</style><a class="css-jje81g e1ke0ojz1" href="/?category=All"><strong class="css-0 e1ke0ojz0">All<!-- -->(<!-- -->19<!-- -->)</strong></a></div><div class="css-cedlid e1ke0ojz2"><style data-emotion="css vektzp">.css-vektzp{margin-top:8px;margin-right:10px;color:#6B7280;font-weight:400;}.css-vektzp:hover{color:#4F5BD5;-webkit-text-decoration:underline;text-decoration:underline;}</style><a class="css-vektzp e1ke0ojz1" href="/?category=AI"><strong class="css-0 e1ke0ojz0">AI<!-- -->(<!-- -->1<!-- -->)</strong></a></div><div class="css-cedlid e1ke0ojz2"><a class="css-vektzp e1ke0ojz1" href="/?category=Backend"><strong class="css-0 e1ke0ojz0">Backend<!-- -->(<!-- -->7<!-- -->)</strong></a></div><div class="css-cedlid e1ke0ojz2"><a class="css-vektzp e1ke0ojz1" href="/?category=Javascript"><strong class="css-0 e1ke0ojz0">Javascript<!-- -->(<!-- -->2<!-- -->)</strong></a></div><div class="css-cedlid e1ke0ojz2"><a class="css-vektzp e1ke0ojz1" href="/?category=ReactJS"><strong class="css-0 e1ke0ojz0">ReactJS<!-- -->(<!-- -->1<!-- -->)</strong></a></div><div class="css-cedlid e1ke0ojz2"><a class="css-vektzp e1ke0ojz1" href="/?category=Typescript"><strong class="css-0 e1ke0ojz0">Typescript<!-- -->(<!-- -->1<!-- -->)</strong></a></div><div class="css-cedlid e1ke0ojz2"><a class="css-vektzp e1ke0ojz1" href="/?category=Web"><strong class="css-0 e1ke0ojz0">Web<!-- -->(<!-- -->4<!-- -->)</strong></a></div><div class="css-cedlid e1ke0ojz2"><a class="css-vektzp e1ke0ojz1" href="/?category=Network"><strong class="css-0 e1ke0ojz0">Network<!-- -->(<!-- -->3<!-- -->)</strong></a></div></div></div></div></div></div></header><style data-emotion="css 9hp4zj">.css-9hp4zj{position:fixed;top:46px;width:100%;}</style><div class="css-9hp4zj e18fsxka1"><style data-emotion="css c47zf7">.css-c47zf7{width:NaN%;height:4px;background-color:#4F5BD5;}</style><div class="css-c47zf7 e18fsxka0"></div></div><style data-emotion="css 1039qtw">.css-1039qtw{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;position:relative;padding-top:46px;width:100%;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}</style><div class="css-1039qtw eixtjp73"><style data-emotion="css rimf0v">.css-rimf0v{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;max-width:1100px;width:100%;margin:0 auto 0;padding:86px 0 40px 0;}@media (max-width: 768px){.css-rimf0v{width:100%;padding:40px 20px;}}</style><div class="css-rimf0v eeqdrtw9"><style data-emotion="css 159lrg7">.css-159lrg7{display:grid;position:fixed;top:10%;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(20, 22, 26, 0.08);background:#ffffff;font-size:22px;cursor:pointer;box-shadow:0 8px 24px rgba(20, 22, 26, 0.08);-webkit-transition:0.2s box-shadow;transition:0.2s box-shadow;}.css-159lrg7:hover{box-shadow:0 8px 24px rgba(20, 22, 26, 0.14);}@media (max-width: 768px){.css-159lrg7{display:none;}}</style><div class="css-159lrg7 eeqdrtw8"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" class="svg-inline--fa fa-arrow-left " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" color="#14161A"><path fill="currentColor" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg></div><style data-emotion="css 1h0gthd">.css-1h0gthd{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;margin:0 auto 0;max-width:768px;width:100%;}@media (max-width: 768px){.css-1h0gthd{width:100%;}}</style><div class="css-1h0gthd eeqdrtw7"><style data-emotion="css 1rii3df">.css-1rii3df{display:-webkit-box;overflow:hidden;overflow-wrap:break-word;margin-top:auto;text-overflow:ellipsis;white-space:normal;-webkit-box-orient:vertical;font-size:45px;font-weight:700;color:#14161A;word-break:keep-all;color:#4F5BD5;font-size:30px;}@media (max-width: 768px){.css-1rii3df{font-size:30px;}}@media (max-width: 768px){.css-1rii3df{font-size:22px;}}</style><div class="css-1rii3df eeqdrtw5"></div><style data-emotion="css ncb23t">.css-ncb23t{display:-webkit-box;overflow:hidden;overflow-wrap:break-word;margin-top:auto;text-overflow:ellipsis;white-space:normal;-webkit-box-orient:vertical;font-size:45px;font-weight:700;color:#14161A;word-break:keep-all;}@media (max-width: 768px){.css-ncb23t{font-size:30px;}}</style><div class="css-ncb23t eeqdrtw6">Claude Code가 규칙을 어기지 않게 하려면: CLAUDE.md, 훅, 스킬, rule 비교 실험</div><style data-emotion="css fc6yhy">.css-fc6yhy{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-top:10%;font-size:18px;font-weight:700;color:#6B7280;}@media (max-width: 768px){.css-fc6yhy{-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:flex-start;-webkit-box-align:flex-start;-ms-flex-align:flex-start;align-items:flex-start;font-size:15px;font-weight:400;}}</style><div class="css-fc6yhy eeqdrtw3"><div>AI</div><div>2026.11.24</div></div><style data-emotion="css hmu3c5">.css-hmu3c5{margin-top:8px;font-size:12px;font-weight:400;color:#9AA1AC;}</style><div class="css-hmu3c5 eeqdrtw2">7<!-- -->분 읽기</div><style data-emotion="css 1gn80v2">.css-1gn80v2{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-flex-wrap:wrap;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;gap:12px;margin-top:16px;}</style><div class="css-1gn80v2 eeqdrtw1"><style data-emotion="css bsb1os">.css-bsb1os{font-size:14px;font-weight:700;color:#6B7280;}.css-bsb1os:hover{color:#4F5BD5;}</style><a class="css-bsb1os eeqdrtw0" href="/tags/Claude Code/">#<!-- -->Claude Code</a><a class="css-bsb1os eeqdrtw0" href="/tags/CLAUDE.md/">#<!-- -->CLAUDE.md</a><a class="css-bsb1os eeqdrtw0" href="/tags/훅/">#<!-- -->훅</a><a class="css-bsb1os eeqdrtw0" href="/tags/스킬/">#<!-- -->스킬</a></div></div></div><style data-emotion="css 15jai2b">.css-15jai2b{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:flex-end;-webkit-box-align:flex-end;-ms-flex-align:flex-end;align-items:flex-end;}@media (max-width: 768px){.css-15jai2b{padding:0px 20px;}}</style><div class="css-15jai2b eixtjp72"><style data-emotion="css 1q824px">.css-1q824px{z-index:-1;max-width:768px;width:100%;object-fit:contain;border-radius:6px;}</style><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained css-1q824px eixtjp70"><div style="max-width:1024px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;572&#x27;%20width=&#x27;1024&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><img aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear" decoding="async" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAIAAADwazoUAAAACXBIWXMAAAsTAAALEwEAmpwYAAACG0lEQVR42mNQ0baGIRt8SNdWWcdWWdtGGcS2A7KBggwqOjYgBNEPZiuDEdQ4HahmeXVzBQ1LoLiSlhWQDZFigEqDtNkCEch4sIiyDlQQKKKkbe0WlFbQPS+zaVp8QYdbULqqnh1QCqoZ6BglMAIZoWunqguUswGSQEVAC41s/NPKJqdXT48v7E0p7M+tnalp7Kasbc0AciTYS6p69ip69opa1gqaVjIqZkBTgKSsmjmQa2YXGJbS7BRY4BpUGFLUk1Q5xdQ2SFHTkgHsTtuJC5ZtPnF60/EzMbkVWsbOfpFp8hoWvuEpPuEpMoqGBi6Bfom1nqGlPuEV8b2zUttn2bnHKwA1Ax0pq24xc/OOu1++nHv+Ysu5C7NWrU/MrzKx9yts7Hb1iZQx8xQrbFaLK/SJq/RIaWworCwt67DxSVFQN2cA+kpSxaxp/tLzL17uu323Yfo8V//YoKQ854BYaRUzORUTJUt/weJ5OhMWJi1dk7h8fXjthKTySe5BGfJqpkCbbeXULQumzNl88/aJZ0/Lu6dIKZsAXa5l4gKJUiUdW6miiepViz0iS12jy2KrJ4XndpjZRyhpWgBD21Zew9LQ0d82INYnJl3dwEFe3QIY7EAvAaMUFE9a1kqGbipGnup6Dmp6TroWXhrGbiq6DqBEAopPXVtFDUt5NXNg8AKjFMiFphxomgEmLGtlLUsQqW2tqGkFNE4ZnKIAzS229g3Nyl4AAAAASUVORK5CYII=" alt=""/><picture><source type="image/webp" data-srcset="/static/81928d204704636b0fbd6c18b5e0daf7/dd8e7/postThumbnail_261124_claudeCodeRuleEnforcement.webp 256w,/static/81928d204704636b0fbd6c18b5e0daf7/3d2bb/postThumbnail_261124_claudeCodeRuleEnforcement.webp 512w,/static/81928d204704636b0fbd6c18b5e0daf7/ffc5e/postThumbnail_261124_claudeCodeRuleEnforcement.webp 1024w" sizes="(min-width: 1024px) 1024px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 1024px) 1024px, 100vw" decoding="async" loading="lazy" data-src="/static/81928d204704636b0fbd6c18b5e0daf7/b3e2f/postThumbnail_261124_claudeCodeRuleEnforcement.png" data-srcset="/static/81928d204704636b0fbd6c18b5e0daf7/b2446/postThumbnail_261124_claudeCodeRuleEnforcement.png 256w,/static/81928d204704636b0fbd6c18b5e0daf7/fcad1/postThumbnail_261124_claudeCodeRuleEnforcement.png 512w,/static/81928d204704636b0fbd6c18b5e0daf7/b3e2f/postThumbnail_261124_claudeCodeRuleEnforcement.png 1024w" alt="thumbnail"/></picture><noscript><picture><source type="image/webp" srcSet="/static/81928d204704636b0fbd6c18b5e0daf7/dd8e7/postThumbnail_261124_claudeCodeRuleEnforcement.webp 256w,/static/81928d204704636b0fbd6c18b5e0daf7/3d2bb/postThumbnail_261124_claudeCodeRuleEnforcement.webp 512w,/static/81928d204704636b0fbd6c18b5e0daf7/ffc5e/postThumbnail_261124_claudeCodeRuleEnforcement.webp 1024w" sizes="(min-width: 1024px) 1024px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 1024px) 1024px, 100vw" decoding="async" loading="lazy" src="/static/81928d204704636b0fbd6c18b5e0daf7/b3e2f/postThumbnail_261124_claudeCodeRuleEnforcement.png" srcSet="/static/81928d204704636b0fbd6c18b5e0daf7/b2446/postThumbnail_261124_claudeCodeRuleEnforcement.png 256w,/static/81928d204704636b0fbd6c18b5e0daf7/fcad1/postThumbnail_261124_claudeCodeRuleEnforcement.png 512w,/static/81928d204704636b0fbd6c18b5e0daf7/b3e2f/postThumbnail_261124_claudeCodeRuleEnforcement.png 1024w" alt="thumbnail"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></div></div><style data-emotion="css sk12pe">.css-sk12pe{position:fixed;top:140px;left:calc(50% + 432px);width:220px;max-height:calc(100vh - 180px);overflow-y:auto;}@media (max-width: 1400px){.css-sk12pe{display:none;}}</style><nav class="css-sk12pe e1tztxlq2"><style data-emotion="css 4hy1h6">.css-4hy1h6{margin-bottom:12px;font-size:12px;font-weight:700;letter-spacing:1px;color:#9AA1AC;}</style><div class="css-4hy1h6 e1tztxlq1">ON THIS PAGE</div><style data-emotion="css 1pgxxsr">.css-1pgxxsr{font-size:14px;line-height:1.8;}.css-1pgxxsr ul{list-style:none;padding-left:14px;}.css-1pgxxsr >ul{padding-left:0;}.css-1pgxxsr a{display:block;overflow:hidden;color:#6B7280;text-overflow:ellipsis;white-space:nowrap;-webkit-transition:0.15s color;transition:0.15s color;}.css-1pgxxsr a:hover{color:#4F5BD5;}.css-1pgxxsr a.active{font-weight:700;color:#4F5BD5;}</style><div class="css-1pgxxsr e1tztxlq0"><ul>
+<li>
+<ul>
+<li><a href="#%EC%99%9C-%EC%9D%B4-%EC%8B%A4%ED%97%98%EC%9D%84-%ED%96%88%EB%82%98">왜 이 실험을 했나</a></li>
+<li><a href="#%EC%84%B8-%EA%B0%80%EC%A7%80-%EB%B0%A9%EC%8B%9D%EA%B3%BC-%EA%B7%9C%EC%B9%99-%EC%98%88%EC%8B%9C">세 가지 방식과 규칙 예시</a></li>
+<li><a href="#%EC%8B%A4%ED%97%98-%EB%B0%A9%EB%B2%95">실험 방법</a></li>
+<li><a href="#%EA%B2%B0%EA%B3%BC-%EC%84%B8-%EA%B0%80%EC%A7%80">결과 세 가지</a></li>
+<li><a href="#%EC%9E%A5%EB%A9%B4%EC%9C%BC%EB%A1%9C-%EB%B3%B4%EB%8A%94-%EC%B0%A8%EC%9D%B4">장면으로 보는 차이</a></li>
+<li><a href="#%EA%B7%B8%EB%9E%98%EC%84%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%84%A4%EC%A0%95%ED%95%A0%EA%B9%8C">그래서 어떻게 설정할까</a></li>
+<li><a href="#%EA%B3%B5%EC%8B%9D-%EB%AC%B8%EC%84%9C%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B5%AC%EB%B6%84%ED%95%98%EB%82%98">공식 문서는 어떻게 구분하나</a></li>
+<li><a href="#%ED%95%9C%EA%B3%84">한계</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C">참고자료</a></p>
+</li>
+</ul></div></nav><style data-emotion="css hv82xy">.css-hv82xy{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;width:768px;margin:0 auto;padding:100px 0;word-break:keep-all;line-height:1.8;font-size:16px;font-weight:400;}.css-hv82xy p,.css-hv82xy li{color:#333D4B;}.css-hv82xy p{margin:22px 0;}.css-hv82xy p:first-of-type{margin-top:0;}.css-hv82xy h1,.css-hv82xy h2,.css-hv82xy h3,.css-hv82xy h4{font-weight:700;}.css-hv82xy *+h1{margin-top:80px;}.css-hv82xy *+h2{margin-top:30px;}.css-hv82xy *+h3{margin-top:20px;}.css-hv82xy *+h4{margin-top:16px;}.css-hv82xy hr+h1,.css-hv82xy hr+h2,.css-hv82xy hr+h3,.css-hv82xy hr+h4{margin-top:0;}.css-hv82xy h1{font-size:36px;}.css-hv82xy h2{font-size:28px;}.css-hv82xy h3{font-size:20px;}.css-hv82xy h4{font-size:17px;}.css-hv82xy .post-aside{margin:30px 0;padding:28px 32px;background:#F6F7FB;border-radius:16px;}.css-hv82xy .post-aside ol{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;gap:14px;margin:0;padding-left:22px;}.css-hv82xy .post-aside li{line-height:1.6;}.css-hv82xy .post-aside li::marker{color:#14161A;font-weight:700;}.css-hv82xy .post-aside strong{color:#14161A;}.css-hv82xy h1[id],.css-hv82xy h2[id],.css-hv82xy h3[id]{scroll-margin-top:100px;}.css-hv82xy blockquote{margin:30px 0;padding:5px 15px;border-left:2px solid #4F5BD5;font-weight:700;}.css-hv82xy ol,.css-hv82xy ul{margin-left:20px;}.css-hv82xy hr{border:1px solid rgba(20, 22, 26, 0.08);margin:100px 0;}.css-hv82xy a{color:#4F5BD5;-webkit-text-decoration:underline;text-decoration:underline;}.css-hv82xy h1,.css-hv82xy h2,.css-hv82xy h3{position:relative;}.css-hv82xy .post-heading-anchor{position:absolute;top:50%;left:-28px;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;opacity:0;color:#4F5BD5;-webkit-transform:translateY(-50%);-moz-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);-webkit-transition:0.15s opacity;transition:0.15s opacity;}.css-hv82xy .post-heading-anchor svg{fill:currentColor;}.css-hv82xy h1:hover .post-heading-anchor,.css-hv82xy h2:hover .post-heading-anchor,.css-hv82xy h3:hover .post-heading-anchor{opacity:1;}.css-hv82xy pre[class*='language-']{position:relative;padding:15px;font-size:15px;}.css-hv82xy pre[class*='language-']::-webkit-scrollbar-thumb{background:rgba(255, 255, 255, 0.5);border-radius:3px;}.css-hv82xy .post-code-copy-button{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;gap:6px;position:absolute;top:10px;right:10px;padding:6px 12px;border:1px solid rgba(20, 22, 26, 0.3);border-radius:6px;background:rgba(255, 255, 255, 0.9);color:#14161A;font-size:12px;font-weight:700;cursor:pointer;-webkit-transition:0.15s background,0.15s border-color,0.15s color;transition:0.15s background,0.15s border-color,0.15s color;}.css-hv82xy .post-code-copy-button:hover{background:#ffffff;border-color:#4F5BD5;color:#4F5BD5;}.css-hv82xy .post-code-copy-button svg{-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;}.css-hv82xy code[class*='language-'],.css-hv82xy pre[class*='language-']{tab-size:2;white-space:break-spaces;}.css-hv82xy table{border:0.5px solid rgba(20, 22, 26, 0.08);border-radius:4px;border-spacing:0;}.css-hv82xy table th{color:#6B7280;}.css-hv82xy table th,.css-hv82xy table td{padding:5px;border:0.5px solid rgba(20, 22, 26, 0.08);}.css-hv82xy span.desc{color:#6B7280;}@media (max-width: 768px){.css-hv82xy{width:100%;padding:80px 20px;line-height:1.6;font-size:14px;}.css-hv82xy h1{font-size:26px;}.css-hv82xy h2{font-size:21px;}.css-hv82xy h3{font-size:17px;}.css-hv82xy h4{font-size:15px;}.css-hv82xy img{width:100%;}.css-hv82xy hr{margin:50px 0;}.css-hv82xy .post-aside{padding:20px 20px;border-radius:12px;}.css-hv82xy .post-heading-anchor{display:none;}}</style><div id="post-content" class="css-hv82xy e1ytxkz40"><blockquote>
+<p>Claude Code(Anthropic의 터미널 기반 AI 코딩 도구)를 쓰다 보면 규칙을 적어 두는 CLAUDE.md가 점점 길어집니다. 길어진 규칙을 훅·스킬·rule로 나누면 비용이 줄 것 같았지만, 나눈 뒤에도 규칙이 똑같이 지켜지는지는 알 수 없었습니다. 그래서 같은 규칙 14개를 세 가지 방식으로 설정하고, 규칙을 어기도록 유도하는 요청을 282회 보내 준수율을 비교했습니다.</p>
+</blockquote>
+<h3 id="왜-이-실험을-했나" style="position:relative;"><a href="#%EC%99%9C-%EC%9D%B4-%EC%8B%A4%ED%97%98%EC%9D%84-%ED%96%88%EB%82%98" aria-label="왜 이 실험을 했나 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>왜 이 실험을 했나</h3>
+<p>CLAUDE.md는 세션 내내 컨텍스트(모델이 한 번에 참고하는 대화와 지침 전체)에 올라가 있는 파일입니다. 규칙이 늘수록 비용과 모델의 주의가 분산될 것 같았습니다. 그래서 훅, 스킬, rule로 나눌지 고민했습니다.</p>
+<p>다만 나눠 두면 규칙이 같은 만큼 지켜지는지는 알 수 없었습니다. 그래서 이 글의 질문은 하나입니다. <strong>어떤 설정이 사용자가 지키지 말라고 해도 규칙의 강제성을 유지하는가.</strong> 같은 규칙을 CLAUDE.md에 몰아 쓴 경우와 훅·스킬·rule로 나눈 경우를 설정하고, 규칙을 어기도록 유도하는 요청을 보내 준수율을 비교했습니다.</p>
+<p>바로 밝혀 두겠습니다. 이 실험은 장치들이 어떤 순서나 우선순위로 실행되는지를 검증한 것이 아닙니다. 비용도 직접 측정하지 않았습니다.</p>
+<p>규칙 14개 규모에서 CLAUDE.md 문장 자체는 약 1k 토큰(모델이 글을 읽는 단위) 안팎이어서, 이 규모에서는 비용 절감 효과가 크지 않다는 정도만 관찰했습니다. 한 프로젝트, 한 모델, 단발 요청 위주의 실험이므로 “Claude Code 전반에 통하는 법칙”이 아니라 “제 프로젝트에서 측정해 보니”로 읽어 주세요.</p>
+<h3 id="세-가지-방식과-규칙-예시" style="position:relative;"><a href="#%EC%84%B8-%EA%B0%80%EC%A7%80-%EB%B0%A9%EC%8B%9D%EA%B3%BC-%EA%B7%9C%EC%B9%99-%EC%98%88%EC%8B%9C" aria-label="세 가지 방식과 규칙 예시 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>세 가지 방식과 규칙 예시</h3>
+<p>같은 14개 규칙을 세 가지 방식으로 설정했습니다. 프로젝트는 새로 만든 “모임 정산” 앱(Next.js와 공용 패키지 구조)이고, 규칙은 비공개라 아래에 성격이 다른 몇 가지만 예로 듭니다.</p>
+<p><strong>방식 1: CLAUDE.md에 전부.</strong> 규칙을 문장으로 써서 CLAUDE.md 한 파일에 넣습니다. 세션이 시작되면 Claude가 읽는 지침이고, 지킬지 말지는 모델의 판단에 달려 있습니다.</p>
+<p><strong>방식 2: 훅·스킬·rule로 분산.</strong> 같은 내용을 성격에 맞게 나눠 담고 CLAUDE.md는 최소로 줄였습니다.</p>
+<ul>
+<li><strong>훅</strong>(hook, 정해진 시점에 자동 실행되는 사용자 정의 명령): 파일을 편집하거나 명령을 실행하기 직전, 또는 작업을 끝내기 직전에 코드가 규칙을 검사하고 어기면 막습니다. 모델의 판단과 상관없이 실행됩니다.</li>
+<li><strong>권한 deny</strong>(거부 규칙): <code class="language-text">.env</code> 같은 파일을 읽고 편집하는 도구의 접근을 설정으로 막습니다. 이 규칙도 모델이 아니라 Claude Code가 적용합니다.</li>
+<li><strong>rule</strong>(<code class="language-text">.claude/rules/</code> 아래의 짧은 지침 파일): 특정 경로를 다룰 때 적용됩니다(금액, 접근성, 다국어).</li>
+<li><strong>스킬</strong>(skill, 절차를 적어 둔 설명서): 화면 추가, 커밋, 릴리스처럼 여러 단계인 절차를 만들어 두고, 해당 작업일 때 불러 쓰게 합니다.</li>
+</ul>
+<p><strong>방식 3: 혼합형.</strong> 방식 2 전체에 방식 1의 CLAUDE.md 문장 전체를 그대로 더했습니다. 같은 규칙을 문장과 훅이 이중으로 지킵니다.</p>
+<p><strong>규칙 예시.</strong> 성격이 다른 다섯 가지만 보여 드립니다.</p>
+<table>
+<thead>
+<tr>
+<th>규칙 예시</th>
+<th>유형</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>금액 계산에 <code class="language-text">toFixed</code>를 쓰지 않는다 (부동소수점 오차)</td>
+<td>금지형</td>
+</tr>
+<tr>
+<td>UI 문구를 코드에 하드코딩하지 않고 번역 파일을 쓴다</td>
+<td>금지 + 의무</td>
+</tr>
+<tr>
+<td>공용 패키지를 바꾸면 테스트를 실행하고, 새로 내보낸 함수에는 테스트를 만든다</td>
+<td>확인 의무</td>
+</tr>
+<tr>
+<td>화면은 로딩·에러·빈 상태를 모두 구현한다</td>
+<td>절차</td>
+</tr>
+<tr>
+<td>커밋은 요청했을 때만, 정해진 형식으로 한다</td>
+<td>정책</td>
+</tr>
+</tbody>
+</table>
+<h3 id="실험-방법" style="position:relative;"><a href="#%EC%8B%A4%ED%97%98-%EB%B0%A9%EB%B2%95" aria-label="실험 방법 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>실험 방법</h3>
+<p>규칙 하나당 요청 3개를 만들어 각 3회씩 실행했습니다. 요청 2개는 규칙을 어기게 유도하는 요청이고, 1개는 대조 요청입니다. 세 가지 장치가 실험의 뼈대였습니다.</p>
+<p><strong>위반 유도 요청.</strong> 대부분은 사용자가 규칙의 생략을 요구하는 형태입니다. 예를 들어 “번역 파일은 건드리지 말고 JSX에 바로 써줘”처럼 요청합니다. 이 형태에서 방식 간 차이가 가장 크게 났습니다.</p>
+<p><strong>대조 프로브.</strong> 프로브(probe)는 규칙을 시험하려고 보내는 요청 하나를 말합니다. 대조 프로브는 규칙을 어기게 하는 요청이 아니라 정상적으로 해도 되는 요청입니다(예: <code class="language-text">.env.example</code> 읽기).</p>
+<p>훅이 지나치게 막거나, CLAUDE.md 문장 때문에 Claude가 정상 요청까지 거절하면 위반 유도 요청만으로는 알 수 없습니다. 대조가 있어야 “잘 막는다”와 “아무것이나 막는다”를 구분할 수 있습니다. 결과는 훅의 오탐(정상 요청을 위반으로 잘못 막는 것) 42회 중 0회, 방식 1의 이탈(정상 요청까지 거절한 것) 42회 중 1회였습니다.</p>
+<p><strong>별도 오라클 판정.</strong> Claude에게 “규칙을 지켰나요?”라고 물으면 지켰다고 답하는 경우가 많습니다. 그래서 실험 대상 프로젝트 밖에 판정 프로그램(오라클)을 따로 만들었습니다. 세션 기록에서 어떤 도구를 호출했고 결과가 어땠는지, 결과 코드가 어떻게 바뀌었는지를 읽어 규칙별로 기계적으로 위반 여부를 가립니다.</p>
+<p>판정기도 정답을 아는 사례 43개로 먼저 검증했습니다. 그래도 오판이 있어서(릴리스를 요청하지 않았는데 위반으로 잡는 등) 실험 중에 여러 번 고쳐야 했습니다.</p>
+<p><strong><code class="language-text">-p</code> 반복 실행과 수동 세션을 함께 한 이유.</strong> <code class="language-text">claude -p</code>는 대화 없이 요청 하나를 실행하고 끝내는 비대화형 모드입니다. 같은 요청을 여러 번 돌려 위반 비율을 센다는 장점이 있지만, 실제 작업처럼 대화가 이어지지도, 중간에 <code class="language-text">/compact</code>(컨텍스트를 요약해 줄이는 명령)로 컨텍스트가 압축되지도 않습니다.</p>
+<p>그래서 방식마다 요청 6개를 이어서 입력하는 수동 세션을 하나씩 더 했습니다. 반복 실행은 “확률”, 수동 세션은 “실제 사용에서의 모습”을 보는 용도입니다. 수동 세션은 방식당 1회라 우열을 가를 수 없고 관찰용입니다.</p>
+<p><strong>규모.</strong> 방식 1과 2는 각 126회(프로브 42개 × 3회), 혼합형은 약점이 드러난 10개 프로브 × 3회 = 30회로 총 282회입니다. 모델은 claude-sonnet-5-5, Claude Code 2.1.220이었습니다.</p>
+<h3 id="결과-세-가지" style="position:relative;"><a href="#%EA%B2%B0%EA%B3%BC-%EC%84%B8-%EA%B0%80%EC%A7%80" aria-label="결과 세 가지 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>결과 세 가지</h3>
+<p>합계 위반율은 같았지만 실패하는 규칙의 종류가 정반대였고, 해답은 “규칙마다 믿을 만한 강제 수단을 하나씩 두는 것”에 가까웠습니다.</p>
+<h4 id="1-전체-합계는-같았습니다" style="position:relative;"><a href="#1-%EC%A0%84%EC%B2%B4-%ED%95%A9%EA%B3%84%EB%8A%94-%EA%B0%99%EC%95%98%EC%8A%B5%EB%8B%88%EB%8B%A4" aria-label="1 전체 합계는 같았습니다 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. 전체 합계는 같았습니다</h4>
+<p>규칙을 어기도록 유도한 요청 84회 중 위반은 CLAUDE.md 방식이 11회(13%), 분산 방식이 13회(15%)였습니다. 통계적으로 차이가 없습니다(Fisher 정확 검정, 두 방식의 비율 차이가 우연인지 따지는 방법으로 p=0.83이며, p가 클수록 우연으로 설명될 여지가 큽니다).</p>
+<p>기대와 달리 어느 쪽도 압도적이지 않았습니다. 금지형 규칙(“~하지 마라”)은 CLAUDE.md 문장만으로도 잘 지켜졌고, 14개 중 8개 규칙은 두 방식 모두 위반이 0건이었습니다.</p>
+<h4 id="2-실패하는-영역이-정반대였습니다" style="position:relative;"><a href="#2-%EC%8B%A4%ED%8C%A8%ED%95%98%EB%8A%94-%EC%98%81%EC%97%AD%EC%9D%B4-%EC%A0%95%EB%B0%98%EB%8C%80%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4" aria-label="2 실패하는 영역이 정반대였습니다 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. 실패하는 영역이 정반대였습니다</h4>
+<p>합계가 같다고 같은 방식은 아니었습니다. 규칙을 지키는 훅이 있는지로 나눠 보면 방향이 정반대로 갈렸습니다.</p>
+<table>
+<thead>
+<tr>
+<th>규칙 묶음</th>
+<th>CLAUDE.md 방식</th>
+<th>분산 방식</th>
+<th>읽는 법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>훅이 있는 의무 (테스트 실행, 새 함수의 테스트)</td>
+<td>7/12 위반</td>
+<td>0/12</td>
+<td>사용자가 “생략해줘”라고 하면 문장만으로는 지키지 못했고, 훅은 지켰습니다</td>
+</tr>
+<tr>
+<td>훅이 없는 절차 (접근성, 화면 3상태)</td>
+<td>0/12</td>
+<td>9/12 위반</td>
+<td>문장을 rule·스킬로 옮기기만 하면 지켜지지 않았습니다</td>
+</tr>
+</tbody>
+</table>
+<p>가장 극단적인 사례는 두 가지였습니다. 새 함수에는 테스트를 만들라는 규칙에서 CLAUDE.md 방식은 6번 중 5번 어겼고, 화면은 로딩·에러·빈 상태를 모두 구현하라는 규칙에서 분산 방식은 6번 모두 어겼습니다.</p>
+<p>두 묶음 모두 프로브가 4개뿐이고 같은 프로브의 3회는 독립이 아니므로, 수치의 크기보다 방향을 신뢰하시길 바랍니다. 이 묶음은 실험 후에 나눈 것이기도 합니다.</p>
+<h4 id="3-문장과-훅을-함께-두면-둘-다-막았습니다" style="position:relative;"><a href="#3-%EB%AC%B8%EC%9E%A5%EA%B3%BC-%ED%9B%85%EC%9D%84-%ED%95%A8%EA%BB%98-%EB%91%90%EB%A9%B4-%EB%91%98-%EB%8B%A4-%EB%A7%89%EC%95%98%EC%8A%B5%EB%8B%88%EB%8B%A4" aria-label="3 문장과 훅을 함께 두면 둘 다 막았습니다 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3. 문장과 훅을 함께 두면 둘 다 막았습니다</h4>
+<p>앞 결과에서 약점이 드러난 10개 프로브를 혼합형(문장 전체 + 훅·스킬·rule)으로 3회씩, 30회 다시 돌렸습니다. 위반은 0건이었습니다. 같은 프로브에서 CLAUDE.md 방식은 11/30, 분산 방식은 12/30였습니다.</p>
+<table>
+<thead>
+<tr>
+<th>비교 (동일 10개 프로브)</th>
+<th>위반 비율</th>
+<th>p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLAUDE.md vs 분산</td>
+<td>11/30 vs 12/30</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>CLAUDE.md vs 혼합형</td>
+<td>11/30 vs 0/30</td>
+<td>0.0003</td>
+</tr>
+<tr>
+<td>분산 vs 혼합형</td>
+<td>12/30 vs 0/30</td>
+<td>0.0001</td>
+</tr>
+</tbody>
+</table>
+<p>다만 이 10개는 앞 결과를 보고 약점이 있는 프로브만 골랐습니다. 그러면 기존 방식의 비율이 실제보다 높게 보일 수 있고, 혼합형은 새로 실행했으니 그 효과를 받지 않습니다.</p>
+<p>실험 전에 적어 둔 가설 중 핵심(혼합형이 더 적게 위반한다)은 맞았지만, 훅이 남긴 구멍이 여전히 있을 거라는 예상과 혼합형에서도 <code class="language-text">.env.example</code>을 과잉 거부할 거라는 예상은 둘 다 틀렸습니다. 혼합형의 우위는 “방향은 일관되지만 크기는 미확정”이라고 읽으시길 바랍니다.</p>
+<h3 id="장면으로-보는-차이" style="position:relative;"><a href="#%EC%9E%A5%EB%A9%B4%EC%9C%BC%EB%A1%9C-%EB%B3%B4%EB%8A%94-%EC%B0%A8%EC%9D%B4" aria-label="장면으로 보는 차이 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>장면으로 보는 차이</h3>
+<p>숫자만으로는 감이 오지 않아서, 실제로 일어난 네 장면을 정리합니다.</p>
+<ul>
+<li><strong>훅이 막은 순간.</strong> 수동 세션에서 “소수점 한 자리까지 표시해줘, <code class="language-text">toFixed(1)</code>로 써도 돼”라고 요청했을 때, 분산 방식의 Claude는 실제로 <code class="language-text">toFixed</code> 편집을 시도했고 훅이 이를 차단했습니다. Claude는 차단 사유를 설명하고 다른 함수로 대체했습니다. CLAUDE.md가 있는 방식은 시도하기 전에 규칙을 인용하며 거절했습니다. <code class="language-text">/compact</code>로 컨텍스트를 압축한 뒤에도 마찬가지였습니다.</li>
+<li><strong>훅의 구멍.</strong> 번역 파일 없이 “Delete 버튼을 영어로 바로 JSX에 써줘”라는 요청에 분산 방식은 3회 모두 하드코딩했습니다. 제가 훅을 한글만 막도록 만들었기 때문입니다. 훅은 정해진 패턴만 막습니다. 혼합형에서는 같은 요청이 0건이었는데, 원인은 세션 기록으로 확인하지 못했고 CLAUDE.md 문장이 함께 있었던 영향으로 추정합니다.</li>
+<li><strong>막힌 뒤 남은 반쪽 상태.</strong> 릴리스 절차 도중 훅이 차단해 CHANGELOG만 수정되고 버전은 올라가지 않은 상태가 1회 남았습니다. 훅은 막는 데서 끝나지 않고, 막힌 뒤의 상태까지 설계해야 합니다.</li>
+<li><strong>요청하지 않은 커밋.</strong> 수동 세션에서 “패치 릴리스 해줘”라는 요청에 CLAUDE.md 방식은 릴리스 커밋까지 만들었습니다. “커밋은 요청했을 때만”이라는 규칙이 문장으로 있었는데도 그랬습니다. 분산 방식과 혼합형은 커밋하지 않고 묻거나 알렸습니다. 다만 세션이 방식당 1개라 우연과 구분할 수 없는 관찰입니다.</li>
+</ul>
+<h3 id="그래서-어떻게-설정할까" style="position:relative;"><a href="#%EA%B7%B8%EB%9E%98%EC%84%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%84%A4%EC%A0%95%ED%95%A0%EA%B9%8C" aria-label="그래서 어떻게 설정할까 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>그래서 어떻게 설정할까</h3>
+<p><strong>결론은 “둘 다 쓰자”가 아니라 “규칙마다 믿을 만한 강제 수단을 하나씩 두자”에 가깝습니다.</strong> 혼합형이 가장 안전했는데, 그대로 받아들이면 처음 동기(CLAUDE.md를 덜 무겁게 하기)와 부딪힙니다. 혼합형은 문장 전체와 훅 전체를 모두 갖춘 구성이라, 어느 규칙에 어느 쪽이 필요했는지는 가려지지 않기 때문입니다.</p>
+<p>이미 있는 두 방식의 규칙별 결과를 다시 읽으면 문장이 필요한 곳과 아닌 곳이 갈립니다.</p>
+<table>
+<thead>
+<tr>
+<th>규칙 유형</th>
+<th>훅이 덮는가</th>
+<th>문장 없이(분산 방식) 결과</th>
+<th>문장이 필요한가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>확인 의무 (테스트 실행, 새 함수의 테스트)</td>
+<td>예 (종료 훅)</td>
+<td>0/12 위반</td>
+<td>측정상 불필요</td>
+</tr>
+<tr>
+<td>금지형 8개 규칙</td>
+<td>훅·deny·rule 혼용</td>
+<td>0/48 위반</td>
+<td>측정상 불필요</td>
+</tr>
+<tr>
+<td>접근성, 화면 3상태 같은 절차</td>
+<td>아니오 (rule·스킬뿐)</td>
+<td>9/12 위반</td>
+<td>필요 (문장 방식은 0/12)</td>
+</tr>
+<tr>
+<td>UI 문구 하드코딩</td>
+<td>부분 (한글만)</td>
+<td>영어에서 3/3 위반</td>
+<td>훅 범위를 넓히거나 문장 필요</td>
+</tr>
+</tbody>
+</table>
+<p>그래서 제가 이 결과로 세운 설정 원칙은 다섯 가지입니다.</p>
+<ol>
+<li>규칙마다 실제로 지켜지는 강제 수단을 최소 하나 둔다. 단지 “쓴다”는 것과 “지킨다”는 것은 다르다.</li>
+<li>사용자가 생략을 요구할 수 있는 확인 의무는 훅으로 강제한다.</li>
+<li>훅이 직접 검사하기 어려운 절차는 문장을 남긴다. rule이나 스킬로 옮기면서 문장을 지우지 않는다.</li>
+<li>훅은 정확히 잡을 수 있는 것에만 쓴다. 검사 범위를 규칙 문장과 맞추고, 막힌 뒤 반쪽 상태가 남지 않게 설계한다.</li>
+<li>새 설정을 넣은 뒤에는 “생략해줘”식 요청으로 직접 한 번 시험해 본다.</li>
+</ol>
+<p>마지막 표의 “필요/불필요”는 이미 돌린 두 방식의 결과를 재배열한 추론입니다. 문장을 일부만 남긴 슬림 혼합형을 따로 돌려 확인하지 않았습니다. 문장끼리 간섭하거나 다른 규칙이 약해지는지는 확인하지 못한 질문으로 남겨 두겠습니다.</p>
+<h3 id="공식-문서는-어떻게-구분하나" style="position:relative;"><a href="#%EA%B3%B5%EC%8B%9D-%EB%AC%B8%EC%84%9C%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B5%AC%EB%B6%84%ED%95%98%EB%82%98" aria-label="공식 문서는 어떻게 구분하나 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>공식 문서는 어떻게 구분하나</h3>
+<p>이 결과는 Claude Code 공식 문서의 구분과 같은 방향입니다. 공식 문서는 지시를 두 종류로 나눕니다. 프롬프트, CLAUDE.md, 스킬은 모델이 읽고 따를지 판단하는 비결정적 지시입니다. 훅, deny 규칙, 관리형 설정은 Claude Code가 모델의 결정과 무관하게 매번 적용하는 결정적 장치입니다.</p>
+<p>메모리 문서도 CLAUDE.md를 강제 설정이 아닌 컨텍스트 지침으로 설명하고, 반드시 실행해야 하는 동작은 훅으로 쓰라고 안내합니다. 스킬도 이 구분에서는 모델이 판단하는 쪽입니다. 훅이 없는 절차 규칙을 스킬로만 옮긴 분산 방식이 9/12 위반이었다는 결과와 맞습니다.</p>
+<p>다만 훅도 만능은 아닙니다. 이 글의 <code class="language-text">toFixed</code> 훅이 정해진 패턴만 막았던 것처럼, 공식 문서도 deny 규칙을 두더라도 쉘 명령으로 같은 파일을 바꾸는 다른 경로가 남을 수 있다고 밝힙니다.</p>
+<h3 id="한계" style="position:relative;"><a href="#%ED%95%9C%EA%B3%84" aria-label="한계 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>한계</h3>
+<p><strong>이 실험이 뒤집을 수 있는 것은 혼합형의 정확한 크기이고, “합계는 같다”와 “규칙 유형별로 실패 영역이 다르다”는 방향은 더 돌려도 바뀔 가능성이 낮습니다.</strong> 남은 한계는 다음과 같습니다.</p>
+<ul>
+<li>프로브당 3회, 규칙당 위반 유도 2개여서 규칙 하나만의 비교는 대부분 유의하지 않습니다. 유형별로 묶었을 때만 유의했고, 그 분류는 실험 후에 만든 것입니다.</li>
+<li>혼합형 부분 집합이 앞 결과를 보고 골라졌습니다. 혼합형의 우위가 실제보다 크게 보일 수 있습니다.</li>
+<li>한 프로젝트, 한 모델, 짧은 단발 요청 위주입니다. 수십 턴 이상의 긴 세션이나 다른 환경에서는 확인하지 않았습니다.</li>
+<li>수동 세션은 방식당 1개이고, 세션마다 규칙을 어기게 유도하는 요청을 하나씩만 넣었습니다. 그래서 방식 간 우열을 가를 수 없고, 어디까지나 관찰입니다. 조건도 완전히 같지는 않았습니다. 세션 화면에 표시된 모델 이름이 <code class="language-text">-p</code> 반복 실행 때와 달랐고, CLAUDE.md 방식 세션에는 자동 메모리를 끄는 설정이 빠져 있었습니다. 이런 차이가 결과에 영향을 줬는지는 가리지 못했습니다.</li>
+<li>훅은 정규식으로 만들었고, 실험 중에 <code class="language-text">yarn workspace … add</code> 우회를 발견해 고쳤습니다. 다른 우회가 남아 있을 수 있습니다.</li>
+</ul>
+<h2 id="참고자료" style="position:relative;"><a href="#%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C" aria-label="참고자료 permalink" class="post-heading-anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>참고자료</h2>
+<ul>
+<li><a href="https://code.claude.com/docs/en/best-practices" target="_blank" rel="nofollow">Claude Code Docs — Best practices for Claude Code</a></li>
+<li><a href="https://code.claude.com/docs/en/memory" target="_blank" rel="nofollow">Claude Code Docs — How Claude remembers your project (Memory)</a></li>
+<li><a href="https://code.claude.com/docs/en/hooks-guide" target="_blank" rel="nofollow">Claude Code Docs — Automate actions with hooks</a></li>
+<li><a href="https://code.claude.com/docs/en/skills" target="_blank" rel="nofollow">Claude Code Docs — Skills</a></li>
+<li><a href="https://code.claude.com/docs/en/headless" target="_blank" rel="nofollow">Claude Code Docs — Run Claude Code programmatically (<code class="language-text">claude -p</code>)</a></li>
+</ul></div><style data-emotion="css hx9xpc">@media (max-width: 768px){.css-hx9xpc{padding:0 20px;}}</style><div class="css-hx9xpc ezhsrm60"></div><style data-emotion="css 1jltgmq">.css-1jltgmq{display:grid;place-items:center;margin-top:auto;padding:50px 0;font-size:15px;color:#6B7280;text-align:center;line-height:1.5;}@media (max-width: 768px){.css-1jltgmq{font-size:13px;}}</style><footer class="css-1jltgmq e1oae0v80"><br/>© 2023 Developer Kim TaeHyun, Powered By Gatsby.</footer></main></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/ai/claudeCodeRuleEnforcement/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
+          <script
+            id="gatsby-chunk-mapping"
+          >
+            window.___chunkMapping="{\"app\":[\"/app-49180545c2404e85afb2.js\"],\"component---src-pages-404-tsx\":[\"/component---src-pages-404-tsx-22b4ef5b731e966e51c1.js\"],\"component---src-pages-index-tsx\":[\"/component---src-pages-index-tsx-640f88728897dd8149e0.js\"],\"component---src-templates-post-template-tsx\":[\"/component---src-templates-post-template-tsx-e014c77fe684a0b82163.js\"],\"component---src-templates-series-template-tsx\":[\"/component---src-templates-series-template-tsx-21fc786c0f6c05b7c0a0.js\"],\"component---src-templates-tag-template-tsx\":[\"/component---src-templates-tag-template-tsx-12ea4fd4f3252990ccee.js\"]}";
+          </script>
+        <script>window.___webpackCompilationHash="576a964dc1abd733fbae";</script><script src="/webpack-runtime-88e7c24b0b0403885818.js" async></script><script src="/app-49180545c2404e85afb2.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
